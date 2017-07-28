@@ -1,0 +1,37 @@
+package adri.logviewermain.action;
+
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import adri.logviewermain.model.Utilisateur;
+import adri.logviewermain.service.UtilisateurService;
+
+public class UtilisateurAction extends BaseAction{
+	
+	public String login(){
+		ConfigurableApplicationContext context = null;
+		try{
+			context =  new ClassPathXmlApplicationContext("list-beans.xml");
+			UtilisateurService service = (UtilisateurService)context.getBean("utilisateurService");
+			Utilisateur u = service.login(getUser().getEmail(), getUser().getPassword());
+			getSession().put("user", u);
+			System.out.println(u);
+			return SUCCESS;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e.getMessage());
+			return ERROR;
+		}finally{
+			context.close();
+		}
+	}
+	public String logout(){
+		try {
+			getSession().invalidate();
+			return SUCCESS;
+		} catch (Exception e) {
+			setException(e.getMessage());
+			return ERROR;
+		}
+	}
+}

@@ -1,0 +1,18 @@
+var profilId = document.getElementById('item.profil.id');
+$(document).ready(function(){
+	$.ajax({
+        url : url.value+'/Includes/SelectProfil',
+        type : 'GET',
+        data : 'groupe.id=' + $("#groupeSelect").val() + '&item.id=' + profilId.value ,
+        success : function(html, statut){
+            if(html){
+                $('#profilSelect').html(html);
+            }else{
+                $('#details .modal-body').load('Waiter');
+            }
+        },
+        error : function(resultat, statut, erreur){
+        }
+    });
+});
+

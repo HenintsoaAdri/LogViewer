@@ -1,0 +1,141 @@
+<%@ include file="../includes/header.jsp" %>
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Utilisateur</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <ol class="breadcrumb">
+                            <li><a href="">Log Viewer</a></li>
+                            <li class="active">Utilisateur</li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /row -->
+                <div class="row">
+                	<div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Recherche</h3>
+                            <p class="text-muted">Recherche d'utilisateur</p>
+                                <div class="panel-body">
+                                    <form action="#" class="form-horizontal form-material">
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Utilisateur</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Poste</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+						                            <div class="form-group">
+						                                <label class="control-label col-md-3">Sexe</label>
+						                                <div class="col-md-9">
+						                                    <div class="radio-list">
+						                                        <label class="radio-inline">
+						                                            <input type="radio" name="sexe" value="" checked> Tous</label>
+						                                        <label class="radio-inline">
+						                                            <input type="radio" name="sexe" value="M"> Homme</label>
+						                                        <label class="radio-inline">
+						                                            <input type="radio" name="sexe" value="F"> Femme </label>
+						                                    </div>
+						                                </div>
+						                            </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Permissions</label>
+                                                        <div class="col-md-9">
+                                                            <div class="checkbox checkbox-primary checkbox-circle">
+					                                            <input id="checkbox7" type="checkbox">
+					                                            <label for="checkbox7"> Connexion </label>
+					                                        </div>
+					                                        <div class="checkbox checkbox-primary checkbox-circle">
+					                                            <input id="checkbox8" type="checkbox" checked>
+					                                            <label for="checkbox8"> Créer / Modifier / Supprimer Agent </label>
+					                                        </div>
+					                                        <div class="checkbox checkbox-primary checkbox-circle">
+					                                            <input id="checkbox-9" type="checkbox">
+					                                            <label for="checkbox-9"> Lecture des log </label>
+					                                        </div>
+					                                        <div class="checkbox checkbox-primary checkbox-circle">
+					                                            <input id="checkbox-9" type="checkbox">
+					                                            <label for="checkbox-9"> T&eacute;l&eacute;chargement </label>
+					                                        </div>
+					                                        <div class="checkbox checkbox-primary checkbox-circle">
+					                                            <input id="checkbox-10" type="checkbox" checked>
+					                                            <label for="checkbox-10"> Créer / Modifier / Supprimer Utilisateur </label>
+					                                        </div>
+					                                        <div class="checkbox checkbox-primary checkbox-circle">
+					                                            <input id="checkbox-11" type="checkbox">
+					                                            <label for="checkbox-11"> Créer / Modifier / Supprimer Groupe </label>
+					                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                            <div class="row">
+                                                <div class="col-md-offset-8 col-md-4">
+                                                    <div class="form-group">
+                                                        <div class="col-md-9">
+                                                            <button type="submit" class="btn btn-success">Rechercher</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                        </div>
+                                    </form>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                        <a href="" class="btn btn-success pull-right m-l-20 hidden-xs waves-effect waves-light"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>Nouveau</a>
+                            <h3 class="box-title">Liste</h3>
+                            <p class="text-muted">Liste des agents distants enregistr&eacute;s</p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nom & Pr&eacute;nom</th>
+                                            <th>Poste</th>
+                                            <th>Email</th>
+                                            <th>Groupe</th>
+                                            <th>Sexe</th>
+                                            <th>Activit&eacute;</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Rakoto Jean</td>
+                                            <td>Directeur Informatique</td>
+                                            <td>rakoto.jean@hotmail.com</td>
+                                            <td>Administrateur</td>
+                                            <td>Homme</td>
+                                            <td>Connecté il y a 2 min</td>
+                                            <td><a href="" class="btn btn-success m-l-20 hidden-xs waves-effect waves-light"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>Modifier</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+<%@ include file="../includes/footer.jsp" %>

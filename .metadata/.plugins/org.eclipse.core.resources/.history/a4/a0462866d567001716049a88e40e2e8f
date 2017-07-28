@@ -1,0 +1,123 @@
+package adri.logviewermain.model;
+
+import java.util.Date;
+
+import adri.logviewermain.exception.InputException;
+import adri.logviewermain.util.StringUtil;
+
+public class Utilisateur extends BaseModel{
+
+	private String nom;
+	private String prenom;
+	private char sexe;
+	private String email;
+	private String password;
+	private Groupe groupe;
+	private String poste;
+	private Date lastLogged;
+	
+	public Utilisateur(){}
+	public Utilisateur(int id) {
+		super(id);
+	}		
+	public Utilisateur(int id, String nom, String prenom, char sexe, String email, String password, 
+			Groupe groupe, String poste, Date lastLogged) throws InputException {
+		super(id);
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.setSexe(sexe);
+		this.setEmail(email);
+		this.setPassword(password);
+		this.setGroupe(groupe);
+		this.setPoste(poste);
+		this.setLastLogged(lastLogged);
+	}
+
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+	
+	public String getFullName(){
+		return getNom()+" "+getPrenom();
+	}
+	
+	public char getSexe() {
+		return sexe;
+	}
+	public void setSexe(char sexe) {
+		this.sexe = sexe;
+	}
+	public String getSexeString(){
+		switch(getSexe()){
+			case 'F' : return "Femme";
+			default : return "Homme";
+		}
+	}
+
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) throws InputException {
+		System.out.println("set email");
+		if(!StringUtil.getInstance().isEmail(email)){
+			throw new InputException("Adresse email invalide");
+		}
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+		System.out.println("set password");
+	}
+	public void setPassword(String password, String confirm) throws InputException{
+		if(!password.contentEquals(confirm)){
+			throw new InputException("Le mot de passe de confirmation ne correspond pas");
+		}
+		setPassword(password);
+	}
+
+	public Groupe getGroupe() {
+		return groupe;
+	}
+	public void setGroupe(Groupe groupe) {
+		this.groupe = groupe;
+	}
+	
+	public String getPoste() {
+		return poste;
+	}
+	public void setPoste(String poste) {
+		this.poste = poste;
+	}
+	
+	public Date getLastLogged() {
+		return lastLogged;
+	}
+	public void setLastLogged(Date lastLogged) {
+		this.lastLogged = lastLogged;
+	}
+	public void loggedIn() {
+		setLastLogged(new Date());		
+	}
+	@Override
+	public String toString() {
+		return "Utilisateur #"+ getId()
+				+": [nom&prénom = "+ getFullName()+ "],"
+				+" [sexe = "+ getSexeString() + "],"
+				+" [email = "+ getEmail() +"],"
+				+" [groupe = "+ getGroupe() + "]";
+	}
+}

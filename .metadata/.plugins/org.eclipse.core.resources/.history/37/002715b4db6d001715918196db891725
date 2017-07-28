@@ -1,0 +1,6 @@
+<%@page import="adri.logviewermain.model.*"%>
+<% 
+	BaseModel item = (BaseModel)request.getAttribute("item");
+%>
+                   <option value="<% out.print(i.getId()); %>" <% if(i.getId() == item.getId() )out.print("selected"); %>><% out.print(i.getNom()); %></option>
+               <% } %>

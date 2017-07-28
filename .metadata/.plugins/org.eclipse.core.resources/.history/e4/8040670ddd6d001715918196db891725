@@ -1,0 +1,31 @@
+<%@page import="adri.logviewermain.model.*"%>
+<% 
+	BaseModel item = (BaseModel)request.getAttribute("item");
+	String type = item.getClass().getSimpleName();
+%>
+    <!-- Modal -->
+    <div class="modal fade" id="delete" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Supression de <% out.print(type); %></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>&Ecirc;tes vous sûr(e) de vouloir supprimer un <% out.print(type); %> ?</p>
+                            <br>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger" href="${pageContext.request.contextPath}/">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

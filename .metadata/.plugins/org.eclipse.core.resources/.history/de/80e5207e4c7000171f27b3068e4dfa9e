@@ -1,0 +1,24 @@
+<%@page import="adri.logviewermain.model.Utilisateur"%>
+<%@page import="adri.logviewermain.model.BaseModel"%>
+<%@page import="adri.logviewermain.model.BaseModelPagination"%>
+<% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); %>
+
+  	<% if(pagination != null && pagination.getListe() != null ){
+  		for(BaseModel base : pagination.getListe()){ 
+    		Utilisateur i = (Utilisateur)base;
+    	%>
+        <tr>
+            <td><% out.print(i.getId()); %></td>
+            <td><% out.print(i.getFullName()); %></td>
+            <td><% out.print(i.getPoste()); %></td>
+            <td><% out.print(i.getEmail()); %></td>
+            <td><% if(i.getProfil() != null)out.print(i.getProfil().getGroupe().getNom()); %></td>
+            <td><% if(i.getProfil() != null)out.print(i.getProfil().getNom()); %></td>
+            <td><% out.print(i.getSexeString()); %></td>
+            <td>Connecté le <% out.print(i.getLastLogged()); %></td>
+            <td><a href="${pageContext.request.contextPath}/Utilisateur/?item.id=<% out.print(i.getId()); %>" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir l'utilisateur</a></td>
+        </tr>
+        <% } 
+      }else{ %>
+      <p class="text-danger">Aucun utilisateur dans ce groupe</p>
+      <% } %>

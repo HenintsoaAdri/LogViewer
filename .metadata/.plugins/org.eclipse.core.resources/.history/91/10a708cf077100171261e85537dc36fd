@@ -1,0 +1,9 @@
+package adri.logviewermain.interceptor;
+
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.opensymphony.xwork2.interceptor.ParametersInterceptor;
+
+
+public class PermissionInterceptor extends AbstractInterceptor{
+	
+}

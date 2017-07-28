@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+   <constant name="struts.devMode" value="true" />
+   <constant name="struts.enable.SlashesInActionNames" value="true"/>
+   <package name="logViewer" extends="struts-default">
+     
+     <interceptors>
+     	<interceptor name="loginInterceptor" class="adri.logviewermain.interceptor.LoginInterceptor"></interceptor>
+     	<interceptor-stack name="loginStack">
+     		<interceptor-ref name="loginInterceptor"/>
+     		<interceptor-ref name="defaultStack"/>
+     	</interceptor-stack>
+     	<interceptor name="initializeInterceptor" class="adri.logviewermain.interceptor.InitializeInterceptor"></interceptor>
+     	<interceptor-stack name="initializeStack">
+     		<interceptor-ref name="initializeInterceptor"/>
+     		<interceptor-ref name="defaultStack"/>
+     	</interceptor-stack>
+     </interceptors>
+     
+     <action name="" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="start">
+            <result name="success">/index.jsp</result>
+            <result name="error">/login.jsp</result>
+     </action>
+     <action name="Connexion" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="login">
+     		<exception-mapping exception="adri.logviewermain.exception.InputException"
+       		result="error" />
+            <result name="success" type="redirectAction"></result>
+            <result name="error">/login.jsp</result>
+     </action>
+     <action name="Deconnexion" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="logout">
+            <result name="success" type="redirectAction"></result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     
+     <!-- ************************
+     	**********Agent***********
+      **************************** -->
+            
+     <action name="Agent" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Agent/list.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     <action name="Agent/new" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Agent/create.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     <action name="Agent/edit" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Agent/edit.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     <action name="Agent/" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Agent/details.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     
+     <!-- ************************
+     	**********Groupe***********
+      **************************** -->
+            
+     <action name="Groupe" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Groupe/list.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     <action name="Groupe/new" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Groupe/create.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     <action name="Groupe/edit" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Groupe/edit.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     <action name="Groupe/" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Groupe/details.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     
+     <!-- ************************
+     	**********Utilisateur***********
+      **************************** -->
+            
+     <action name="Utilisateur" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Utilisateur/list.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     <action name="Utilisateur/new" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Utilisateur/create.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     <action name="Utilisateur/edit" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="execute">
+            <result name="success">/Utilisateur/edit.jsp</result>
+            <result name="error" type="redirectAction"></result>
+     </action>
+     
+   </package>
+</struts>

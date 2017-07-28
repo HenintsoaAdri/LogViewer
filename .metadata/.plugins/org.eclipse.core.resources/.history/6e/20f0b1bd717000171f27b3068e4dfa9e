@@ -1,0 +1,6 @@
+package adri.logviewermain.model;
+
+public class UtilisateurView extends Utilisateur {
+	private int idGroupe;
+	
+}

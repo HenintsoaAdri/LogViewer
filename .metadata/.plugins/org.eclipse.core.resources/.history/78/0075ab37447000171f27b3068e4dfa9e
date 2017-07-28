@@ -1,0 +1,132 @@
+<%@page import="adri.logviewermain.model.Groupe"%>
+<%@page import="adri.logviewermain.model.Profil"%>
+<%@page import="adri.logviewermain.model.BaseModel"%>
+<%@page import="java.util.List"%>
+<%@page import="adri.logviewermain.model.Utilisateur"%>
+<%@ include file="../includes/header.jsp" %>
+<% Utilisateur item = (Utilisateur)request.getAttribute("item"); 
+	List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribute("liste");
+%>
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Utilisateur</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <ol class="breadcrumb">
+                            <li><a href="${pageContext.request.contextPath}">Log Viewer</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Utilisateur">Utilisateur</a></li>
+                            <li class="active">Cr&eacute;er</li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->  
+		        <%
+		        	if(request.getAttribute("exception") != null){ 
+		      		Exception e = (Exception)request.getAttribute("exception");
+		        %>
+		      	<div class="alert alert-danger alert-dismissable">
+	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	      			<% out.print(e.getMessage()); %>
+	            </div>
+                <!--./row-->
+				<% } %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Nouvel utilisateur</h3>
+                            <p class="text-muted">Créer un nouvel utilisateur</p>
+                            <form class="form-horizontal form-material" action="${pageContext.request.contextPath}/Utilisateur/save" method="post">
+                            	<div class="row">
+	                            	<div class="col-md-6">
+		                            	<div class="form-group">
+		                                    <label class="col-md-12">Nom</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.nom" value="<% out.print(item.getNom()); %>" type="text" placeholder="Nom" class="form-control form-control-line">
+											</div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Poste</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.poste" value="<% out.print(item.getPoste()); %>" type="text" placeholder="Poste" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Email</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.email" value="<% out.print(item.getEmail()); %>" type="email" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Mot de passe</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.password" type="password" placeholder="Mot de passe" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Confirmer votre mot de passe</label>
+		                                    <div class="col-md-12">
+		                                        <input name="confirm" type="password" placeholder="Mot de passe" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+	                            	</div>
+	                            	<div class="col-md-6">
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Pr&eacute;nom</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.prenom" value="<% out.print(item.getPrenom()); %>" type="text" placeholder="Prénom" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">Sexe</label>
+                                            <div class="radio-list col-md-12">
+                                                <label class="radio-inline p-0">
+                                                    <div class="radio radio-primary">
+                                                        <input type="radio" name="item.sexe" id="homme" value="M" <% if(item.getSexe() == 'M') out.print("checked"); %>>
+                                                        <label for="homme"><i class="fa fa-male"></i> Homme</label>
+                                                    </div>
+                                                </label>
+                                                <label class="radio-inline  p-0">
+                                                    <div class="radio radio-primary">
+                                                        <input type="radio" name="item.sexe" id="femme" value="F" <% if(item.getSexe() == 'F') out.print("checked"); %>>
+                                                        <label for="femme"><i class="fa fa-female"></i> Femme</label>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+		                                <div class="form-group">
+		                                    <label class="col-sm-12">Groupe</label>
+		                                    <div class="col-sm-12">
+		                                        <select id="groupeSelect" name="item.profil.groupe.id" class="form-control form-control-line">
+		                                        <% for(BaseModel m : liste){  
+		                                        	Groupe i = (Groupe)m;
+		                                        %>
+		                                            <option value="<% out.print(i.getId()); %>" <% if(item.getProfil() != null && item.getProfil().getGroupe().getId() == i.getId())out.print("selected"); %>><% out.print(i.getNom()); %></option>
+		                                        <% } %>
+		                                        </select>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group" id="profil">
+		                                    <label class="col-sm-12">Profil</label>
+		                                    <div class="col-sm-12">
+		                                    	<input type="hidden" id="item.profil.id" value="<% if(item.getProfil() != null) out.print(item.getProfil().getId()); %>">
+		                                        <select id="profilSelect" name="item.profil.id" class="form-control form-control-line">
+		                                    		
+		                                        </select>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <div class="col-md-offset-10 col-sm-2">
+		                                        <button class="btn btn-success" type="submit">Cr&eacute;er</button>
+		                                    </div>
+		                                </div>
+	                            	</div>
+                            	</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+<%@ include file="../includes/footer.jsp" %>
+<script src="${pageContext.request.contextPath}/js/usetFunction.js"></script>

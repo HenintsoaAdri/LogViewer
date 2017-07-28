@@ -1,0 +1,30 @@
+1500274150875	Move method
+1500275780742	Encapsulate field 'page'
+1500280466211	Encapsulate field 'nombreProfil'
+1500280470665	Encapsulate field 'nombreUtilisateur'
+1500295275675	Encapsulate field 'description'
+1500299054340	Copy compilation unit
+1500369456083	Encapsulate field 'profil'
+1500370424716	Copy file
+1500370604037	Move 'details.jsp' to 'Utilisateur'
+1500370857534	Copy file
+1500377988663	Copy file
+1500380090220	Move 2 resources to 'MesInformations'
+1500446910217	Copy file
+1500446924129	Rename resource 'index.jsp'
+1500448200968	Move method
+1500466033890	Move 'select.jsp' to 'includes'
+1500466203220	Move 'select.jsp' to 'Utilisateur'
+1500466213315	Copy file
+1500466230680	Rename resource 'select.jsp'
+1500468457259	Encapsulate field 'classe'
+1500468462651	Encapsulate field 'item'
+1500468468165	Encapsulate field 'groupeId'
+1500468499356	Encapsulate field 'liste'
+1500531156390	Encapsulate field 'effectiveListePermission'
+1500533521740	Encapsulate field 'isSuperAdmin'
+1500533575217	Delete elements
+1500533594689	Encapsulate field 'isSuperAdmin'
+1500533600221	Move methods
+1500538113911	Encapsulate field 'superProfil'
+1500622313802	Rename resource 'loader.jsp'

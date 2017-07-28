@@ -1,0 +1,75 @@
+<%@ include file="../includes/header.jsp" %>
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Agent distant</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <ol class="breadcrumb">
+                            <li><a href="">Log Viewer</a></li>
+                            <li><a href="">Agent distant</a></li>
+                            <li class="active">Cr&eacute;er</li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row --> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Nouvel agent</h3>
+                            <p class="text-muted">Créer un nouvel agent distant</p>
+                            <form class="form-horizontal form-material" method="post" action="Agent/create">
+                            	<div class="row">
+	                            	<div class="col-md-6">
+		                            	<div class="form-group">
+		                                    <label class="col-md-12">Nom</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.nom" type="text" placeholder="Nom" class="form-control form-control-line">
+											</div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Adresse</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.adresse" type="text" placeholder="Adresse de la machine distante" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Port</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.port" type="text" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Répertoire</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.repertoire" type="text" placeholder="Chemin du répertoire des fichiers .log" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+	                            	</div>
+	                            	<div class="col-md-6">
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Syntaxe</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.syntaxe" type="text" placeholder="Syntaxe des lignes de log" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+	                            		<div class="form-group">
+		                                    <label class="col-md-12">D&eacute;tails</label>
+		                                    <div class="col-md-12">
+		                                        <textarea name="repertoire" rows="5" class="form-control form-control-line"></textarea>
+		                                    </div>
+		                                </div>
+	                            	</div>
+                            	</div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-success" type="submit">Cr&eacute;er</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+<%@ include file="../includes/footer.jsp" %>

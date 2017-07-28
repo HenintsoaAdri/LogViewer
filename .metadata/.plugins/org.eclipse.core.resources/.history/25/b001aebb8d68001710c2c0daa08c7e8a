@@ -1,0 +1,19 @@
+package adri.logviewermain.model;
+
+public enum PermissionType {
+	CONNEXION("Connexion"),
+	CRUDUTILISATEUR("Créer / Modifier / Supprimer Utilisateur"),
+	CRUDGROUPE("Créer / Modifier / Supprimer Groupe");
+
+	private String libelle;
+	private PermissionType(String libelle) {
+		this.setLibelle(libelle);
+	}
+	
+	public String getLibelle() {
+		return libelle;
+	}
+	private void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 0 elements to &apos;LogViewerMain/src/adri.logviewermain.model&apos;&#x0D;&#x0A;- Destination element: &apos;LogViewerMain/src/adri.logviewermain.model&apos;" description="Copy compilation units" destination="=LogViewerMain/src&lt;adri.logviewermain.model" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1501023032945" units="0" version="1.0"/>
+</session>

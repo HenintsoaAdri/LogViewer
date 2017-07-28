@@ -1,0 +1,28 @@
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.3//EN"
+       "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+  <field name="item.email">
+      <field-validator type="requiredstring" short-circuit="true">
+          <message>Une adresse email est requise.</message>
+      </field-validator>
+      <field-validator type="email" short-circuit="true">
+          <message>Adresse email invalide.</message>
+      </field-validator>
+  </field>
+  <field name="item.password">
+     <field-validator type="requiredstring">
+          <message>Un mot de passe est requis.</message>
+     </field-validator>
+  </field>
+  <field name="myField">
+        <field-validator type="fieldexpression">
+            <param name="expression"><![CDATA[#myCreditLimit > #myGirfriendCreditLimit]]></param>
+            <message>My credit limit should be MORE than my girlfriend</message>
+        </field-validator>
+    </field> 
+  <validator type="expression">
+      <param name="expression">item.password.contentEquals(item.confirm)</param>
+      <message>Le mot de passe de confirmation ne correspond pas au mot de passe entré</message>
+  </validator>
+</validators>

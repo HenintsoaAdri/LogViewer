@@ -1,0 +1,33 @@
+package adri.logviewermain.interceptor;
+
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+
+import adri.logviewermain.action.BaseAction;
+import adri.logviewermain.exception.PermissionException;
+import adri.logviewermain.model.Utilisateur;
+
+
+public class PermissionInterceptor extends AbstractInterceptor{
+
+	@Override
+	public String intercept(ActionInvocation invocation) throws PermissionException {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		Utilisateur user = (Utilisateur)session.get("user");
+		BaseAction action = (BaseAction)invocation.getAction();
+		boolean authorization = false;
+		switch(action.getClasse()){
+			case "adri.logviewermain.model.Agent": authorization = user.isGenerallyAllowed("Agent");
+			case "adri.logviewermain.model.Profil": ;
+			case "adri.logviewermain.model.Groupe": ;
+			case "adri.logviewermain.model.Utilisateur": ;
+			default: return "PERMISSION";
+		}
+		if(authorization) invocation.invoke();
+		return null;
+	}
+	
+}

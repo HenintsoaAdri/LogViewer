@@ -1,0 +1,5 @@
+package adri.logviewermain.action;
+
+public class ReadAction extends BaseAction{
+
+}

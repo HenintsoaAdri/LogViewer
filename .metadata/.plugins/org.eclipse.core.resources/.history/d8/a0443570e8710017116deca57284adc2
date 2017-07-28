@@ -1,0 +1,212 @@
+package adri.logviewermain.action;
+
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.opensymphony.xwork2.interceptor.ValidationErrorAware;
+
+import adri.logviewermain.model.Agent;
+import adri.logviewermain.model.BaseModel;
+import adri.logviewermain.model.Groupe;
+import adri.logviewermain.model.Permission;
+import adri.logviewermain.model.Profil;
+import adri.logviewermain.service.UtilisateurService;
+
+public class CrudAction extends BaseAction implements ValidationErrorAware{
+	private Set<Permission> listePermission;
+	
+	public String save() throws Exception{
+		ConfigurableApplicationContext context = null;
+		try{
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			if(getItem() instanceof Agent){
+				((Agent)getItem()).setCreateur(getUser());
+			}
+			UtilisateurService.getInstance(context).crud(getItem(), "save", getUser());
+			return SUCCESS;
+		}catch(NullPointerException e){
+			e.printStackTrace();
+			return NONE;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			if(!(getItem() instanceof Groupe) && context != null){
+				setListe(UtilisateurService.getInstance(context).selectGroupe(getItem().getClass(), getUser()));
+			}
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+	public String update(){
+		ConfigurableApplicationContext context = null;
+		try{
+			if(getItem() == null || getItem().getId() <= 0) return NONE;
+			
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			System.out.println("Permission=");
+			System.out.println("simple =" + listePermission);
+			System.out.println("item =" + ((Profil)getItem()).getListePermission());
+			//UtilisateurService.getInstance(context).crud(getItem(), "findById", getUser());
+			//UtilisateurService.getInstance(context).crud(getItem(), "update", getUser());
+			return SUCCESS;
+		}catch(NullPointerException e){
+			return NONE;
+		}catch(Exception e){
+			setException(e);
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+	public String delete(){
+		ConfigurableApplicationContext context = null;
+		try{
+			if(getItem() == null || getItem().getId() <= 0) return NONE;
+			
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			UtilisateurService.getInstance(context).crud(getItem(), "findById", getUser());
+			UtilisateurService.getInstance(context).crud(getItem(), "delete", getUser());
+			return SUCCESS;
+		}catch(NullPointerException e){
+			return NONE;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+
+	public String find(){
+		ConfigurableApplicationContext context = null;
+		try{
+			if(getItem() == null || getItem().getId() <= 0) return NONE;		
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			UtilisateurService.getInstance(context).crud(getItem(), "findById", getUser());
+			setPagination(UtilisateurService.getInstance(context).getDetails(getItem(), getPage()));
+			return SUCCESS;
+		}catch(NullPointerException e){
+			return NONE;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+
+	public String findAll()throws Exception{
+		ConfigurableApplicationContext context = null;
+		try{
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			setListe((List<? extends BaseModel>) UtilisateurService.getInstance(context)
+					.crud(getItem(), "findAll", getUser()));
+			return SUCCESS;
+		}catch(Exception e){
+			setException(e);
+			e.printStackTrace();
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+
+	public String findAllPaginate()throws Exception{
+		ConfigurableApplicationContext context = null;
+		try{
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			setPagination(UtilisateurService.getInstance(context).findAll(getItem().getClass(), 10, getPage(), getUser()));
+			return SUCCESS;
+		}catch(Exception e){
+			setException(e);
+			e.printStackTrace();
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+
+	public String findAllByBaseModel()throws Exception{
+		ConfigurableApplicationContext context = null;
+		try{
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			setPagination(UtilisateurService.getInstance(context).findAll(getItem().getClass(), 10, getPage(), getUser()));
+			return SUCCESS;
+		}catch(Exception e){
+			setException(e);
+			e.printStackTrace();
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+
+	public String edit(){
+		ConfigurableApplicationContext context = null;
+		try{
+			if(getItem() == null || getItem().getId() <= 0) return NONE;
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			UtilisateurService.getInstance(context).crud(getItem(), "findById", getUser());
+			if(!(getItem() instanceof Groupe)){
+				setListe(UtilisateurService.getInstance(context).selectGroupe(getItem().getClass(), getUser()));
+			}
+			return SUCCESS;
+		}catch(NullPointerException e){
+			return NONE;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+	public void setListePermission(Set<Permission> listePermission) {
+		System.out.println("tsotra");
+		System.out.println(listePermission.isEmpty());
+		this.listePermission = listePermission;
+	}
+	@Override
+	public String actionErrorOccurred(String Reesult) {
+
+		ConfigurableApplicationContext context = null;
+		try{
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			if(!(getItem() instanceof Groupe)){
+				setListe(UtilisateurService.getInstance(context).selectGroupe(getItem().getClass(),getUser()));
+			}
+			return Result;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+	
+}

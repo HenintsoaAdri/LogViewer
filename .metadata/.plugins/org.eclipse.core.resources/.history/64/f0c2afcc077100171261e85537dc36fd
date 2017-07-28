@@ -1,0 +1,5 @@
+package adri.logviewermain.interceptor;
+
+import com.opensymphony.xwork2.interceptor.ParametersInterceptor;
+
+

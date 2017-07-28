@@ -1,0 +1,79 @@
+package adri.logviewermain.service;
+
+import java.util.List;
+
+import adri.logviewermain.dao.HibernateDao;
+import adri.logviewermain.exception.PermissionException;
+import adri.logviewermain.model.BaseModel;
+import adri.logviewermain.model.BaseModelPagination;
+import adri.logviewermain.model.Groupe;
+import adri.logviewermain.model.Profil;
+import adri.logviewermain.model.Utilisateur;
+
+public class BaseService {
+	
+	private HibernateDao dao;
+	
+	public HibernateDao getDao() {
+		return dao;
+	}
+	public void setDao(HibernateDao dao) {
+		this.dao = dao;
+	}
+	
+	public void findById(BaseModel model) throws Exception{
+		try{
+			if(model.getId()>0){
+				this.getDao().findById(model);
+			}
+		}catch(Exception e){
+			throw new Exception("Informations non retrouvées. " + e.getMessage());
+		}
+	}
+	public void save(BaseModel model) throws Exception{
+		try {
+			this.getDao().save(model);			
+		} catch (Exception e) {
+			throw new Exception("Informations non enregistrées. " + e.getMessage());
+		}
+	}
+	public void update(BaseModel model) throws Exception{
+		try {
+			if(model.getId()>0)
+			this.getDao().update(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Informations non changées. " + e.getMessage());
+		}
+	}
+	public void delete(BaseModel model) throws Exception{
+		try {
+			boolean isSuper = false;
+			switch(model.getClass().getSimpleName()){
+				case "Utilisateur": isSuper = ((Utilisateur)model).isSuperUtilisateur();break;
+				case "Groupe": isSuper = ((Groupe)model).isSuperAdmin();break;
+				case "Profil": isSuper = ((Profil)model).isSuperProfil();break;
+			}
+			if(isSuper){
+				throw new PermissionException("Accès refusé. Données protégées");
+			}
+			this.getDao().delete(model);
+		} catch (Exception e) {
+			throw new Exception("Informations non retirées. " + e.getMessage());			
+		}
+	}
+	public List<? extends BaseModel> findAll(BaseModel model) throws Exception{
+		try {
+			return this.getDao().findAll(model);
+		} catch (Exception e) {
+			throw new Exception("Informations non retrouvées. /n" + e.getMessage());
+		}
+	}
+	public void findAll(BaseModelPagination pagination)throws Exception{
+		try {
+			this.getDao().findAll(pagination);
+		} catch (Exception e) {
+			throw new Exception("Informations non retrouvées. /n" + e.getMessage());
+		}
+	}
+}

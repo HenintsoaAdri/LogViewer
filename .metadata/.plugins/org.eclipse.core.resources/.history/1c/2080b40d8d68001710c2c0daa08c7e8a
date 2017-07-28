@@ -1,0 +1,84 @@
+package adri.logviewermain.model;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Groupe extends BaseModel{
+	
+	private String nom;
+	private String description = "Aucune description";
+	private Set<Permission> listePermission;
+	private Set<Utilisateur> listeUtilisateur;
+	
+	public Groupe(){}
+	public Groupe(int id) {
+		super(id);
+	}	
+	public Groupe(int id, String nom, String description, Set<Permission> listePermission) {
+		super(id);
+		this.setNom(nom);
+		this.setDescription(description);
+		this.setListePermission(listePermission);
+	}
+
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public Set<Permission> getListePermission() {
+		return listePermission;
+	}
+	public void setListePermission(Set<Permission> listePermission) {
+		this.listePermission = listePermission;
+	}
+	public void setListePermission(String[] listePermission){
+		try{
+			for(String s : listePermission){
+				allow(new Permission(PermissionType.valueOf(s)));
+			}
+		}catch(IllegalArgumentException e){
+			throw new Exception("Permission invalide");
+		}
+	}
+	
+	public void allow(Permission permission){
+		if(this.getListePermission() == null){
+			setListePermission(new HashSet<Permission>());
+		}
+		this.getListePermission().add(permission);
+	}
+	public void disallow(Permission type) throws Exception{
+		if(this.getListePermission() != null){
+			this.getListePermission().remove(type);
+		}
+	}
+	
+	public Set<Utilisateur> getListeUtilisateur() {
+		return listeUtilisateur;
+	}
+	public void setListeUtilisateur(Set<Utilisateur> listeUtilisateur) {
+		this.listeUtilisateur = listeUtilisateur;
+	}
+	public boolean isAllowed(Permission permission) {
+		return getListePermission().contains(permission);
+	}
+	public boolean isAllowed(PermissionType type) {
+		Permission permission = new Permission(type);
+		return isAllowed(permission);
+	}
+	@Override
+	public String toString() {
+		return "Groupe #" + getId()
+				+" [nom = " + getNom() + "]";
+	}
+}

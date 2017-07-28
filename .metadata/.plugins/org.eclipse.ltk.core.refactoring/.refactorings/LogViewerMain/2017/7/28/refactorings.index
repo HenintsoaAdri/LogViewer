@@ -1,0 +1,39 @@
+1499688591340	Encapsulate field 'dao'
+1499688767717	Encapsulate field 'service'
+1499693768097	Move methods
+1499694332928	Rename package 'adri.logerviewermain.service'
+1499695879256	Rename package 'adri.logviewermail.util'
+1499698036953	Rename compilation unit 'UtilisateurCRUDAction.java'
+1499698787180	Encapsulate field 'id'
+1499698796097	Encapsulate field 'pagination'
+1499698801838	Encapsulate field 'liste'
+1499758263761	Copy packages
+1499758376956	Copy files
+1499758613829	Copy package
+1499759080864	Copy elements
+1499759173042	Copy folder
+1499779128896	Copy folders
+1499784221336	Delete element
+1499932498696	Encapsulate field 'utilisateur'
+1499935067848	Delete elements
+1499976674077	Delete element
+1500018539646	Delete element
+1500019983633	Encapsulate field 'password'
+1500019998041	Encapsulate field 'email'
+1500030459512	Encapsulate field 'libelle'
+1500068693679	Delete element
+1500068788161	Copy compilation unit
+1500068853638	Delete elements
+1500068883158	Encapsulate field 'groupe'
+1500069282599	Delete elements
+1500069288007	Delete element
+1500069431729	Encapsulate field 'listeProfil'
+1500069443515	Delete elements
+1500105612060	Encapsulate field 'isSuperUtilisateur'
+1500105736314	Delete element
+1500119455364	Copy file
+1500152971717	Encapsulate field 'listeGroupe'
+1500154237377	Delete element
+1500199159583	Move methods
+1500204018715	Delete element
+1500245946191	Copy folder

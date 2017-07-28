@@ -1,0 +1,46 @@
+var profilId = document.getElementById('item.profil.id');
+$(document).ready(function(){
+	$.ajax({
+        url : url.value+'/Includes/groupeDetail/Profil',
+        type : 'GET',
+        data : 'groupe.id=' + $("#groupeSelect").val() + '&item.id=' + page.value ,
+        success : function(html, statut){
+            if(html){
+                $('#profilSelect').html(html);
+            }else{
+                $('#details .modal-body').load('Waiter');
+            }
+        },
+        error : function(resultat, statut, erreur){
+        }
+    });
+	$.ajax({
+        url : url.value+'/Includes/groupeDetail/Profil',
+        type : 'GET',
+        data : 'groupe.id=' + $("#groupeSelect").val() + '&item.id=' + page.value ,
+        success : function(html, statut){
+            if(html){
+                $('#profilSelect').html(html);
+            }else{
+                $('#details .modal-body').load('Waiter');
+            }
+        },
+        error : function(resultat, statut, erreur){
+        }
+    });
+	$.ajax({
+        url : url.value+'/Includes/groupeDetail/Profil',
+        type : 'GET',
+        data : 'groupe.id=' + $("#groupeSelect").val() + '&page=' + page.value ,
+        success : function(html, statut){
+            if(html){
+                $('#profilSelect').html(html);
+            }else{
+                $('#details .modal-body').load('Waiter');
+            }
+        },
+        error : function(resultat, statut, erreur){
+        }
+    });
+});
+

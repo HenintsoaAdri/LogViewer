@@ -1,0 +1,28 @@
+1500882693220	Copy file
+1500882705651	Copy file
+1500900616602	Delete element
+1500901947563	Encapsulate field 'idGroupe'
+1500901988970	Encapsulate field 'idGroupe'
+1500902214439	Copy file
+1500965378383	Move 'log4j-core-2.8.2.jar' to 'WEB-INF'
+1500966108295	Copy file
+1500966126211	Rename resource 'index.jsp'
+1500982788239	Rename resource 'CrudAction-validation.js'
+1500988824522	Move 'log4j-core-2.8.2.jar' to 'lib'
+1500990882458	Rename resource 'CrudAction-validation.xml'
+1500991027237	Rename resource 'validation.xml'
+1501014265613	Move file
+1501015206433	Rename resource 'CrudAction-validation.xml'
+1501015567246	Rename resource 'CrudAction-save-validation.xml'
+1501018981435	Copy method
+1501019026692	Delete elements
+1501019166735	Delete elements
+1501019411964	Delete element
+1501023022300	Copy file
+1501023061177	Copy file
+1501023346451	Delete element
+1501029570614	Delete element
+1501029971572	Rename resource 'function.js'
+1501051885324	Delete element
+1501128705933	Delete element
+1501143990356	Encapsulate field 'nbItem'

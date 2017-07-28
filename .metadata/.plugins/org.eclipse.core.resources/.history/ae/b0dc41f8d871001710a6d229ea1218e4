@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+   <constant name="struts.devMode" value="true" />
+   <constant name="struts.enable.SlashesInActionNames" value="true"/>
+   <package name="logViewer" extends="struts-default">
+       
+     <interceptors>
+     	<interceptor name="loginInterceptor" class="adri.logviewermain.interceptor.LoginInterceptor" />
+     	<interceptor name="permissionInterceptor" class="adri.logviewermain.interceptor.PermissionInterceptor" />
+        <interceptor-stack name="defaultStack">
+            <interceptor-ref name="exception"/>
+            <interceptor-ref name="alias"/>
+            <interceptor-ref name="servletConfig"/>
+            <interceptor-ref name="i18n"/>
+            <interceptor-ref name="prepare"/>
+            <interceptor-ref name="chain"/>
+            <interceptor-ref name="scopedModelDriven"/>
+            <interceptor-ref name="modelDriven"/>
+            <interceptor-ref name="fileUpload"/>
+            <interceptor-ref name="checkbox"/>
+            <interceptor-ref name="datetime"/>
+            <interceptor-ref name="multiselect"/>
+            <interceptor-ref name="staticParams"/>
+            <interceptor-ref name="actionMappingParams"/>
+            <interceptor-ref name="params"/>
+            <interceptor-ref name="conversionError"/>
+	        <interceptor-ref name="validation">
+			    <param name="excludeMethods">delete,find,edit,findAllPaginate,findAll,findAllByBaseModel</param>
+			</interceptor-ref>
+            <interceptor-ref name="workflow"/>
+            <interceptor-ref name="debugging"/>
+        </interceptor-stack>
+     	<interceptor-stack name="loginStack">
+     		<interceptor-ref name="loginInterceptor"/>
+     		<interceptor-ref name="defaultStack"/>
+     	</interceptor-stack>
+     	<interceptor-stack name="crudStack">
+     		<interceptor-ref name="loginStack"/>
+     		<interceptor-ref name="permissionInterceptor"/>
+     	</interceptor-stack>
+     </interceptors>
+     
+     <default-action-ref name="index"/>
+     
+     <global-results>
+         <result name="login" type="redirectAction">Connexion</result>
+         <result name="permission">/includes/NotAllowed.jsp</result>
+     </global-results>
+     <global-exception-mappings>
+     	<exception-mapping exception="java.lang.NullPointerException" result="NONE" />
+     	<exception-mapping exception="adri.logviewermain.exception.PermissionException" result="PERMISSION" />
+     </global-exception-mappings>
+     
+     <action name="index" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="start">
+        <result name="success">/index.jsp</result>
+        <result name="error">/login.jsp</result>
+     </action>
+     <action name="Connexion" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="login">
+        <exception-mapping result="error" exception="adri.logviewermain.exception.InputException"/>
+		<result name="success" type="redirectAction">index</result>
+		<result name="error">/login.jsp</result>
+     </action>
+     <action name="Deconnexion" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="logout">
+	     <result name="success" type="redirectAction">index</result>
+	     <result name="error" type="redirectAction">index</result>
+     </action>
+     
+     <!-- ************************
+     	**********CRUD***********
+      **************************** -->
+                 
+     <action name="*" 
+            class="adri.logviewermain.action.CrudAction" 
+            method="findAllPaginate">
+         <interceptor-ref name="crudStack"/>
+         <param name="classe">adri.logviewermain.model.{1}View</param>
+         <result name="success">/{1}/list.jsp</result>
+         <result name="input">/{1}/list.jsp</result>
+         <result name="error" type="redirectAction">index</result>
+     </action>
+     <action name="*/new" 
+            class="adri.logviewermain.action.GroupeAction" 
+            method="selectGroupe">
+         <interceptor-ref name="crudStack"/>
+         <param name="classe">adri.logviewermain.model.{1}</param>
+         <result name="success">/{1}/create.jsp</result>
+         <result name="input">/{1}/create.jsp</result>
+         <result name="error" type="redirectAction">{1}</result>
+     </action>
+     <action name="*/save" 
+            class="adri.logviewermain.action.CrudAction" 
+            method="save">
+         <interceptor-ref name="crudStack"/>
+         <param name="classe">adri.logviewermain.model.{1}</param>
+         <result name="success" type="redirectAction">{1}</result>
+         <result name="error">/{1}/create.jsp</result>
+         <result name="input" type="chain">/{1}/new</result>
+         <result name="none" type="redirectAction">{1}</result>
+     </action>
+     <action name="*/edit/" 
+            class="adri.logviewermain.action.CrudAction" 
+            method="edit">
+         <interceptor-ref name="crudStack"/>
+         <param name="classe">adri.logviewermain.model.{1}</param>
+         <result name="success">/{1}/edit.jsp</result>
+         <result name="error" type="redirectAction">{1}</result>
+     </action>
+     <action name="*/update" 
+            class="adri.logviewermain.action.CrudAction" 
+            method="update">
+         <interceptor-ref name="crudStack"/>
+         <param name="classe">adri.logviewermain.model.{1}</param>
+         <result name="success" type="redirectAction">{1}</result>
+         <result name="error">/{1}/edit.jsp</result>
+         <result name="input">/{1}/edit.jsp</result>
+         <result name="none" type="redirectAction">{1}</result>
+     </action>
+     <action name="*/delete/"
+            class="adri.logviewermain.action.CrudAction" 
+            method="delete">
+         <interceptor-ref name="crudStack"/>
+         <param name="classe">adri.logviewermain.model.{1}</param>
+         <result name="success" type="redirectAction">{1}</result>
+         <result name="error">/{1}/details.jsp</result>
+         <result name="input">/{1}/details.jsp</result>
+         <result name="none" type="redirectAction">{1}</result>
+     </action>
+     <action name="*/" 
+            class="adri.logviewermain.action.CrudAction" 
+            method="find">
+         <interceptor-ref name="crudStack"/>
+         <param name="classe">adri.logviewermain.model.{1}</param>
+         <result name="success">/{1}/details.jsp</result>
+         <result name="error" type="redirectAction">{1}</result>
+     </action>
+     
+     <!-- ************************
+     	**********MesInfos***********
+      **************************** -->
+      
+     <action name="MesInformations" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="start">
+         <result name="success">/MesInformations/details.jsp</result>
+         <result name="error">login.jsp</result>
+     </action>
+     <action name="MesInformations/edit/" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="start">
+         <result name="success">/MesInformations/edit.jsp</result>
+         <result name="error" type="redirectAction">MesInformations</result>
+     </action>
+     <action name="MesInformations/update" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="update">
+         <interceptor-ref name="loginStack"/>
+         <result name="success" type="redirectAction">MesInformations</result>
+         <result name="error">/MesInformations/edit.jsp</result>
+         <result name="none" type="redirectAction">MesInformations</result>
+     </action>
+     
+     <!-- ************************
+     	**********Fichier***********
+      **************************** -->
+      
+      
+     <action name="Fichier" 
+            class="adri.logviewermain.action.UtilisateurAction" 
+            method="start">
+         <interceptor-ref name="loginStack"/>
+         <result name="success">/Fichiers/index.jsp</result>
+         <result name="none">/Fichiers/index.jsp</result>
+         <result name="error">index</result>
+     </action>
+     
+     <!-- ************************
+     	**********Includes***********
+      **************************** -->
+      
+      <action name="Includes/Loader" 
+            class="adri.logviewermain.action.BaseAction" 
+            method="start">
+         <result name="success">/includes/loader.html</result>
+         <result name="error">/blank.html</result>
+         <result name="login">/blank.html</result>
+     </action>    
+     <action name="Includes/SelectProfil" 
+            class="adri.logviewermain.action.GroupeAction" 
+            method="findByGroupe">
+         <interceptor-ref name="loginStack"/>
+         <param name="classe">adri.logviewermain.model.ProfilView</param>
+         <result name="success">/includes/profilSelect.jsp</result>
+         <result name="error">/blank.html</result>
+         <result name="login">/blank.html</result>
+     </action>
+     <action name="Includes/deleteConfirm/*" 
+            class="adri.logviewermain.action.CrudAction" 
+            method="find">
+         <interceptor-ref name="crudStack"/>
+         <param name="classe">adri.logviewermain.model.{1}</param>
+         <result name="success">/includes/deleteConfirm.jsp</result>
+         <result name="error">/blank.html</result>
+         <result name="login">/blank.html</result>
+     </action>
+     <action name="Includes/groupeDetail/*" 
+            class="adri.logviewermain.action.GroupeAction" 
+            method="findByGroupePaginate">
+         <interceptor-ref name="crudStack"/>
+         <param name="classe">adri.logviewermain.model.{1}View</param>
+         <result name="success">/includes/detailGroupe{1}.jsp</result>
+         <result name="error">/blank.html</result>
+         <result name="login">/blank.html</result>
+     </action>
+     
+   </package>
+</struts>

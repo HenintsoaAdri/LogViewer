@@ -1,0 +1,56 @@
+package adri.logviewermain.action;
+
+import java.util.List;
+
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.opensymphony.xwork2.interceptor.ParameterNameAware;
+
+import adri.logviewermain.model.BaseModel;
+import adri.logviewermain.model.Groupe;
+import adri.logviewermain.service.GroupeService;
+
+public class GroupeAction extends CrudAction{
+	private Groupe groupe;
+	
+	public String findByGroupe(){
+		ConfigurableApplicationContext context = null;
+		try{
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			setListe(GroupeService.getInstance(context).getListeGroupe(getGroupe(), getItem().getClass()));
+			return SUCCESS;
+		}catch(Exception e){
+			setException(e);
+			e.printStackTrace();
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+	public String findByGroupePaginate(){
+		ConfigurableApplicationContext context = null;
+		try{
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			setPagination(GroupeService.getInstance(context).getListeGroupe(getGroupe(), getItem().getClass(), getPage()));
+			return SUCCESS;
+		}catch(Exception e){
+			setException(e);
+			e.printStackTrace();
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+	
+	public Groupe getGroupe() {
+		return groupe;
+	}
+	public void setGroupe(Groupe groupe) {
+		this.groupe = groupe;
+	}
+}
