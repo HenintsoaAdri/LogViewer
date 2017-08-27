@@ -1,4 +1,4 @@
-<%@page import="adri.logviewermain.model.Profil"%>
+<%@page import="adri.logviewermain.model.Groupe"%>
 <%@page import="java.util.List"%>
 <%@page import="adri.logviewermain.model.BaseModel"%>
 <%@ include file="../includes/header.jsp" %>
@@ -77,22 +77,23 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
 		                                    <div class="col-md-12">
 		                                        <textarea name="item.details" rows="5" class="form-control form-control-line"><% out.print(item.getDetails()); %></textarea>
 		                                    </div>
-		                                </div>					           
+		                                </div>
+		                                <%  if(liste != null){ %>	           
 			                           	<div class="form-group">
 			                               <label class="col-md-12">Groupe</label>
 			                               <div class="radio-list col-md-12">
-			                                   <% if(liste != null){ 
+			                                   <% 
 			                                   	for(BaseModel p : liste){ 
-			                                   	Profil i = (Profil)p;
+			                                   	Groupe i = (Groupe)p;
 			                                   %>
 		                                       <div class="checkbox checkbox-success checkbox-circle">
-		                                           <input type="checkbox" name="item.listeGroupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(i.equals(user.getProfil().getId())) out.print("checked"); %>>
+		                                           <input type="checkbox" name="item.listeGroupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(item.insideGroupe(i)) out.print("checked"); %>>
 		                                           <label for="groupe<% out.print(i.getId()); %>"><% out.print(i.getNom()); %></label>
 		                                       </div>
-			                                   <% } 
-			                                   } %>
+			                                   <% } %>
 			                               </div>
 			                           	</div>
+			                           	<% } %>
 	                            	</div>
                             	</div>
                                 <div class="form-group">

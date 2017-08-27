@@ -1,4 +1,4 @@
-<%@page import="adri.logviewermain.model.Groupe"%>
+<%@page import="adri.logviewermain.model.Profil"%>
 <%@page import="java.util.List"%>
 <%@page import="adri.logviewermain.model.BaseModel"%>
 <%@ include file="../includes/header.jsp" %>
@@ -84,10 +84,10 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
 			                               <div class="radio-list col-md-12">
 			                                   <% 
 			                                   	for(BaseModel p : liste){ 
-			                                   	Groupe i = (Groupe)p;
+			                                   	Profil i = (Profil)p;
 			                                   %>
 		                                       <div class="checkbox checkbox-success checkbox-circle">
-		                                           <input type="checkbox" name="item.listeGroupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(item.insideGroupe(i)) out.print("checked"); %>>
+		                                           <input type="checkbox" name="item.listeGroupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(i.equals(user.getProfil().getId())) out.print("checked"); %>>
 		                                           <label for="groupe<% out.print(i.getId()); %>"><% out.print(i.getNom()); %></label>
 		                                       </div>
 			                                   <% } %>
