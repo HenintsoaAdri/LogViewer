@@ -1,0 +1,5 @@
+package adri.logviewer.agent.server;
+
+public class Agent {
+
+}

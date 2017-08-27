@@ -1,0 +1,66 @@
+package adri.logviewermain.service;
+
+import java.io.File;
+import java.util.List;
+
+import adri.logviewermain.filemanager.LogFile;
+import adri.logviewermain.filemanager.MinaClient;
+import adri.logviewermain.model.Agent;
+
+public class FileService {
+	String filePath = "Fichiers/";
+	public List<LogFile> connect(Agent agent) throws Exception{
+		MinaClient client = null;
+		try{
+			client = new MinaClient();
+			List<LogFile> result = (List<LogFile>)client.connect(agent.getAdresse(), agent.getPort(), agent.getRepertoire());
+			return result;
+		}catch(Exception e){
+			throw e;
+		}finally{
+			if(client != null){
+				client.dispose();
+			}
+		}
+	}
+	public LogFile openFile(Agent agent, String file) throws Exception{
+		MinaClient client = null;
+		try{
+			client = new MinaClient();
+			List<LogFile> result = (List<LogFile>)client.connect(agent.getAdresse(), agent.getPort(), file);
+			if(result.size() == 1){
+				return result.get(0);
+			}
+			throw new Exception("Fichier introuvable");
+		}catch(Exception e){
+			throw e;
+		}finally{
+			if(client != null){
+				client.dispose();
+			}
+		}
+	}
+	public LogFile openFile(Agent agent, LogFile file) throws Exception{
+		return openFile(agent, file.getPathName());
+	}
+	public void saveFile(Agent agent, LogFile logfile){
+		File temp = null;
+		File save = null;
+		File path = null;
+		File fichiers = null;
+		try {
+			fichiers = new File(this.filePath);
+			if(!fichiers.exists()){
+				fichiers.mkdir();
+			}
+			path = new File(fichiers.getAbsolutePath() + File.separator + agent.toString());
+			
+			temp = new File(logfile.getFilename());
+			if(!temp.exists()){
+				throw new Exception("Ce fichier n'est plus en cache ou a été déplacé");
+			}
+			save = 
+		} catch (Exception e) {
+		}
+	}
+}

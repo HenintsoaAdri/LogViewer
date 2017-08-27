@@ -1,0 +1,34 @@
+package adri.logviewer.agent.server;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+
+import org.junit.Test;
+
+import adri.logviewer.agent.file.LogFile;
+
+public class ClientAgentTest {
+	
+	public void essaiAll() throws Exception{
+		MinaClient client = new MinaClient();
+		Object resultat = client.connect("localhost", 2008, "A://eclipse/logs");
+		if(resultat instanceof List){
+			System.out.println(((List<LogFile>)resultat).size());
+			resultat.toString();
+		}
+	}
+	@Test
+	public void testClient() throws Exception{
+		MinaClient client = new MinaClient();
+		Object detail = client.connect("localhost", 2008, "A://eclipse/logs/app-2017-07-18.log");
+		if(detail instanceof List){
+			LogFile f = ((List<LogFile>) detail).get(0);
+			System.out.println(f.getFilename());
+		}
+		client.dispose();
+	}
+
+}

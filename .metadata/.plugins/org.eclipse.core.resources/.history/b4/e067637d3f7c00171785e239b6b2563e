@@ -1,0 +1,26 @@
+package adri.logviewer.agent;
+
+public class Agent {
+	private String password = "root";
+	private String port = "2008";
+	protected Agent(String password, String port){
+		this.setPassword(password);
+	}
+	
+	
+	public String getPort() {
+		return port;
+	}
+	private void setPort(String port) {
+		this.port = port;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+	private void setPassword(String password) {
+		this.password = password;
+	}
+	
+}

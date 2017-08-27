@@ -1,0 +1,25 @@
+package adri.logviewer.agent.file;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class LogFile implements Serializable{
+	private String filename;
+	private byte[] file;
+		
+	public LogFile(String filename) {
+		setDossier(filename);
+	}
+	public String getDossier() {
+		return filename;
+	}
+	public void setDossier(String filename) {
+		this.filename = filename;
+	}
+	public byte[] getListeLog() {
+		return file;
+	}
+	public void setFile(byte[] file) {
+		this.file = file;
+	}
+}

@@ -22,6 +22,8 @@
     <bean id="groupeService" class="adri.logviewermain.service.GroupeService">
         <property name="service" ref="baseService"/>
     </bean>
+    <bean id="fileService" class="adri.logviewermain.service.FileService">
+    </bean>
 </beans>
 
 

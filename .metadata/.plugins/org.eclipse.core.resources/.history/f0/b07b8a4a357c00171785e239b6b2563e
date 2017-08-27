@@ -1,0 +1,7 @@
+package adri.logviewer.agent;
+
+public class MainAgent {
+	public static void main(String[] param) {
+		new Agent(param[0], param[1]);
+	}
+}

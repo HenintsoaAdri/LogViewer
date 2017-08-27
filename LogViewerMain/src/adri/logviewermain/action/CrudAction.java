@@ -11,7 +11,6 @@ import adri.logviewermain.exception.PermissionException;
 import adri.logviewermain.model.Agent;
 import adri.logviewermain.model.Groupe;
 import adri.logviewermain.model.Permission;
-import adri.logviewermain.model.Profil;
 import adri.logviewermain.service.UtilisateurService;
 
 public class CrudAction extends BaseAction implements ValidationErrorAware{

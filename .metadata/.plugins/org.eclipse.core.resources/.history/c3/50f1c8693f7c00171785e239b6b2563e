@@ -1,0 +1,17 @@
+package adri.logviewer.agent;
+
+public class Agent {
+	private String password = "root";
+	protected Agent(String password){
+		this.setPassword(password);
+	}
+	
+	
+	public String getPassword() {
+		return password;
+	}
+	private void setPassword(String password) {
+		this.password = password;
+	}
+	
+}

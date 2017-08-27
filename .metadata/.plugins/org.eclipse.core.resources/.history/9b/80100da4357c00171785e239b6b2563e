@@ -1,0 +1,10 @@
+package adri.logviewer.agent;
+
+import java.util.Scanner;
+
+public class MainAgent {
+	public static void main(String[] param) {
+		Scanner sc = new Scanner(System.in);
+		new Agent(param[0], param[1]);
+	}
+}

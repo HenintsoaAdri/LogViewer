@@ -10,7 +10,7 @@ public class Agent extends BaseModel{
 	
 	private String nom;
 	private String adresse;
-	private String port;
+	private int port;
 	private String details;
 	private String repertoire;
 	private String syntaxe;
@@ -22,7 +22,7 @@ public class Agent extends BaseModel{
 	public Agent(int id) {
 		super(id);
 	}
-	public Agent(int id, String nom, String adresse, String port, String details, String repertoire,
+	public Agent(int id, String nom, String adresse, int port, String details, String repertoire,
 			String syntaxe, Utilisateur createur, Date dateCreation) throws InputException {
 		super(id);
 		this.setNom(nom);
@@ -60,16 +60,17 @@ public class Agent extends BaseModel{
 		this.adresse = adresse;
 	}
 
-	public String getPort() {
-		if(port == null){
+	public String getPortString() {
+		if(port == 0){
 			return "";
 		}
+		return String.valueOf(port);
+	}
+	
+	public int getPort() {
 		return port;
 	}
-	public void setPort(String port) throws InputException {
-		if(!StringUtil.getInstance().fullNumber(port)|| port.isEmpty() ){
-			throw new InputException("Le port ne doit etre composé que de chiffre");
-		}
+	public void setPort(int port) throws InputException {
 		this.port = port;
 	}
 
@@ -140,5 +141,8 @@ public class Agent extends BaseModel{
 		return "l'agent #" + getId() + " "
 		+ getNom()
 		+ " [ adresse&port : " + getAdresse() + ":" + getPort() + "]";
+	}
+	public String getPathName() {
+		return "Agent" + getId() + "-" + getNom();
 	}
 }

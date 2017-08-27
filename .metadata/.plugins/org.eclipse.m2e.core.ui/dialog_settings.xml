@@ -2,12 +2,15 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
-			<item value="adri"/>
+			<item value="adri.logviewer"/>
 			<item value="com.adri"/>
+			<item value="adri"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="agent"/>
+			<item value="agentlog"/>
 			<item value="logviewermain"/>
 			<item value="logviewer"/>
 			<item value="logview"/>
@@ -59,8 +62,24 @@
 			<item value="[name]"/>
 		</list>
 	</section>
+	<section name="wizardPage">
+		<list key="groupId">
+			<item value="com.adri"/>
+			<item value="AgentLog"/>
+		</list>
+		<list key="name">
+		</list>
+		<list key="artifactId">
+			<item value="AgentLog"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="A:\Projet\Projet Stage"/>
+			<item value="A:\Projet\Projet Stage\AgentLogq"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

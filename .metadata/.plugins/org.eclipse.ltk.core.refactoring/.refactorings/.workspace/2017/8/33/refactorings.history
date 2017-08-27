@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;logviewer&apos; to &apos;logviewermock&apos;&#x0D;&#x0A;- Original element: &apos;logviewer&apos;&#x0D;&#x0A;- Renamed element: &apos;logviewer&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;logviewer&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=logviewer" name="logviewermock" references="true" stamp="1503003791066" version="1.0"/>
+</session>

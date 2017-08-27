@@ -3,7 +3,7 @@ package adri.logviewermain.service;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -196,7 +196,7 @@ public class UtilisateurService {
 			return this.getService().findAll(new GroupeView());
 		}
 		else if(autorizationGroupe){
-			List<Groupe> groupe = new Vector<Groupe>();
+			List<Groupe> groupe = new ArrayList<Groupe>();
 			groupe.add(user.getProfil().getGroupe());
 			return groupe;
 		}

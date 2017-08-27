@@ -1,5 +1,0 @@
-package adri.logviewermain.model;
-
-public class AgentView extends Agent {
-	private int idGroupe;
-}

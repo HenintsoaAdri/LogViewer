@@ -1,0 +1,24 @@
+package adri.logviewer.agent.server;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.codec.ProtocolEncoderAdapter;
+import org.apache.mina.filter.codec.ProtocolEncoderOutput;
+
+import adri.logviewer.agent.file.LogFile;
+
+public class LogFileEncoder extends ProtocolEncoderAdapter{
+
+	@Override
+	public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
+		List<LogFile> liste = (List<LogFile>)message;
+		
+		
+	}
+	public static void main(String[] args) {
+		System.out.println(Arrays.asList("ok ", "on") instanceof ArrayList<?>);
+	}
+}

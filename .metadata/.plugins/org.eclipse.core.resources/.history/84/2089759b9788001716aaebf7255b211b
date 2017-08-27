@@ -1,0 +1,15 @@
+package adri.logviewer.agent.server;
+
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.codec.ProtocolEncoderAdapter;
+import org.apache.mina.filter.codec.ProtocolEncoderOutput;
+
+public class LogFileEncoder extends ProtocolEncoderAdapter{
+
+	@Override
+	public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
+		
+		
+	}
+
+}

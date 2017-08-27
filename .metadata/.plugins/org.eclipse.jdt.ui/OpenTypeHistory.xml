@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=LogViewerMain/src&lt;adri.logviewermain.model{Agent.java[Agent" modifiers="1" timestamp="1501077278512"/>
+<typeInfo handle="=LogViewerMain/src&lt;adri.logviewermain.model{Agent.java[Agent" modifiers="1" timestamp="1503583946517"/>
+<typeInfo handle="=AgentModule/A:\/Java\/apache-mina-2.0.16\/apache-mina-2.0.16\/dist\/mina-core-2.0.16.jar&lt;org.apache.mina.core.service(IoHandlerAdapter.class[IoHandlerAdapter" modifiers="33" timestamp="1477245310000"/>
+<typeInfo handle="=AgentModule/A:\/Java\/apache-mina-2.0.16\/apache-mina-2.0.16\/dist\/mina-core-2.0.16.jar&lt;org.apache.mina.filter.codec(ProtocolEncoder.class[ProtocolEncoder" modifiers="1537" timestamp="1477245310000"/>
+<typeInfo handle="=AgentModule/A:\/Java\/apache-mina-2.0.16\/apache-mina-2.0.16\/dist\/mina-core-2.0.16.jar&lt;org.apache.mina.filter.codec(ProtocolDecoder.class[ProtocolDecoder" modifiers="1537" timestamp="1477245310000"/>
+<typeInfo handle="=AgentModule/A:\/Java\/apache-mina-2.0.16\/apache-mina-2.0.16\/dist\/mina-core-2.0.16.jar&lt;org.apache.mina.filter.codec(ProtocolCodecFactory.class[ProtocolCodecFactory" modifiers="1537" timestamp="1477245310000"/>
+<typeInfo handle="=AgentModule/C:\/Program Files\/Java\/jre1.8.0_121\/lib\/rt.jar&lt;java.io(Serializable.class[Serializable" modifiers="1537" timestamp="1492256704873"/>
+<typeInfo handle="=AgentModule/A:\/Java\/apache-mina-2.0.16\/apache-mina-2.0.16\/dist\/mina-core-2.0.16.jar&lt;org.apache.mina.filter.codec(ProtocolEncoderAdapter.class[ProtocolEncoderAdapter" modifiers="1057" timestamp="1477245310000"/>
 </typeInfoHistroy>

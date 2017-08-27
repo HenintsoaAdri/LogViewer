@@ -1,0 +1,14 @@
+package adri.logviewer.agent.server;
+
+import java.lang.instrument.Instrumentation;
+
+public class Agent {
+	public static void premain(String args, Instrumentation inst){
+		int port = 0;
+		try {
+			port = Integer.parseInt(args);			
+		} catch (NumberFormatException e) {
+			System.out.println("Port invalide");
+		}
+	}
+}

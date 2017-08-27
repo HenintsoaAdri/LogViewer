@@ -1,0 +1,18 @@
+package adri.logviewer.agent.file;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class WrapperFile implements Serializable {
+	private List<LogFile> liste;
+
+	public WrapperFile(List<LogFile> liste) {
+		super();
+		this.liste = liste;
+	}
+
+	public List<LogFile> getListe() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

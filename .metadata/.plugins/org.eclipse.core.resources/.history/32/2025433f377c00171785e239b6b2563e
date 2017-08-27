@@ -1,0 +1,13 @@
+package adri.logviewer.agent;
+
+import java.io.Console;
+import java.util.Scanner;
+
+public class MainAgent {
+	public static void main(String[] param) {
+		Scanner sc = new Scanner(System.in);
+		Console console;
+		System.out.println("Mot de passe de l'agent :");
+		new Agent(param[0], console.readPassword().toString());
+	}
+}

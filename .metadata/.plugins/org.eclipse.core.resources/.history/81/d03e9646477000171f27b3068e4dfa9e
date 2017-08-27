@@ -1,8 +1,0 @@
-<%@page import="adri.logviewermain.model.BaseModel"%>
-<%@page import="adri.logviewermain.model.BaseModelPagination"%>
-<% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); %>
-<% for(BaseModel i : pagination.getListe()){ %>
-	<tr>
-		<
-	</tr>
-<% } %>
