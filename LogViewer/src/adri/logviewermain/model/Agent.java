@@ -127,7 +127,7 @@ public class Agent extends BaseModel{
 		this.listeGroupe = listeGroupe;
 	}
 	public boolean insideGroupe(Groupe groupe){
-		return getListeGroupe() != null && getListeGroupe().contains(groupe);
+		return this.getListeGroupe() != null && this.getListeGroupe().contains(groupe);
 	}
 	public void addGroupe(Groupe groupe){
 		if(groupe != null){

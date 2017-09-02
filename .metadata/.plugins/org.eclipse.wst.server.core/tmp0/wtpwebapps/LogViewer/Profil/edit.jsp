@@ -34,7 +34,7 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                            <h3 class="box-title">
+                            <h3 class="box-title m-b-0">
                             	Profil #<% out.print(item.getId()); %>
                             </h3>
                             <p class="text-muted">Modifier un groupe d'utilisateur</p>
@@ -55,22 +55,7 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
                                                 <div class="col-md-9">
 		                                        	<textarea rows="5" class="form-control form-control-line"><% out.print(item.getDescription()); %></textarea>
                                                 </div>
-                                            </div>				           
-				                           	<div class="form-group">
-				                               <label class="control-label col-md-3">Groupe</label>
-				                               <div class="radio-list col-md-9">
-				                                   <% if(liste != null){
-				                                	   for(BaseModel g : liste){ 
-				                                   	Groupe i = (Groupe)g;
-				                                   %>
-			                                       <div class="checkbox checkbox-primary checkbox-circle">
-			                                           <input type="checkbox" name="item.groupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(item.hasGroupe(i)) out.print("checked"); %>>
-			                                           <label for="groupe<% out.print(i.getId()); %>"><% out.print(i.getNom()); %></label>
-			                                       </div>
-				                                   <% }
-				                                   } %>
-				                               </div>
-				                           	</div>
+                                            </div>
                                         </div>
                                         <!--/span-->
                                         <div class="col-md-6">
@@ -85,6 +70,32 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
                                                 	<% } %>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <!--/row-->
+                                    <h3 class="box-title m-b-0"><i class="fa fa-gears fa-fw" aria-hidden="true"></i> Groupes</h3>
+                            		<p class="text-muted">Rajouter / Retirer les groupes à gérer</p>
+                                    <hr class="m-t-0 m-b-40">
+                                    <div class="row">
+                                        <div class="col-md-12">				           
+				                           	<div class="form-group">
+				                               <div class="radio-list col-md-9">
+				                                   <% if(liste != null){
+				                                	   for(BaseModel g : liste){ 
+				                                   	Groupe i = (Groupe)g;
+				                                   %>
+			                                       <div class="checkbox checkbox-primary checkbox-circle">
+			                                           <input type="checkbox" name="item.listeGroupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(item.hasGroupe(i)) out.print("checked"); %>>
+			                                           <label for="groupe<% out.print(i.getId()); %>"><% out.print(i.getNom()); %></label>
+			                                       </div>
+				                                   <% }
+				                                   } %>
+				                               </div>
+				                           	</div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="col-md-offset-8 col-md-4">
                                                     <button type="submit" class="btn btn-success">Modifier</button>
@@ -100,29 +111,6 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
                     </div>
                 </div>
                 <!--./row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="white-box">
-	                    	<p class="text-muted font-bold">Sélectionner une permission vaut la sélection de toutes les permissions subalternes.</p>
-	                    	<ul class="list-icons text-muted">
-	                    		<li> 00 - Connexion</li>
-	                    		<li> 10 - Création / Modification / Suppression Groupe</li>
-	                    		<li> 11 - Gestion de Groupe
-	                    			<ul>
-	                    				<li> 111 - Gestion d'utilisateurs de groupe</li>
-	                    				<li> 112 - Gestion d'agents de groupe</li>
-	                    				<li> 113 - Lecture et téléchargement des logs</li>
-	                    				<li> 114 - Gestion de profils du groupe</li>
-	                    			</ul>
-	                    		</li>
-	                    		<li> 12 - Création / Modification / Suppression Agent</li>
-	                    		<li> 13 - Création / Modification / Suppression Profil</li>
-	                    		<li> 14 - Création / Modification / Suppression Utilisateur</li>
-	                    	</ul>
-                        </div>
-                   	</div>
-                </div>
-                <!-- /.row -->
                 <div class="row">
                     <div class="col-xs-12">
                         <a data-toggle="modal" href="#delete" data-item="Profil" data-id="<% out.print(item.getId()); %>" class="text-danger pull-right confirmDelete">Supprimer le profil</a>

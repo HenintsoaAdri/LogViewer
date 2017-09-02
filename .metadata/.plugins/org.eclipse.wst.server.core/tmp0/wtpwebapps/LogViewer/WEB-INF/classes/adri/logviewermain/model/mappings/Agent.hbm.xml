@@ -18,7 +18,7 @@
         <property name="syntaxe" column="syntaxeagent" type="string"/>
         <property name="dateCreation" column="datecreationagent" type="date"/>
         <many-to-one name="createur" class="adri.logviewermain.model.Utilisateur" column="idutilisateur" lazy="proxy" not-null="true" fetch="select"/>
-        <set name="listeGroupe" table="agent_groupe" lazy="true" fetch="select">
+        <set name="listeGroupe" table="agent_groupe" fetch="select">
             <key>
                 <column name="idagent" not-null="true" />
             </key>
@@ -27,7 +27,7 @@
             </many-to-many>
         </set>
 	    <union-subclass name="adri.logviewermain.model.AgentView" table="agentview">
-	    	<property name="idGroupe" column="idgroupe" type="int" not-null="false"/>
+	    	<property name="nomCreateur" column="nomcreateur" type="string" not-null="true"/>
 	    </union-subclass>
     </class>
 </hibernate-mapping>

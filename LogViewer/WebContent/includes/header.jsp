@@ -115,7 +115,7 @@
                     <li style="padding: 70px 0 0;">
                         <a href="${pageContext.request.contextPath}/index" class="waves-effect"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>Board</a>
                     </li>
-                    <% if(user.isGenerallyAllowed("Agent")||user.isAllowed(PermissionType.LECTURETELECHARGEMENT)){ %>
+                    <% if(user.isGenerallyAllowed("Agent")){ %>
                     <li>
                         <a href="${pageContext.request.contextPath}/Agent" class="waves-effect"><i class="fa fa-gear fa-fw" aria-hidden="true"></i>Agent</a>
                     </li>
@@ -123,18 +123,19 @@
                     <li>
                         <a href="${pageContext.request.contextPath}/Groupe" class="waves-effect"><i class="fa fa-gears fa-fw" aria-hidden="true"></i>Groupe</a>
                     </li>
-                    <% } if(user.isGenerallyAllowed("Profil")){ %>
+                    <% } if(user.isGenerallyAllowed("Utilisateur")){ %>
+                    <li>
+                    	<a href="${pageContext.request.contextPath}/Utilisateur" class="waves-effect"><i class="fa fa-address-card fa-fw" aria-hidden="true"></i>Utilisateur</a>
+                	</li>
+                	<% } if(user.isGenerallyAllowed("Profil")){ %>
                     <li>
                         <a href="${pageContext.request.contextPath}/Profil" class="waves-effect"><i class="fa fa-shield fa-fw" aria-hidden="true"></i>Profil</a>
                     </li>
-                    <% } if(user.isGenerallyAllowed("Utilisateur")){ %>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/Utilisateur" class="waves-effect"><i class="fa fa-address-card fa-fw" aria-hidden="true"></i>Utilisateur</a>
-                    </li>
-                    <% } %>
+                    <% } if(user.isGenerallyAllowed("Fichier")){%>
                     <li>
                         <a href="${pageContext.request.contextPath}/Fichier" class="waves-effect"><i class="fa fa-save fa-fw" aria-hidden="true"></i>Fichiers enregistr&eacute;s</a>
                     </li>
+                    <% } %>
                     <li>
                         <a href="${pageContext.request.contextPath}/MesInformations" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Mes Informations</a>
                     </li>

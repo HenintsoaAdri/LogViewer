@@ -1,15 +1,15 @@
 package adri.logviewermain.model;
 
 public class AgentView extends Agent {
-	private int idGroupe;
+	private String nomCreateur;
 
-	public int getIdGroupe() {
-		return idGroupe;
+	public String getNomCreateur() {
+		return nomCreateur;
 	}
-	public void setIdGroupe(int idGroupe) {
-		this.idGroupe = idGroupe;
+	public void setNomCreateur(String nomCreateur) {
+		this.nomCreateur = nomCreateur;
 	}
-
+	
 	@Override
 	public String instance() {
 		return getClass().getSuperclass().getSimpleName();

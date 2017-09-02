@@ -116,10 +116,10 @@
                         <a href="${pageContext.request.contextPath}/Utilisateur/new" class="btn btn-info pull-right m-l-20 waves-effect waves-light"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>Nouveau</a>
                             <h3 class="box-title">Liste</h3>
                             <p class="text-muted">Liste des utilisateurs enregistr&eacute;s</p>
-                            <div class="table-responsive">
                             <%  if(pagination == null || pagination.getListe() == null ){%>
                     		<p class="text-danger">Aucun utilisateur enregistré</p>
                     		<%  }else{ %>
+                            <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -145,18 +145,20 @@
                                             <td><% if(i.getProfil() != null)out.print(i.getProfil().getNom()); %></td>
                                             <td><% out.print(i.getSexeString()); %></td>
                                             <td>Connecté il y a <% out.print(i.getLastLoggedString()); %></td>
-                                            <td><a href="${pageContext.request.contextPath}/Utilisateur/?item.id=<% out.print(i.getId()); %>" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir l'utilisateur</a></td>
+                                            <td><a href="${pageContext.request.contextPath}/Utilisateur/<% out.print(i.getId()); %>" class="btn btn-primary m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir l'utilisateur</a></td>
                                         </tr>
                                         <% } %>
                                     </tbody>
                                 </table>
-                                <% } %>
                             </div> 
-                            <ul class="pagination">
-                            <% for(int i=0; i+1<pagination.getNombrePage() &&i<pagination.getNombrePage(); i++){ %>
-							  <li><a href="?page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
-							<% } %>
-							</ul>
+							<% if(pagination.getNombrePage()>1){%>
+						        <ul class="pagination">
+						        <% for(int i=0; i<pagination.getNombrePage(); i++){ %>
+								  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="?item.id=<% out.print(item.getId()); %>&page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
+								<% } %>
+								</ul>
+						  <%  }
+							} %>
                         </div>
                     </div>
                 </div>

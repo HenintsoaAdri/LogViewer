@@ -76,7 +76,7 @@
                                             <th>#</th>
                                             <th>Nom</th>
                                             <th>Nombre de profil</th>
-                                            <th>Nombre d'utilisateur</th>
+                                            <th>Nombre d'agent</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -89,12 +89,19 @@
                                             <td><% out.print(i.getNom()); %></td>
                                             <td><% out.print(i.getNombreProfil()); %></td>
                                             <td><% out.print(i.getNombreAgent()); %></td>
-                                            <td><a href="${pageContext.request.contextPath}/Groupe/?item.id=<% out.print(i.getId()); %>" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir le groupe</a></td>
+                                            <td><a href="${pageContext.request.contextPath}/Groupe/<% out.print(i.getId()); %>" class="btn btn-primary m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir le groupe</a></td>
                                         </tr>
                                         <% } %>
                                     </tbody>
                                 </table>
-                                <% } %>
+                           		<% if(pagination.getNombrePage()>1){%>
+		                            <ul class="pagination">
+		                            <% for(int i=0; i<pagination.getNombrePage(); i++){ %>
+									  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="?page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
+									<% } %>
+									</ul>
+							  <%  }
+	                            } %>
                             </div>
                         </div>
                     </div>

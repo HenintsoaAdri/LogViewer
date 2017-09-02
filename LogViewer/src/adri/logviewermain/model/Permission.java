@@ -8,6 +8,7 @@ public class Permission extends BaseModel{
 	
 	private PermissionType permission;
 	private Date dateAjout = new Date();
+	private Profil profil;
 	
 	public Permission(){}
 	public Permission(int id){
@@ -39,7 +40,14 @@ public class Permission extends BaseModel{
 	}
 	public void setDateAjout(Date dateAjout) {
 		this.dateAjout = dateAjout;
+	}	
+	public Profil getProfil() {
+		return profil;
 	}
+	public void setProfil(Profil profil) {
+		this.profil = profil;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Permission){

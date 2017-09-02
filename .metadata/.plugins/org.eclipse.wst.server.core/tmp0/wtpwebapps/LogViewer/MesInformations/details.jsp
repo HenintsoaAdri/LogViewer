@@ -1,6 +1,10 @@
+<%@page import="adri.logviewermain.model.BaseModel"%>
+<%@page import="adri.logviewermain.model.GroupeView"%>
+<%@page import="adri.logviewermain.model.BaseModelPagination"%>
 <%@page import="adri.logviewermain.model.Utilisateur"%>
 <%@page import="adri.logviewermain.model.PermissionType"%>
 <%@ include file="../includes/header.jsp" %>
+<% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); %>
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -94,6 +98,22 @@
 	                                <hr class="m-t-0 m-b-40">
 	                                <div class="row">
 	                                    <div class="col-md-12">
+			                            <% if(pagination == null || pagination.getListe() == null || pagination.getListe().isEmpty() ){ %>
+									    	<p class="text-danger">Cet utilisateur ne gère aucun groupe</p>
+	                                    <% }else{ %>
+				                            <ul class="list-icons list-group">
+				                            <%	for(BaseModel g : pagination.getListe()){ 
+				                            	GroupeView i = (GroupeView)g;
+				                            %>
+				                              <li class="p-0"><a class="font-normal" href="${pageContext.request.contextPath}/Groupe/<% out.print(i.getId()); %>"><i class="fa fa-chevron-right text-success"></i>
+				                              		<% out.print(i.getNom()); %>
+				                              	  </a>
+				                              	  <p class="text-muted m-l-40"><% out.print(i.getDescription()); %></p>
+				                              	  <p><span class="badge badge-danger m-l-40"><% out.print(i.getNombreAgent()); %></span> Agent(s)</p>
+				                              </li>
+				                            <% } %>
+				                            </ul>
+			                           <% } %>
 	                                    </div>
 	                                    <!--/span-->
 	                                </div>
@@ -121,10 +141,10 @@
 	                                                <p class="form-control-static"> <% out.print(user.getProfil().getNom()); %> </p>
 	                                            </div>
 	                                        </div>
-		                                    <div class="col-md-12">
-		                                        <blockquote>
+		                                    <div class="col-md-12 form-group">
+		                                        <p class="col-md-9 col-md-offset-3">
 		                                        	<% out.print(user.getProfil().getDescription());%>
-		                                        </blockquote>
+		                                        </p>
 		                                    </div>
 	                                    </div>
 	                                    <!--/span-->
@@ -152,7 +172,7 @@
                 <!--./row-->
                 <div class="row">
                     <div class="col-xs-12">
-                        <a href="${pageContext.request.contextPath}/MesInformations/edit/?item.id=<% out.print(user.getId()); %>" class="text-primary pull-right">Modifier mes informations</a>
+                        <a href="${pageContext.request.contextPath}/MesInformations/edit/" class="text-primary pull-right">Modifier mes informations</a>
                     </div>
                 </div>
                 <!-- /.row -->

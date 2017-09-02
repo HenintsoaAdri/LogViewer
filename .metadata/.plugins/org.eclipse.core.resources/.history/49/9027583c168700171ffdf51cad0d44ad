@@ -1,7 +1,0 @@
-package adri.logviewer.agent.file;
-
-import java.io.Serializable;
-
-public class WrapperFile implements Serializable {
-
-}

@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                    		<p class="label label-success label-rouded pull-right "><i class="fa fa-shield fw"></i> Utilisateur #<% out.print(user.getId()); %></p>
+                    		<p class="label label-success label-rouded pull-right "><i class="fa fa-address-card fw"></i> Utilisateur #<% out.print(user.getId()); %></p>
                     		<h3 class="box-title"> Mes Informations</h3>
                             <p class="text-muted">Modifier mes Informations</p>
                             <form class="form-horizontal form-material" action="${pageContext.request.contextPath}/MesInformations/update" method="post">
@@ -43,26 +43,6 @@
 		                                        <input name="user.nom" value="<% out.print(user.getNom()); %>" type="text" placeholder="Nom" class="form-control form-control-line">
 											</div>
 		                                </div>
-		                                <div class="form-group">
-		                                    <label class="col-md-12">Poste</label>
-		                                    <div class="col-md-12">
-		                                        <input name="user.poste" value="<% out.print(user.getPoste()); %>" type="text" placeholder="Poste" class="form-control form-control-line">
-		                                    </div>
-		                                </div>
-		                                <div class="form-group">
-		                                    <label class="col-md-12">Email</label>
-		                                    <div class="col-md-12">
-		                                        <input name="email" value="<% out.print(user.getEmail()); %>" type="text" class="form-control form-control-line" required>
-		                                    </div>
-		                                </div>
-		                                <div class="form-group">
-		                                    <label class="col-md-12">Mot de passe</label>
-		                                    <div class="col-md-12">
-		                                        <input name="user.password" value="<% out.print(user.getPassword()); %>" type="password" placeholder="Mot de passe" class="form-control form-control-line" required>
-		                                    </div>
-		                                </div>
-	                            	</div>
-	                            	<div class="col-md-6">
 		                                <div class="form-group">
 		                                    <label class="col-md-12">Pr&eacute;nom</label>
 		                                    <div class="col-md-12">
@@ -86,6 +66,26 @@
                                                 </label>
                                             </div>
                                         </div>
+	                            	</div>
+	                            	<div class="col-md-6">
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Poste</label>
+		                                    <div class="col-md-12">
+		                                        <input name="user.poste" value="<% out.print(user.getPoste()); %>" type="text" placeholder="Poste" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Email</label>
+		                                    <div class="col-md-12">
+		                                        <input name="user.email" value="<% out.print(user.getEmail()); %>" type="text" class="form-control form-control-line" required>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Mot de passe</label>
+		                                    <div class="col-md-12">
+		                                        <input name="user.password" value="<% out.print(user.getPassword()); %>" type="password" placeholder="Mot de passe" class="form-control form-control-line" required>
+		                                    </div>
+		                                </div>
 		                                <div class="form-group">
 		                                    <label class="col-md-12">Confirmer votre mot de passe</label>
 		                                    <div class="col-md-12">

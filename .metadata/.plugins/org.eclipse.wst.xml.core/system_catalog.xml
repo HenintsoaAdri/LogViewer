@@ -187,4 +187,8 @@
   <system systemId="http://maven.apache.org/xsd/archetype-1.0.0.xsd" uri="jar:file:/A:/eclipse/plugins/org.eclipse.m2e.model.edit_1.7.0.20160603-1933.jar!/xsd/archetype-1.0.0.xsd"/>
   <system systemId="http://maven.apache.org/xsd/archetype-catalog-1.0.0.xsd" uri="jar:file:/A:/eclipse/plugins/org.eclipse.m2e.model.edit_1.7.0.20160603-1933.jar!/xsd/archetype-catalog-1.0.0.xsd"/>
   <system systemId="http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" uri="jar:file:/A:/eclipse/plugins/org.eclipse.m2e.model.edit_1.7.0.20160603-1933.jar!/xsd/archetype-descriptor-1.0.0.xsd"/>
+  <public publicId="-//Hibernate/Hibernate Mapping DTD 3.0//EN" uri="file:/A:/eclipse/plugins/org.hibernate.eclipse.mapper_5.0.1.Final-v20160331-1852-B88/dtd/hibernate-mapping-3.0.dtd" webURL="http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"/>
+  <public publicId="-//Hibernate/Hibernate Configuration DTD 3.0//EN" uri="file:/A:/eclipse/plugins/org.hibernate.eclipse.mapper_5.0.1.Final-v20160331-1852-B88/dtd/hibernate-configuration-3.0.dtd" webURL="http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"/>
+  <public publicId="-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" uri="file:/A:/eclipse/plugins/org.hibernate.eclipse.mapper_5.0.1.Final-v20160331-1852-B88/dtd/hibernate-reverse-engineering-3.0.dtd"/>
+  <public publicId="-//Red Hat, Inc.//DTD Meta 1.0//EN" uri="file:/A:/eclipse/plugins/org.jboss.tools.common.model_3.7.1.Final-v20160408-2358-B112/schema/meta.dtd"/>
 </catalog>

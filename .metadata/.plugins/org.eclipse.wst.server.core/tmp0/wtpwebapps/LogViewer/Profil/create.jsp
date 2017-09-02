@@ -60,8 +60,8 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
 				                                   <% for(BaseModel g : liste){ 
 				                                   	Groupe i = (Groupe)g;
 				                                   %>
-			                                       <div class="radio radio-primary">
-			                                           <input type="radio" name="item.groupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(item.hasGroupe(i)) out.print("checked"); %>>
+			                                       <div class="checkbox checkbox-primary">
+			                                           <input type="checkbox" name="item.listeGroupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(item.hasGroupe(i)) out.print("checked"); %>>
 			                                           <label for="groupe<% out.print(i.getId()); %>"><% out.print(i.getNom()); %></label>
 			                                       </div>
 				                                   <% } %>
@@ -95,29 +95,6 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
                             </form>
                         </div>
                     </div>
-                </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="white-box">
-	                    	<p class="text-muted font-bold">Sélectionner une permission vaut la sélection de toutes les permissions subalternes.</p>
-	                    	<ul class="list-icons text-muted">
-	                    		<li> 00 - Connexion</li>
-	                    		<li> 10 - Création / Modification / Suppression Groupe</li>
-	                    		<li> 11 - Gestion de Groupe
-	                    			<ul>
-	                    				<li> 111 - Gestion d'utilisateurs de groupe</li>
-	                    				<li> 112 - Gestion d'agents de groupe</li>
-	                    				<li> 113 - Lecture et téléchargement des logs</li>
-	                    				<li> 114 - Gestion de profils du groupe</li>
-	                    			</ul>
-	                    		</li>
-	                    		<li> 12 - Création / Modification / Suppression Agent</li>
-	                    		<li> 13 - Création / Modification / Suppression Profil</li>
-	                    		<li> 14 - Création / Modification / Suppression Utilisateur</li>
-	                    	</ul>
-                        </div>
-                   	</div>
                 </div>
                 <!-- /.row -->
             </div>

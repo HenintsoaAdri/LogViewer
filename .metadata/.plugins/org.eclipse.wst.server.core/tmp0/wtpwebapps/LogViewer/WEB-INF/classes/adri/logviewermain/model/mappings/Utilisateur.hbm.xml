@@ -16,7 +16,7 @@
         <property name="password" column="passwordutilisateur" type="string"/>
         <property unique="true" name="email" column="emailutilisateur" type="string"/>
         <property name="poste" column="posteutilisateur" type="string"/>
-        <property name="superUtilisateur" column="issuperutilisateur" type="boolean"/>
+        <property name="superUtilisateur" column="issuperutilisateur" type="boolean" update="false"/>
         <property name="lastLogged" column="lastloggedutilisateur" type="timestamp"/>
         <many-to-one name="profil" class="adri.logviewermain.model.Profil" column="idprofil" lazy="false" not-null="false" fetch="select"/>
 	    <union-subclass name="adri.logviewermain.model.UtilisateurView" table="utilisateurview">

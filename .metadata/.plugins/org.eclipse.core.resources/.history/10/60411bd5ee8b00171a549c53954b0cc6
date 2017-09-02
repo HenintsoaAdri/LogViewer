@@ -1,0 +1,15 @@
+package adri.logviewermain.action;
+
+public class DetailAction extends BaseAction{
+	String detail;
+	
+	public getDetails()
+	
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+	
+}

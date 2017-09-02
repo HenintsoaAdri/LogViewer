@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="adri.logviewermain.model.Groupe" table="groupe">
+        <meta attribute="class-description">
+            This class contains the groupe detail.
+        </meta>
+        <id name="id" type="int" column="idgroupe">
+            <generator class="increment"/>
+        </id>
+        <property name="nom" column="nomgroupe" type="string"/>
+        <property name="description" column="descriptiongroupe" type="string" />
+        
+        <set name="listeProfil" table="profilgroupe" lazy="extra" fetch="select">
+	         <key>
+                <column name="idgroupe" not-null="true" />
+            </key>
+            <many-to-many entity-name="adri.logviewermain.model.Profil">
+                <column name="idprofil" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="listeAgent" table="agent_groupe" inverse="true" fetch="select">
+            <key>
+                <column name="idgroupe" not-null="true" />
+            </key>
+            <many-to-many entity-name="adri.logviewermain.model.Agent">
+                <column name="idagent" not-null="true" />
+            </many-to-many>
+        </set>
+	    <union-subclass name="adri.logviewermain.model.GroupeView" table="groupeview">
+	    	<property name="nombreAgent" column="nbagent" type="int" />
+	    	<property name="nombreProfil" column="nbprofil" type="int"/>
+	    </union-subclass>
+    </class>
+</hibernate-mapping>

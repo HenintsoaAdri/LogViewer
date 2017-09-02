@@ -1,7 +1,11 @@
-<%@page import="adri.logviewermain.model.Groupe"%>
+<%@page import="adri.logviewermain.model.BaseModelPagination"%>
+<%@page import="adri.logviewermain.model.BaseModel"%>
+<%@page import="adri.logviewermain.model.GroupeView"%>
 <%@ include file="../includes/header.jsp" %>
-<%@page import="adri.logviewermain.model.Agent"%>
-<% Agent item = (Agent)request.getAttribute("item"); %>
+<%@page import="adri.logviewermain.model.AgentView"%>
+<% AgentView item = (AgentView)request.getAttribute("item"); 
+BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination");
+%>
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -30,12 +34,14 @@
                 <div class="row">
                     <div class="col-md-12">
                     	<div class="white-box">
-                    		<h3 class="box-title">Agent #<% out.print(item.getId()); %></h3>
+                    		<h3 class="box-title"><i class="fa fa-gear"></i> Agent #<% out.print(item.getId()); %></h3>
 	                        <div class="form-horizontal">
 	                            <div class="form-body">
-	                            	<a href="${pageContext.request.contextPath}/Agent/edit/?item.id=<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"> <i class="fa fa-pencil"></i> Modifier</a>
+                        			<% if(user.isAllowed(PermissionType.CRUDAGENT)){ %>
+	                            	<a href="${pageContext.request.contextPath}/Agent/edit/<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"> <i class="fa fa-pencil"></i> Modifier</a>
+	                            	<% } %>
 	                                <p class="text-muted">D&eacute;tails de l'agent distant</p>
-	                                <hr class="m-t-0 m-b-40">
+	                                <hr class="m-t-0 m-b-20">
 	                                <div class="row">
 	                                    <div class="col-md-4">
 	                                        <div class="form-group">
@@ -91,19 +97,9 @@
 	                                            <div class="col-md-9">
 	                                                <p class="form-control-static"> <% out.print(item.getDateCreationString()); %> </p>
 	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <!--/span-->
-	                                </div>
-	                                <!--/row-->
-	                                <div class="row">
-	                                    <div class="col-md-4">
-	                                        <div class="form-group">
-	                                            <label class="control-label col-md-3">Groupe(s):</label>
+	                                            <label class="control-label col-md-3">par </label>
 	                                            <div class="col-md-9">
-	                                            	<% for(Groupe g : item.getListeGroupe()){ %>
-	                                                <p class="form-control-static"> <% out.print(g.getNom()); %> </p>
-	                                                <% } %>
+	                                                 <p class="form-control-static"><% out.print(item.getNomCreateur()); %></p>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -119,11 +115,29 @@
                 <div class="row">
                 	<div class="col-md-12">
                         <div class="white-box">
-                            <h3 class="box-title">Logs</h3>
+                            <h3 class="box-title"><i class="fa fa-gears"></i> Groupes</h3>
+                            <p class="text-muted">Groupes contenant l'agent</p>
+	                        <hr class="m-t-0 m-b-10">
+                            <% if(pagination == null || pagination.getListe() == null || pagination.getListe().isEmpty() ){ %>
+						    	<p class="text-danger">Cet agent n'est contenu dans aucun groupe</p>
+							<% }else{ %>
+	                            <ul class="list-icons">
+	                            <%	for(BaseModel g : pagination.getListe()){ 
+	                            	GroupeView i = (GroupeView)g;
+	                            %>
+	                              <li><a href="${pageContext.request.contextPath}/Groupe/<% out.print(i.getId()); %>"><i class="fa fa-chevron-right text-success"></i>
+	                              		<% out.print(i.getNom()); %>
+	                              	  </a>
+				                      <p class="text-muted m-l-40"><% out.print(i.getDescription()); %></p>
+	                              </li>
+	                            <% } %>
+	                            </ul>
+                           <% } %>
                         </div>
                 	</div>
                 </div>
                 <!--./row-->
+                <% if(user.isAllowed(PermissionType.CRUDAGENT)){ %>
                 <div class="row">
                     <div class="col-xs-12">
                         <a data-toggle="modal" href="#delete" data-item="Agent" data-id="<% out.print(item.getId()); %>" class="text-danger pull-right confirmDelete">Supprimer l'agent</a>
@@ -134,6 +148,7 @@
 			    <div class="modal fade" id="delete" role="dialog">
 			    </div>
                 <!-- /.Modal -->
+                <% } %>
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>

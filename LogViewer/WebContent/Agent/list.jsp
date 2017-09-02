@@ -105,15 +105,15 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="white-box">
-                        <% if(user.isGenerallyAllowed("Agent")){ %>
+                        <% if(user.isAllowed(PermissionType.CRUDAGENT)){ %>
                         <a href="${pageContext.request.contextPath}/Agent/new" class="btn btn-info pull-right m-l-20 waves-effect waves-light"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>Nouveau</a>
                         <% } %>
                             <h3 class="box-title">Liste</h3>
                             <p class="text-muted">Liste des agents distants enregistr&eacute;s</p>
-                            <div class="table-responsive">
                             <%  if(pagination == null || pagination.getListe() == null || pagination.getListe().isEmpty()){%>
                     		<p class="text-danger">Aucun agent enregistré</p>
                     		<%  }else{ %>
+                            <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -122,6 +122,7 @@
                                             <th>Adresse</th>
                                             <th>Port</th>
                                             <th>Répertoire</th>
+                                            <th>Syntaxe</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -137,19 +138,21 @@
                                             <td><% out.print(i.getSyntaxe()); %></td>
                                             <td>
                                             	<a href="" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-plug fa-fw" aria-hidden="true"></i>Connexion</a>
-                                            	<a href="${pageContext.request.contextPath}/Agent/?item.id=<% out.print(i.getId()); %>" class="btn btn-info m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir l'agent</a>
+                                            	<a href="${pageContext.request.contextPath}/Agent/<% out.print(i.getId()); %>" class="btn btn-primary m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
-                                        <% }
-                                    	} %>
+                                        <% } %>
                                     </tbody>
                                 </table>
                             </div>
-                            <ul class="pagination">
-                            <% for(int i=0; i+1<pagination.getNombrePage() &&i<pagination.getNombrePage(); i++){ %>
-							  <li><a href="?page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
-							<% } %>
-							</ul>
+                           <% if(pagination.getNombrePage()>1){%>
+	                            <ul class="pagination">
+	                            <% for(int i=0; i<pagination.getNombrePage(); i++){ %>
+								  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="?page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
+								<% } %>
+								</ul>
+						  <%  }
+                            } %>
                         </div>
                     </div>
                 </div>

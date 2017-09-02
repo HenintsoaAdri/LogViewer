@@ -32,9 +32,9 @@
                             <h3 class="box-title">
                             	Groupe #<% out.print(item.getId()); %>
                             </h3>
-                            <p class="text-muted">Modifier un groupe d'utilisateur</p>
+                            <p class="text-muted">Modifier un groupe d'agent</p>
                             <form action="${pageContext.request.contextPath}/Groupe/update" class="form-horizontal form-material" method="post">
-                            	<input name="item.id" value="<% out.print(item.getId()); %>" />
+                            	<input type="hidden" name="item.id" value="<% out.print(item.getId()); %>" />
                                 <div class="form-body">
                                     <hr class="m-t-0 m-b-40">
                                     <div class="row">

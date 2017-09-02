@@ -13,6 +13,9 @@ import adri.logviewermain.model.PermissionType;
 import adri.logviewermain.model.Profil;
 import adri.logviewermain.model.Utilisateur;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -83,11 +86,18 @@ public class HibernateDao {
 	            session.close();
 	    }
 	}
-	public void findById(BaseModel model) throws Exception{
+	public void findById(BaseModel model, String... listeField) throws Exception{
         Session session = null;
         try{
             session = getSessionFactory().openSession();
             session.load(model,model.getId());
+            Method getter = null;
+            if(listeField != null){
+                for(String f : listeField){
+                    getter = model.getClass().getMethod("get" + f);
+                    System.out.println(getter.invoke(model));
+                }
+            }
         }catch(ObjectNotFoundException e){
         	throw new Exception("Informations introuvables");
         }catch (Exception ex){
@@ -140,7 +150,7 @@ public class HibernateDao {
 		Session session = null;
 	    try{
 	    	session = getSessionFactory().openSession();
-	    	String fromClause = "FROM " + many.getName() + " WHERE id" + one.getClass().getSimpleName() + " = :one";
+	    	String fromClause = "FROM " + many.getName() + " WHERE id" + one.instance() + " = :one";
 	    	
 	    	return session.createQuery(fromClause, many)
             		.setParameter("one", one.getId())
@@ -157,7 +167,7 @@ public class HibernateDao {
 	    try{
 	    	session = getSessionFactory().openSession();
 	    	
-	    	String fromClause = "FROM " + pagination.getClasse().getName() + " WHERE id" + one.getClass().getSimpleName() + " = :one";
+	    	String fromClause = "FROM " + pagination.getClasse().getName() + " WHERE id" + one.instance() + " = :one";
 	    	
 	    	pagination.setListe(session.createQuery(fromClause , pagination.getClasse())
             		.setParameter("one", one.getId())
@@ -175,6 +185,93 @@ public class HibernateDao {
 	            session.close();
 	    }
     }
+    public void findAllByBaseModel(BaseModelPagination pagination, BaseModel one, String field)throws Exception{
+    	Session session = null;
+	    try{
+	    	session = getSessionFactory().openSession();
+	    	
+	    	String fromClause = "FROM " + pagination.getClasse().getSimpleName() + " m JOIN m."
+	    			+ field + " o"
+	    			+ " WHERE o.id = :one";
+	    	
+	    	pagination.setListe(session.createQuery("SELECT m " + fromClause , pagination.getClasse())
+            		.setParameter("one", one.getId())
+	        		.setFirstResult(pagination.getFirstResult())
+	        		.setMaxResults(pagination.getMaxResult())
+	        		.list());
+	    	long total = (long)session.createQuery("SELECT COUNT(m.id) " + fromClause)
+            			.setParameter("one", one.getId())
+	    				.uniqueResult();
+	    	pagination.setTotalResult(total);
+	    }catch (Exception ex){
+	        throw ex;
+	    }finally {
+	        if(session!=null)
+	            session.close();
+        }
+    }
+	public List<? extends BaseModel> findAllByBaseModel(Class<? extends BaseModel> many, BaseModel one, String field) throws Exception {
+		Session session = null;
+	    try{
+	    	session = getSessionFactory().openSession();
+	    	
+	    	String fromClause = "FROM " + many.getSimpleName() + " m JOIN m."
+	    			+ field + " o"
+	    			+ " WHERE o.id = :one";
+	    	
+	    	return session.createQuery("SELECT m " + fromClause , many)
+            		.setParameter("one", one.getId())
+	        		.list();
+	    }catch (Exception ex){
+	        throw ex;
+	    }finally {
+	        if(session!=null)
+	            session.close();
+        }
+	}
+
+    public void findAllByBaseModel(BaseModelPagination pagination, Collection<? extends BaseModel> one, String field)throws Exception{
+    	Session session = null;
+	    try{
+	    	session = getSessionFactory().openSession();
+	    	String fromClause = "FROM " + pagination.getClasse().getSimpleName()
+	    			+ " m JOIN m."
+	    			+ field + " o WHERE o IN :one";
+	    	pagination.setListe(session.createQuery("SELECT m " + fromClause , pagination.getClasse())
+            		.setParameterList("one", one)
+	        		.setFirstResult(pagination.getFirstResult())
+	        		.setMaxResults(pagination.getMaxResult())
+	        		.list());
+	    	long total = (long)session.createQuery("SELECT COUNT(m.id) " + fromClause)
+            			.setParameterList("one", one)
+	    				.uniqueResult();
+	    	pagination.setTotalResult(total);
+	    }catch (Exception ex){
+	        throw ex;
+	    }finally {
+	        if(session!=null)
+	            session.close();
+        }
+    }
+	public List<? extends BaseModel> findAllByBaseModel(Class<? extends BaseModel> many, Collection<? extends BaseModel> one, String field)throws Exception {
+		Session session = null;
+	    try{
+	    	session = getSessionFactory().openSession();
+	    	
+	    	String fromClause = "FROM " + many.getSimpleName()
+	    			+ " m JOIN m."
+	    			+ field + " o WHERE o IN :one";
+	    	
+	    	return session.createQuery("SELECT m " + fromClause , many)
+            		.setParameterList("one", one)
+	        		.list();
+	    }catch (Exception e){
+	        throw e;
+	    }finally {
+	        if(session!=null)
+	            session.close();
+        }
+	}
     public List<? extends BaseModel> search(BaseModel model) throws Exception{
     	Session session = null;
         try{
@@ -210,7 +307,6 @@ public class HibernateDao {
         }catch (Exception ex){
             if(tr!=null)
             	tr.rollback();
-            ex.printStackTrace();
             throw ex;
         }finally {
             if(session!=null)

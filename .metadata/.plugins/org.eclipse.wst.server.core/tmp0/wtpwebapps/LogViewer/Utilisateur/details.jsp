@@ -1,15 +1,21 @@
+<%@page import="adri.logviewermain.model.BaseModelPagination"%>
+<%@page import="adri.logviewermain.model.GroupeView"%>
+<%@page import="adri.logviewermain.model.BaseModel"%>
 <%@page import="adri.logviewermain.model.Utilisateur"%>
 <%@page import="adri.logviewermain.model.PermissionType"%>
 <%@ include file="../includes/header.jsp" %>
-<% Utilisateur item = (Utilisateur)request.getAttribute("item"); %>
+<% Utilisateur item = (Utilisateur)request.getAttribute("item"); 
+	BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination");
+%>
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Profil</h4> </div>
+                        <h4 class="page-title">Utilisateur</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
                             <li><a href="${pageContext.request.contextPath}">Log Viewer</a></li>
-                            <li class="active">Mes informations</li>
+                            <li><a href="${pageContext.request.contextPath}/Utilisateur">Utilisateur</a></li>
+                            <li class="active">D&eacute;tails</li>
                         </ol>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -31,7 +37,7 @@
                     		<h3 class="box-title"> Utilisateurs</h3>
 	                        <div class="form-horizontal">
 	                            <div class="form-body">
-	                            	<a href="${pageContext.request.contextPath}/Utilisateur/edit/?item.id=<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"> <i class="fa fa-pencil"></i> Modifier</a>
+	                            	<a href="${pageContext.request.contextPath}/Utilisateur/edit/<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"> <i class="fa fa-pencil"></i> Modifier</a>
 	                                <p class="text-muted">D&eacute;tails de l'utilisateur</p>
 	                                <hr class="m-t-0 m-b-40">
 	                                <div class="row">
@@ -93,9 +99,25 @@
 	                        <div class="form-horizontal">
 	                            <div class="form-body">
 	                                <p class="text-muted">Liste des groupes gérés par l'utilisateur</p>
-	                                <hr class="m-t-0 m-b-40">
+	                                <hr class="m-t-0 m-b-20">
 	                                <div class="row">
 	                                    <div class="col-md-12">
+			                            <% if(pagination == null || pagination.getListe() == null || pagination.getListe().isEmpty() ){ %>
+									    	<p class="text-danger">Cet utilisateur ne gère aucun groupe</p>
+	                                    <% }else{ %>
+				                            <ul class="list-icons list-group">
+				                            <%	for(BaseModel g : pagination.getListe()){ 
+				                            	GroupeView i = (GroupeView)g;
+				                            %>
+				                              <li class="p-0"><a class="font-normal" href="${pageContext.request.contextPath}/Groupe/<% out.print(i.getId()); %>"><i class="fa fa-chevron-right text-success"></i>
+				                              		<% out.print(i.getNom()); %>
+				                              	  </a>
+				                              	  <p class="text-muted m-l-40"><% out.print(i.getDescription()); %></p>
+				                              	  <p><span class="badge badge-danger m-l-40"><% out.print(i.getNombreAgent()); %></span> Agent(s)</p>
+				                              </li>
+				                            <% } %>
+				                            </ul>
+			                           <% } %>
 	                                    </div>
 	                                    <!--/span-->
 	                                </div>
@@ -122,10 +144,10 @@
 	                                                <p class="form-control-static"> <% out.print(item.getProfil().getNom()); %> </p>
 	                                            </div>
 	                                        </div>
-		                                    <div class="col-md-12">
-		                                        <blockquote>
+		                                    <div class="col-md-12 form-group">
+		                                        <p class="col-md-9 col-md-offset-3">
 		                                        	<% out.print(item.getProfil().getDescription());%>
-		                                        </blockquote>
+		                                        </p>
 		                                    </div>
 	                                    </div>
 	                                    <!--/span-->
@@ -151,7 +173,8 @@
                     </div>
                 </div>
                 <!--./row-->
-                <% } %>
+                <% }
+                if(user.isAllowed(PermissionType.CRUDUTILISATEUR)){ %>
                 <div class="row">
                     <div class="col-xs-12">
                         <a data-toggle="modal" href="#delete" data-item="Utilisateur" data-id="<% out.print(item.getId()); %>" class="text-danger pull-right confirmDelete">Supprimer l'utilisateur</a>
@@ -162,6 +185,7 @@
 			    <div class="modal fade" id="delete" role="dialog">
 			    </div>
                 <!-- /.Modal -->
+                <% } %>
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>

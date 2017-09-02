@@ -152,4 +152,15 @@ public class StringUtil {
 	public String getDateTimeString(Date date){
 		return DateFormat.getDateTimeInstance().format(date);
 	}
+	public String getDateTimeString(Date date, String datePattern){
+		if(!datePattern.toLowerCase().contains("d")){
+			return getTimeString(date);
+		}else if(!datePattern.toLowerCase().contains("h")){
+			return getDateString(date);
+		}
+		return DateFormat.getDateTimeInstance().format(date);
+	}
+	public String getTimeString(Date date){
+		return DateFormat.getTimeInstance().format(date);
+	}
 }

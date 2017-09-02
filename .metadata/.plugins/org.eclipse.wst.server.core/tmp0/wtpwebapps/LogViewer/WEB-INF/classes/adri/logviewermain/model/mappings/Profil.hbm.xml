@@ -14,13 +14,13 @@
         <property name="description" column="descriptionprofil" type="string"/>
         <property name="superProfil" column="issuperprofil" type="boolean"/>
          
-        <set name="listeGroupe" table="profilgroupe" cascade="all" fetch="select" inverse="true">
-	         <key column="idprofil" not-null="true"/>
+        <set name="listeGroupe" table="profilgroupe" fetch="select">
+	        <key column="idprofil" not-null="true"/>
             <many-to-many entity-name="adri.logviewermain.model.Groupe">
                 <column name="idgroupe" not-null="true" />
             </many-to-many>
         </set>
-        <set name="listePermission" cascade="all" fetch="select" lazy="false">
+        <set name="listePermission" cascade="all" fetch="select" lazy="false" order-by="permission">
 	         <key column="idprofil" not-null="true"/>
 	         <one-to-many class="adri.logviewermain.model.Permission"/>
         </set>

@@ -1,0 +1,20 @@
+package adri.logviewermain.model;
+
+public class AgentView extends Agent {
+	private Integer idGroupe;
+
+	public Integer getIdGroupe() {
+		return idGroupe;
+	}
+	public void setIdGroupe(Integer idGroupe){
+		try {
+			setIdGroupe(idGroupe.intValue());
+		} catch (NullPointerException e) {
+			setIdGroupe(0);
+		}
+	}
+	@Override
+	public String instance() {
+		return getClass().getSuperclass().getSimpleName();
+	}
+}

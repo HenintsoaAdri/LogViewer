@@ -1,6 +1,10 @@
-<%@page import="adri.logviewermain.model.Groupe"%>
+<%@page import="adri.logviewermain.model.GroupeView"%>
+<%@page import="adri.logviewermain.model.Agent"%>
+<%@page import="adri.logviewermain.model.BaseModel"%>
+<%@page import="adri.logviewermain.model.BaseModelPagination"%>
+<%  BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination");
+	GroupeView item = (GroupeView)request.getAttribute("item"); %>
 <%@ include file="../includes/header.jsp" %>
-<% Groupe item = (Groupe)request.getAttribute("item"); %>
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -31,7 +35,9 @@
                     		<h3 class="box-title">Groupe #<% out.print(item.getId()); %></h3>
 	                        <div class="form-horizontal">
 	                            <div class="form-body">
-	                            	<a href="${pageContext.request.contextPath}/Groupe/edit/?item.id=<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"> <i class="fa fa-pencil"></i> Modifier</a>
+                        			<% if(user.isAllowed(PermissionType.CRUDGROUPE)){ %>
+	                            	<a href="${pageContext.request.contextPath}/Groupe/edit/<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"> <i class="fa fa-pencil"></i> Modifier</a>
+	                            	<% } %>
 	                                <p class="text-muted">D&eacute;tails du groupe d'utilisateurs</p>
 	                                <hr class="m-t-0 m-b-40">
 	                                <div class="row">
@@ -45,9 +51,9 @@
 	                                    </div>
 	                                    <!--/span-->
 	                                    <div class="col-md-6">
-	                                        <blockquote>
-	                                        	<% out.print(item.getDescription()); %> 
-	                                        </blockquote>
+	                                    	<p>
+	                                        	<% out.print(item.getDescription()); %>
+	                                    	</p> 
 	                                    </div>
 	                                    <!--/span-->
 	                                </div>
@@ -63,24 +69,69 @@
                         <div class="white-box">
                         	<!-- tab -->
                             <ul class="nav customtab nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#profil" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="fa fa-shield fa-fw"></i></span><span class="hidden-xs"> Profil</span></a></li>
-                                <li role="presentation" class=""><a href="#utilisateur" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-address-card fa-fw"></i></span> <span class="hidden-xs">Utilisateurs</span></a></li>
-                                <li role="presentation" class=""><a href="#agent" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-gears fa-fw"></i></span> <span class="hidden-xs">Agents distants</span></a></li>
+                                <li role="presentation" class="active"><a href="#Agent" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-gear fa-fw"></i></span> <span class="hidden-xs">Agents (<% out.print(item.getNombreAgent()); %>)</span></a></li>
+                                <li role="presentation" class=""><a href="#Profil" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-gears fa-fw"></i></span> <span class="hidden-xs">Profil associés (<% out.print(item.getNombreProfil()); %>)</span></a></li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade active in" id="profil">
+                                <div role="tabpanel" class="tab-pane fade in active" id="Agent">
+									<a href="${pageContext.request.contextPath}/Agent/new?item.listeGroupe.id=<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>Nouveau</a>
+									                                    
+									<% if(pagination == null || pagination.getListe() == null || pagination.getListe().isEmpty() ){ %>
+									    	<p class="text-danger">Aucun agent dans ce groupe</p>
+									<% }else{ %>
+									<div class="col-md-12">
+									    <div class="table-responsive">
+									        <table class="table">
+									           <thead>
+									              <tr>
+									                  <th>#</th>
+									                  <th>Nom</th>
+									                  <th>Adresse</th>
+									                  <th>Port</th>
+									                  <th>Répertoire</th>
+									                  <th>Syntaxe</th>
+									                  <th></th>
+									              </tr>
+									            </thead>
+									            <tbody>	
+											  	<%	for(BaseModel base : pagination.getListe()){ 
+											  		Agent i = (Agent)base; %>	  		
+											      <tr>
+											          <td><% out.print(i.getId()); %></td>
+											          <td><% out.print(i.getNom()); %></td>
+											          <td><% out.print(i.getAdresse()); %></td>
+											          <td><% out.print(i.getPort()); %></td>
+											          <td><% out.print(i.getRepertoire()); %></td>
+											          <td><% out.print(i.getSyntaxe()); %></td>
+											          <td>
+											          	<a href="" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-plug fa-fw" aria-hidden="true"></i>Connexion</a>
+											          	<a href="${pageContext.request.contextPath}/Agent/<% out.print(i.getId()); %>" class="btn btn-primary m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir l'agent</a>
+											          </td>
+											      </tr>
+											        <% } %>
+									             </tbody>
+									         </table>
+									     </div>
+									</div>
+ 									<div class="clearfix"></div>
+	                           		<% if(pagination.getNombrePage()>1){%>
+			                            <ul class="pagination">
+			                            <% for(int i=0; i<pagination.getNombrePage(); i++){ %>
+										  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="?page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
+										<% } %>
+										</ul>
+								  <%  }
+		                            } %>
+								</div>
+                                <div role="tabpanel" class="tab-pane fade" id="Profil">
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="utilisateur">
-                                </div>
-                                <div role="tabpanel" class="tab-pane fade" id="agent">
-                                </div>
-                            </div>
-                            <!-- /.tab -->
+                        	</div>
                         </div>
                 	</div>
                 </div>
                 <!--./row-->
+                <% if(user.isAllowed(PermissionType.CRUDGROUPE)){ %>
                 <div class="row">
                     <div class="col-xs-12">
                         <a data-toggle="modal" href="#delete" data-item="Groupe" data-id="<% out.print(item.getId()); %>" class="text-danger pull-right confirmDelete">Supprimer le groupe</a>
@@ -91,10 +142,14 @@
 			    <div class="modal fade" id="delete" role="dialog">
 			    </div>
                 <!-- /.Modal -->
+                <% } %>
             </div>
             <!-- /.container-fluid -->
-<script type="text/javascript">
-	var groupe = <% out.print(item.getId()); %>;
-</script>
 <%@ include file="../includes/footer.jsp" %>
-<script src="${pageContext.request.contextPath}/js/groupeFunction.js"></script>
+<script type="text/javascript">
+var item = "Groupe";
+var detail = "Profil" ;
+var id = <% out.print(item.getId());%> ;
+</script>
+<script src="${pageContext.request.contextPath}/js/detailFunction.js"></script>
+<script src="${pageContext.request.contextPath}/js/function.js"></script>

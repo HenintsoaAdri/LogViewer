@@ -17,7 +17,7 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                            <a class="btn btn-danger" href="${pageContext.request.contextPath}/<% out.print(item.instance()); %>/delete/?item.id=<% out.print(item.getId()); %>">Supprimer</a>
+                            <a class="btn btn-danger" href="${pageContext.request.contextPath}/<% out.print(item.instance()); %>/delete/<% out.print(item.getId()); %>">Supprimer</a>
                         </div>
                     </div>
                 </div>

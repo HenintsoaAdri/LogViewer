@@ -1,7 +1,0 @@
-package adri.logviewer.agent.server;
-
-import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
-
-public class LogFileDecoder extends CumulativeProtocolDecoder{
-
-}

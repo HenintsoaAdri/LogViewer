@@ -1,5 +1,6 @@
 package adri.logviewermain.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import adri.logviewermain.dao.HibernateDao;
@@ -19,11 +20,20 @@ public class BaseService {
 	public void setDao(HibernateDao dao) {
 		this.dao = dao;
 	}
-	
 	public void findById(BaseModel model) throws Exception{
 		try{
 			if(model != null && model.getId()>0){
 				this.getDao().findById(model);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new Exception("Informations non retrouvées. " + e.getMessage());
+		}
+	}
+	public void findById(BaseModel model, String... field) throws Exception{
+		try{
+			if(model != null && model.getId()>0){
+				this.getDao().findById(model, field);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -90,7 +100,40 @@ public class BaseService {
 		try {
 			this.getDao().findAllByBaseModel(pagination, one);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new Exception("Informations non retrouvées. /n" + e.getMessage());
+		}
+	}
+	public List<? extends BaseModel> findAllByBaseModel(Class<? extends BaseModel> many, BaseModel one, String field)throws Exception{
+		try {
+			return this.getDao().findAllByBaseModel(many, one, field);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+		}
+	}
+	public void findAllByBaseModel(BaseModelPagination pagination, BaseModel one, String field)throws Exception{
+		try {
+			this.getDao().findAllByBaseModel(pagination, one, field);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+		}
+	}
+	public void findAllByBaseModel(BaseModelPagination pagination, Collection<? extends BaseModel> one, String field)throws Exception{
+		try {
+			this.getDao().findAllByBaseModel(pagination, one, field);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+		}
+	}
+	public List<? extends BaseModel> findAllByBaseModel(Class<? extends BaseModel> many, Collection<? extends BaseModel> one, String field) throws Exception {
+		try {
+			return this.getDao().findAllByBaseModel(many, one, field);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
 		}
 	}
 }

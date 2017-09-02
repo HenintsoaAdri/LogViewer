@@ -16,21 +16,31 @@ public class Fichier {
 	private File fichier;
 	private ArrayList<Log> listeLog;
 	private String pattern = "";
+	private String mainPattern = "";
 	private int lastLine;
 	
+	public Fichier(String pattern, File chemin) throws Exception {
+		this.setPattern(pattern);
+		this.setFichier(chemin);
+	}
 	public Fichier(String pattern, String chemin) throws Exception {
 		this.setPattern(pattern);
 		this.setFichier(chemin);
 	}
+	public Fichier(String pattern, File chemin,int line, int maxLine) throws Exception {
+		this.setPattern(pattern);
+		this.setFichier(chemin, line, maxLine);
+	}
+
 	public Fichier(String pattern, String chemin,int line, int maxLine) throws Exception {
 		this.setPattern(pattern);
 		this.setFichier(chemin, line, maxLine);
 	}
-	
 	public String getPattern() {
 		return pattern;
 	}
 	private void setPattern(String pattern) {
+		setMainPattern(pattern);
 		Pattern datePattern = Pattern.compile("(.*)(TIMESTAMP)\\{(.*)\\}(.*)");
 		Matcher m = datePattern.matcher(pattern);
 		if(m.find()){
@@ -42,6 +52,12 @@ public class Fichier {
 		this.pattern = pattern + "$";
 	}
 
+	public String getMainPattern() {
+		return mainPattern;
+	}
+	public void setMainPattern(String mainPattern) {
+		this.mainPattern = mainPattern;
+	}
 	public String getDatePattern() {
 		return datePattern;
 	}
@@ -55,30 +71,29 @@ public class Fichier {
 		return fichier;
 	}
 	public void setFichier(File fichier) throws Exception {
-		this.fichier = fichier;
-		parseFile();
+		if(!fichier.exists() || fichier.isDirectory()){
+			throw new InputException("Fichier invalide");
+		}
+		else if(fichier.isFile() && fichier.getName().endsWith(".log")){
+			this.fichier = fichier;
+			parseFile();
+		}
 	}
 	public void setFichier(File fichier, int line, int maxLine) throws Exception {
-		this.fichier = fichier;
-		parseFile(line, maxLine);
+
+		if(!fichier.exists() || fichier.isDirectory()){
+			throw new InputException("Fichier invalide");
+		}
+		else if(fichier.isFile() && fichier.getName().endsWith(".log")){
+			this.fichier = fichier;
+			parseFile(line, maxLine);
+		}
 	}
 	public void setFichier(String chemin) throws Exception  {
-		File file = new File(chemin);
-		if(!file.exists() || file.isDirectory()){
-			throw new InputException("Fichier invalide");
-		}
-		else if(file.isFile() && file.getName().endsWith(".log")){
-			setFichier(file);
-		}
+		setFichier(new File(chemin));
 	}
 	public void setFichier(String chemin, int line, int maxLine) throws Exception  {
-		File file = new File(chemin);
-		if(!file.exists() || file.isDirectory()){
-			throw new InputException("Fichier invalide");
-		}
-		else if(file.isFile() && file.getName().endsWith(".log")){
-			setFichier(file, line, maxLine);
-		}
+		setFichier(new File(chemin), line, maxLine);
 	}
 	
 	public ArrayList<Log> getListeLog() {
@@ -116,7 +131,7 @@ public class Fichier {
 				try{
 					Matcher m = pattern.matcher(line.trim());
 					if(m.matches()){
-						addLog(new Log(m, this.getDatePattern()));
+						addLog(new Log(this, m));
 					}
 					else{
 						getListeLog().get(getListeLog().size()-1).addDetails(line);
@@ -153,7 +168,7 @@ public class Fichier {
 				try{
 					Matcher m = pattern.matcher(line.trim());
 					if(m.matches()){
-						addLog(new Log(m, this.getDatePattern()));
+						addLog(new Log(this, m));
 						i++;
 					}
 					else{

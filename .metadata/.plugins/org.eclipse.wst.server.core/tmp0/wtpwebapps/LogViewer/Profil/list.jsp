@@ -88,16 +88,16 @@
                         <a href="${pageContext.request.contextPath}/Profil/new" class="btn btn-info pull-right m-l-20 waves-effect waves-light"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>Nouveau</a>
                             <h3 class="box-title">Liste</h3>
                             <p class="text-muted">Liste des groupes enregistr&eacute;s</p>
-                            <div class="table-responsive">
                             <%  if(pagination == null || pagination.getListe() == null ){%>
                     		<p class="text-danger">Aucun profil enregistré</p>
                     		<%  }else{ %>
+                            <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Nom</th>
-                                            <th>Permission</th>
+                                            <th>Permission(s) <a href="#" id="listePermission" >*</a></th>
                                             <th>Nombre d'utilisateur</th>
                                             <th>Nombre de groupe</th>
                                             <th></th>
@@ -113,18 +113,20 @@
                                             <td><% out.print(i.getListePermissionString()); %></td>
                                             <td><% out.print(i.getNombreUtilisateur()); %></td>
                                             <td><% out.print(i.getNombreGroupe()); %></td>
-                                            <td><a href="${pageContext.request.contextPath}/Profil/?item.id=<% out.print(i.getId()); %>" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir le profil</a></td>
+                                            <td><a href="${pageContext.request.contextPath}/Profil/<% out.print(i.getId()); %>" class="btn btn-primary m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir le profil</a></td>
                                         </tr>
                                         <% } %>
                                     </tbody>
                                 </table>
-                                <% } %>
                             </div>
-                            <ul class="pagination">
-                            <% for(int i=0; i<pagination.getNombrePage(); i++){ %>
-							  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="?page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
+						<% if(pagination.getNombrePage()>1){%>
+					        <ul class="pagination">
+					        <% for(int i=0; i<pagination.getNombrePage(); i++){ %>
+							  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="?item.id=<% out.print(item.getId()); %>&page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
 							<% } %>
 							</ul>
+					  <%  }
+						} %>
                         </div>
                     </div>
                 </div>
@@ -132,3 +134,8 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+<script>
+$(document).ready(function(){
+    $('#listePermission').popover({title: "Liste des permissions", content: "<ol start='0'><li>Connexion</li><li>Cr&eacute;er / Modifier / Supprimer les Profil et Utilisateur</li><li>Lecture et t&eacute;l&eacute;chargement des fichiers logs</li><li>Cr&eacute;er / Modifier / Supprimer les Groupes d'agents</li><li>Cr&eacute;er / Modifier / Supprimer les Agents</li></ol>", html: true, trigger: "hover"}); 
+});
+</script>

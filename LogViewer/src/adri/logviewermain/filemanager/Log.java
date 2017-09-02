@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 
+import adri.logviewermain.util.StringUtil;
+
 public class Log {
 	private Date date;
 	private String classe = "";
@@ -13,9 +15,11 @@ public class Log {
 	private String priority = "";
 	private String thread = "";
 	private String details = "";
+	private Fichier fichier;
 	
-	public Log(Matcher m, String datePattern) throws Exception{
-		setDate(m,datePattern);
+	public Log(Fichier fichier, Matcher m) throws Exception{
+		setFichier(fichier);
+		setDate(m,fichier.getDatePattern());
 		setClasse(m);
 		setMethod(m);
 		setPriority(m);
@@ -27,7 +31,7 @@ public class Log {
 	}
 	public String getDateString() {
 		try {
-			return getDate().toString();
+			return StringUtil.getInstance().getDateTimeString(getDate(), fichier.getDatePattern());
 		} catch (NullPointerException e) {
 			return "";
 		}
@@ -134,6 +138,14 @@ public class Log {
 			this.details += details;
 		}
 	}
+	
+	public Fichier getFichier() {
+		return fichier;
+	}
+	public void setFichier(Fichier fichier) {
+		this.fichier = fichier;
+	}
+	
 	@Override
 	public String toString() {
 		return "[ date : "

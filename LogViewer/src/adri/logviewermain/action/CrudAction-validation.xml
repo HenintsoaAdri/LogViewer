@@ -7,10 +7,4 @@
           <message>Un nom est requis.</message>
       </field-validator>
   </field>
-         
-    <field name="item">
-        <field-validator type="visitor">
-            <message/>
-        </field-validator>
-    </field>
 </validators>

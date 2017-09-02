@@ -47,32 +47,6 @@
 											</div>
 		                                </div>
 		                                <div class="form-group">
-		                                    <label class="col-md-12">Poste</label>
-		                                    <div class="col-md-12">
-		                                        <input name="item.poste" value="<% out.print(item.getPoste()); %>" type="text" placeholder="Poste" class="form-control form-control-line">
-		                                    </div>
-		                                </div>
-		                                <div class="form-group">
-		                                    <label class="col-md-12">Email</label>
-		                                    <div class="col-md-12">
-		                                        <input name="item.email" value="<% out.print(item.getEmail()); %>" type="email" class="form-control form-control-line">
-		                                    </div>
-		                                </div>
-		                                <div class="form-group">
-		                                    <label class="col-md-12">Mot de passe</label>
-		                                    <div class="col-md-12">
-		                                        <input name="item.password" type="password" placeholder="Mot de passe" class="form-control form-control-line">
-		                                    </div>
-		                                </div>
-		                                <div class="form-group">
-		                                    <label class="col-md-12">Confirmer votre mot de passe</label>
-		                                    <div class="col-md-12">
-		                                        <input name="item.confirm" type="password" placeholder="Mot de passe" class="form-control form-control-line">
-		                                    </div>
-		                                </div>
-	                            	</div>
-	                            	<div class="col-md-6">
-		                                <div class="form-group">
 		                                    <label class="col-md-12">Pr&eacute;nom</label>
 		                                    <div class="col-md-12">
 		                                        <input name="item.prenom" value="<% out.print(item.getPrenom()); %>" type="text" placeholder="Prénom" class="form-control form-control-line">
@@ -95,12 +69,43 @@
                                                 </label>
                                             </div>
                                         </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Poste</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.poste" value="<% out.print(item.getPoste()); %>" type="text" placeholder="Poste" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+	                            	</div>
+	                            	<div class="col-md-6">
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Email</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.email" value="<% out.print(item.getEmail()); %>" type="email" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Mot de passe</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.password" type="password" placeholder="Mot de passe" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="col-md-12">Confirmer votre mot de passe</label>
+		                                    <div class="col-md-12">
+		                                        <input name="item.confirm" type="password" placeholder="Mot de passe" class="form-control form-control-line">
+		                                    </div>
+		                                </div>
 		                                <div class="form-group" id="profil">
 		                                    <label class="col-sm-12">Profil</label>
 		                                    <div class="col-sm-12">
 		                                    	<input type="hidden" id="item.profil.id" value="<% if(item.getProfil() != null) out.print(item.getProfil().getId()); %>">
 		                                        <select id="profilSelect" name="item.profil.id" class="form-control form-control-line">
-		                                    		
+		                                        <option disabled>Veuillez sélectionner un profil</option>
+		                                    		<% for(BaseModel p : liste){ 
+		                                    			Profil i = (Profil)p;
+		                                    		%>
+		                                    		<option value="<% out.print(i.getId()); %>" <% if(i.equals(item.getProfil()))out.print("selected"); %>><% out.print(i.getNom()); %></option>
+		                                    		<% } %>
 		                                        </select>
 		                                    </div>
 		                                </div>
@@ -118,4 +123,3 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
-<script src="${pageContext.request.contextPath}/js/userFunction.js"></script>

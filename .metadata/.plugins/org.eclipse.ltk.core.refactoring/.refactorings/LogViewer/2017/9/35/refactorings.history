@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;NotAllowed.jsp&apos; to &apos;includes&apos;&#x0D;&#x0A;- Original project: &apos;LogViewer&apos;&#x0D;&#x0A;- Destination element: &apos;includes&apos;&#x0D;&#x0A;- Original element: &apos;NotAllowed.jsp&apos;" description="Copy file" element1="WebContent/includes/NotAllowed.jsp" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1504256474276" target="/LogViewer/WebContent/includes" units="0" version="1.0"/>
+</session>

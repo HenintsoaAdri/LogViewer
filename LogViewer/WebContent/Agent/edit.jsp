@@ -66,12 +66,39 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
 		                                        <input name="item.repertoire" value="<% out.print(item.getRepertoire()); %>" type="text" placeholder="Chemin du répertoire des fichiers .log" class="form-control form-control-line">
 		                                    </div>
 		                                </div>
+		                                <%  if(liste != null){ %>	           
+			                           	<div class="form-group">
+			                               <label class="col-md-12">Groupe</label>
+			                               <div class="radio-list col-md-12">
+			                                   <% 
+			                                   	for(BaseModel p : liste){ 
+			                                   	Groupe i = (Groupe)p;
+			                                   %>
+		                                       <div class="checkbox checkbox-success checkbox-circle">
+		                                           <input type="checkbox" name="item.listeGroupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(item.insideGroupe(i)) out.print("checked"); %>>
+		                                           <label for="groupe<% out.print(i.getId()); %>"><% out.print(i.getNom()); %></label>
+		                                       </div>
+			                                   <% } %>
+			                               </div>
+			                           	</div>
+			                           	<% } %>
 	                            	</div>
 	                            	<div class="col-md-6">
 		                                <div class="form-group">
 		                                    <label class="col-md-12">Syntaxe</label>
 		                                    <div class="col-md-12">
 		                                        <input name="item.syntaxe" value="<% out.print(item.getSyntaxe()); %>" type="text" placeholder="Syntaxe des lignes de log" class="form-control form-control-line">
+		                                        <p class="text-muted">La syntaxe doit etre écrite suivant le format de vos fichiers logs avec tous les caractères spéciaux </p>
+		                                        	<ul class="text-muted">
+		                                        		<li><b>TIMESTAMP{</b> format de la date selon le SimpleDateFormat <b>}</b> : pour le repère chronologique</li>
+		                                        		<li><b>LEVEL</b> : pour la priorité du log </li>
+		                                        		<li><b>THREAD</b> : pour le thread executé</li>
+		                                        		<li><b>CLASS</b> : pour la classe</li>
+		                                        		<li><b>METHOD</b> : pour la méthode appelée </li>
+		                                        		<li><b>MESSAGE</b> : pour le message du log</li>
+		                                        	</ul>
+		                                        <p class="text-muted"> ex : TIMESTAMP{HH:mm:ss.SSS} THREAD LEVEL CLASS - MESSAGE
+		                                        </p>
 		                                    </div>
 		                                </div>
 	                            		<div class="form-group">
@@ -79,20 +106,7 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
 		                                    <div class="col-md-12">
 		                                        <textarea name="item.details" rows="5" class="form-control form-control-line"><% out.print(item.getDetails()); %></textarea>
 		                                    </div>
-		                                </div>				           
-			                           	<div class="form-group">
-			                               <label class="col-md-12">Groupe</label>
-			                               <div class="radio-list col-md-12">
-			                                   <% for(BaseModel g : liste){ 
-			                                   	Groupe i = (Groupe)g;
-			                                   %>
-		                                       <div class="checkbox checkbox-success checkbox-circle">
-		                                           <input type="checkbox" name="item.listeGroupe.id" id="groupe<% out.print(i.getId()); %>" value="<% out.print(i.getId()); %>" <% if(item.getListeGroupe().contains(i)) out.print("checked"); %>>
-		                                           <label for="groupe<% out.print(i.getId()); %>"><% out.print(i.getNom()); %></label>
-		                                       </div>
-			                                   <% } %>
-			                               </div>
-			                           	</div>
+		                                </div>
 	                            	</div>
                             	</div>
                                 <div class="form-group">

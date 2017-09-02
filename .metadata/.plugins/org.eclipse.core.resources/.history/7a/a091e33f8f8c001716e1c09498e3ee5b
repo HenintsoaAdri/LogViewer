@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="adri.logviewermain.model.Profil" table="profil" >
+        <meta attribute="class-description">
+            This class contains the Profil detail.
+        </meta>
+        <id name="id" type="int" column="idprofil">
+            <generator class="increment"/>
+        </id>
+        <property name="nom" column="nomprofil" type="string"/>
+        <property name="description" column="descriptionprofil" type="string"/>
+        <property name="superProfil" column="issuperprofil" type="boolean"/>
+         
+        <set name="listeGroupe" table="profilgroupe" cascade="all" fetch="select" inverse="true">
+	         <key column="idprofil" not-null="true"/>
+            <many-to-many entity-name="adri.logviewermain.model.Groupe">
+                <column name="idgroupe" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="listePermission" cascade="all" fetch="select" lazy="false">
+	         <key column="idprofil" not-null="true"/>
+	         <one-to-many class="adri.logviewermain.model.Permission"/>
+        </set>
+        <set name="listeUtilisateur" cascade="none" fetch="select" lazy="true">
+	         <key column="idprofil" not-null="true"/>
+	         <one-to-many class="adri.logviewermain.model.Utilisateur"/>
+        </set>
+        <union-subclass name="adri.logviewermain.model.ProfilView" table="profilview" >
+        	<property name="nombreUtilisateur" column="nbutilisateur" type="int" />
+        	<property name="nombreGroupe" column="nbgroupe" type="int" />
+        </union-subclass>
+    </class>
+</hibernate-mapping>
