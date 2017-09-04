@@ -1,7 +1,7 @@
-<%@page import="adri.logviewermain.model.GroupeView"%>
-<%@page import="adri.logviewermain.model.Groupe"%>
-<%@page import="adri.logviewermain.model.BaseModel"%>
-<%@page import="adri.logviewermain.model.BaseModelPagination"%>
+<%@page import="adri.logviewer.model.GroupeView"%>
+<%@page import="adri.logviewer.model.Groupe"%>
+<%@page import="adri.logviewer.model.BaseModel"%>
+<%@page import="adri.logviewer.model.BaseModelPagination"%>
 <%@ include file="../includes/header.jsp" %>
 <% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); %>
 <% Groupe item = (Groupe)request.getAttribute("item"); %>

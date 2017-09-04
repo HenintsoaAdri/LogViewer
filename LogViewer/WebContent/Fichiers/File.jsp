@@ -1,5 +1,5 @@
-<%@page import="adri.logviewermain.filemanager.Log"%>
-<%@page import="adri.logviewermain.filemanager.Fichier"%>
+<%@page import="adri.logviewer.filemanager.Log"%>
+<%@page import="adri.logviewer.filemanager.Fichier"%>
 <%@page import="java.io.File"%>
 <%@ include file="../includes/header.jsp" %>
 <% 

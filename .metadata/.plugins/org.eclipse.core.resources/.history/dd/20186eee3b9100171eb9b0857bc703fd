@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="adri.logviewermain.model.Profil" table="profil" >
+    <class name="adri.logviewer.model.Profil" table="profil" >
         <meta attribute="class-description">
             This class contains the Profil detail.
         </meta>
@@ -16,19 +16,19 @@
          
         <set name="listeGroupe" table="profilgroupe" fetch="select">
 	        <key column="idprofil" not-null="true"/>
-            <many-to-many entity-name="adri.logviewermain.model.Groupe">
+            <many-to-many entity-name="adri.logviewer.model.Groupe">
                 <column name="idgroupe" not-null="true" />
             </many-to-many>
         </set>
         <set name="listePermission" cascade="all" fetch="select" lazy="false" order-by="permission">
 	         <key column="idprofil" not-null="true"/>
-	         <one-to-many class="adri.logviewermain.model.Permission"/>
+	         <one-to-many class="adri.logviewer.model.Permission"/>
         </set>
         <set name="listeUtilisateur" cascade="none" fetch="select" inverse="true" lazy="true">
 	         <key column="idprofil" not-null="true"/>
-	         <one-to-many class="adri.logviewermain.model.Utilisateur"/>
+	         <one-to-many class="adri.logviewer.model.Utilisateur"/>
         </set>
-        <union-subclass name="adri.logviewermain.model.ProfilView" table="profilview" >
+        <union-subclass name="adri.logviewer.model.ProfilView" table="profilview" >
         	<property name="nombreUtilisateur" column="nbutilisateur" type="int" />
         	<property name="nombreGroupe" column="nbgroupe" type="int" />
         </union-subclass>

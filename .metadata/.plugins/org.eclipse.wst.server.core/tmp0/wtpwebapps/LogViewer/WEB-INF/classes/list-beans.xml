@@ -8,19 +8,19 @@
         <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
     </bean>
    
-    <bean id="hibernateDao" class="adri.logviewermain.dao.HibernateDao">
+    <bean id="hibernateDao" class="adri.logviewer.dao.HibernateDao">
         <property name="sessionFactory" ref="hibernateSessionFactory"/>
     </bean>
     
-    <bean id="baseService" class="adri.logviewermain.service.BaseService">
+    <bean id="baseService" class="adri.logviewer.service.BaseService">
         <property name="dao" ref="hibernateDao"/>
     </bean>
     
-    <bean id="utilisateurService" class="adri.logviewermain.service.UtilisateurService">
+    <bean id="utilisateurService" class="adri.logviewer.service.UtilisateurService">
         <property name="service" ref="baseService"/>
     </bean>
     
-    <bean id="fileService" class="adri.logviewermain.service.FileService">
+    <bean id="fileService" class="adri.logviewer.service.FileService">
     </bean>
 </beans>
 

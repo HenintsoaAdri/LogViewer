@@ -1,4 +1,4 @@
-<%@page import="adri.logviewermain.model.Groupe"%>
+<%@page import="adri.logviewer.model.Groupe"%>
 <%@ include file="../includes/header.jsp" %>
 <% Groupe item = (Groupe)request.getAttribute("item"); %>
             <div class="container-fluid">

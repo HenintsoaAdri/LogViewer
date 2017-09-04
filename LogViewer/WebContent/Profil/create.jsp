@@ -1,7 +1,7 @@
-<%@page import="adri.logviewermain.model.Groupe"%>
-<%@page import="adri.logviewermain.model.BaseModel"%>
-<%@page import="adri.logviewermain.model.Profil"%>
-<%@page import="adri.logviewermain.model.Permission"%>
+<%@page import="adri.logviewer.model.Groupe"%>
+<%@page import="adri.logviewer.model.BaseModel"%>
+<%@page import="adri.logviewer.model.Profil"%>
+<%@page import="adri.logviewer.model.Permission"%>
 <%@ include file="../includes/header.jsp" %>
 <% Profil item = (Profil)request.getAttribute("item"); 
 List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribute("liste");

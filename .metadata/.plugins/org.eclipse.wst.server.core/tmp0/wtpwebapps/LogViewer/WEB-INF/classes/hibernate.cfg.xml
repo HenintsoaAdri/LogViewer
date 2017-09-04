@@ -12,10 +12,10 @@
   <!-- JDBC connection pool (use the built-in) 
  Echo all executed SQL to stdout -->
   <property name="show_sql">true</property>
-  <mapping resource="adri/logviewermain/model/mappings/Agent.hbm.xml"/>
-  <mapping resource="adri/logviewermain/model/mappings/Groupe.hbm.xml"/>
-  <mapping resource="adri/logviewermain/model/mappings/Profil.hbm.xml"/>
-  <mapping resource="adri/logviewermain/model/mappings/Permission.hbm.xml"/>
-  <mapping resource="adri/logviewermain/model/mappings/Utilisateur.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Agent.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Groupe.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Profil.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Permission.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Utilisateur.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

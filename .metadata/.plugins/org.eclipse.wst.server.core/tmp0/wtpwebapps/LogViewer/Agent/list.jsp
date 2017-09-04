@@ -1,6 +1,6 @@
-<%@page import="adri.logviewermain.model.BaseModel"%>
-<%@page import="adri.logviewermain.model.Agent"%>
-<%@page import="adri.logviewermain.model.BaseModelPagination"%>
+<%@page import="adri.logviewer.model.BaseModel"%>
+<%@page import="adri.logviewer.model.Agent"%>
+<%@page import="adri.logviewer.model.BaseModelPagination"%>
 <%@ include file="../includes/header.jsp" %>
 <% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); 
 	Agent item = (Agent) request.getAttribute("item"); %>

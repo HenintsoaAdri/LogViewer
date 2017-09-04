@@ -1,7 +1,7 @@
-<%@page import="adri.logviewermain.model.BaseModel"%>
-<%@page import="adri.logviewermain.model.BaseModelPagination"%>
-<%@page import="adri.logviewermain.model.ProfilView"%>
-<%@page import="adri.logviewermain.model.PermissionType"%>
+<%@page import="adri.logviewer.model.BaseModel"%>
+<%@page import="adri.logviewer.model.BaseModelPagination"%>
+<%@page import="adri.logviewer.model.ProfilView"%>
+<%@page import="adri.logviewer.model.PermissionType"%>
 <%@ include file="../includes/header.jsp" %>
 <% ProfilView item = (ProfilView)request.getAttribute("item"); 
  	BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination");

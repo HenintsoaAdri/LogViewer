@@ -1,4 +1,4 @@
-<%@page import="adri.logviewermain.model.PermissionType"%>
+<%@page import="adri.logviewer.model.PermissionType"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -51,7 +51,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<%@page import="adri.logviewermain.model.Utilisateur"%>
+<%@page import="adri.logviewer.model.Utilisateur"%>
 <% Utilisateur user = (Utilisateur)request.getAttribute("user"); %>
 <body class="fix-header">
 	<script type="text/javascript">

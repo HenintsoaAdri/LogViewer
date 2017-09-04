@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="adri.logviewermain.model.Permission" table="permission">
+    <class name="adri.logviewer.model.Permission" table="permission">
         <meta attribute="class-description">
             This class contains the permission detail.
         </meta>
@@ -12,10 +12,10 @@
         </id>
         <property name="permission" column="valeurpermission">
 	        <type name="org.hibernate.type.EnumType">
-	            <param name="enumClass">adri.logviewermain.model.PermissionType</param>
+	            <param name="enumClass">adri.logviewer.model.PermissionType</param>
 	        </type>
       	</property>
-        <many-to-one name="profil" class="adri.logviewermain.model.Profil" column="idprofil" not-null="false" fetch="select" insert="false" update="false"/>
+        <many-to-one name="profil" class="adri.logviewer.model.Profil" column="idprofil" not-null="false" fetch="select" insert="false" update="false"/>
         <property name="dateAjout" column="dateajoutpermission" type="date"/>
     </class>
 </hibernate-mapping>

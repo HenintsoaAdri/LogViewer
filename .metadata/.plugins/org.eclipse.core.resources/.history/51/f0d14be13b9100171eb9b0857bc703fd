@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="adri.logviewermain.model.Utilisateur" table="utilisateur">
+    <class name="adri.logviewer.model.Utilisateur" table="utilisateur">
         <meta attribute="class-description">
             This class contains the utilisateur detail.
         </meta>
@@ -18,8 +18,8 @@
         <property name="poste" column="posteutilisateur" type="string"/>
         <property name="superUtilisateur" column="issuperutilisateur" type="boolean" update="false"/>
         <property name="lastLogged" column="lastloggedutilisateur" type="timestamp"/>
-        <many-to-one name="profil" class="adri.logviewermain.model.Profil" column="idprofil" lazy="false" not-null="false" fetch="select"/>
-	    <union-subclass name="adri.logviewermain.model.UtilisateurView" table="utilisateurview">
+        <many-to-one name="profil" class="adri.logviewer.model.Profil" column="idprofil" lazy="false" not-null="false" fetch="select"/>
+	    <union-subclass name="adri.logviewer.model.UtilisateurView" table="utilisateurview">
 	    </union-subclass>
     </class>
 </hibernate-mapping>

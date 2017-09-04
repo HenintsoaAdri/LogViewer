@@ -1,4 +1,4 @@
-<%@page import="adri.logviewermain.model.Utilisateur"%>
+<%@page import="adri.logviewer.model.Utilisateur"%>
 <%@ include file="../includes/header.jsp" %>
 <% 
 	String password = (String)request.getAttribute("password");
