@@ -99,8 +99,10 @@ public class CrudAction extends BaseAction implements ValidationErrorAware{
 			setPagination(UtilisateurService.getInstance(context).getDetails(getItem(), getPage(), getNbItem()));
 			return SUCCESS;
 		}catch(PermissionException e){
+			e.printStackTrace();
 			throw e;
 		}catch(NullPointerException e){
+			e.printStackTrace();
 			return NONE;
 		}catch(Exception e){
 			e.printStackTrace();

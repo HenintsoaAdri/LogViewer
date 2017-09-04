@@ -172,6 +172,15 @@
                     </div>
                 </div>
                 <!--./row-->
+                <% }else{ %>
+                <div class="row">
+                    <div class="col-md-12">
+                    	<div class="white-box">
+							<p class="text-danger">Cet utilisateur n'est associé à aucun profil</p>
+	                	</div>   
+                    </div>
+                </div>
+                <!--./row-->
                 <% }
                 if(user.isAllowed(PermissionType.CRUDUTILISATEUR)){ %>
                 <div class="row">

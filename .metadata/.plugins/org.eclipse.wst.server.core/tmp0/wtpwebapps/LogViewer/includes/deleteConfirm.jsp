@@ -1,4 +1,4 @@
-<%@page import="adri.logviewermain.model.*"%>
+<%@page import="adri.logviewer.model.*"%>
 <% 
 	BaseModel item = (BaseModel)request.getAttribute("item");
 %>

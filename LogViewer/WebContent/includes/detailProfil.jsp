@@ -1,6 +1,6 @@
-<%@page import="adri.logviewermain.model.ProfilView"%>
-<%@page import="adri.logviewermain.model.BaseModel"%>
-<%@page import="adri.logviewermain.model.BaseModelPagination"%>
+<%@page import="adri.logviewer.model.ProfilView"%>
+<%@page import="adri.logviewer.model.BaseModel"%>
+<%@page import="adri.logviewer.model.BaseModelPagination"%>
 <% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); 
 	BaseModel item = (BaseModel)request.getAttribute("item"); %>
 

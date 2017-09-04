@@ -174,7 +174,7 @@ public class UtilisateurService {
 							break;
 			case "Groupe" : pagination = findAllByBaseModel(model, AgentView.class, page, maxResult);break;
 			case "Agent"  : pagination = findAllByBaseModel(model, GroupeView.class, page, maxResult);break;
-			case "Utilisateur" : pagination = findAllByBaseModel(((Utilisateur)model).getProfil(), GroupeView.class, page, maxResult);break;
+			case "Utilisateur" : if(((Utilisateur)model).getProfil() != null) pagination = findAllByBaseModel(((Utilisateur)model).getProfil(), GroupeView.class, page, maxResult);break;
 		}
 		return pagination;
 	}

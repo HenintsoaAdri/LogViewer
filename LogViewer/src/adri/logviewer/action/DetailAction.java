@@ -14,7 +14,6 @@ public class DetailAction extends BaseAction{
 		try{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			setPagination(UtilisateurService.getInstance(context).findAllByBaseModel(getItem(), getDetailClass(), getPage(), getNbItem()));
-			System.out.println(getPagination().getClasse());
 			return SUCCESS;
 		}catch(NullPointerException e){
 			return NONE;
