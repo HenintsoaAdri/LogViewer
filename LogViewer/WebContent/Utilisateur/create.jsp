@@ -2,7 +2,6 @@
 <%@page import="adri.logviewermain.model.Profil"%>
 <%@page import="adri.logviewermain.model.BaseModel"%>
 <%@page import="java.util.List"%>
-<%@page import="adri.logviewermain.model.Utilisateur"%>
 <%@ include file="../includes/header.jsp" %>
 <% Utilisateur item = (Utilisateur)request.getAttribute("item"); 
 	List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribute("liste");

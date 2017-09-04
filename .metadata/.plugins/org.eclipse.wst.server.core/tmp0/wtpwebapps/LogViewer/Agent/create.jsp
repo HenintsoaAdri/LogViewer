@@ -1,5 +1,4 @@
 <%@page import="adri.logviewermain.model.Groupe"%>
-<%@page import="java.util.List"%>
 <%@page import="adri.logviewermain.model.BaseModel"%>
 <%@ include file="../includes/header.jsp" %>
 <%@page import="adri.logviewermain.model.Agent"%>

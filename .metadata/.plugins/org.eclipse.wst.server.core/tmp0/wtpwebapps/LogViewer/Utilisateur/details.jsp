@@ -1,7 +1,6 @@
 <%@page import="adri.logviewermain.model.BaseModelPagination"%>
 <%@page import="adri.logviewermain.model.GroupeView"%>
 <%@page import="adri.logviewermain.model.BaseModel"%>
-<%@page import="adri.logviewermain.model.Utilisateur"%>
 <%@page import="adri.logviewermain.model.PermissionType"%>
 <%@ include file="../includes/header.jsp" %>
 <% Utilisateur item = (Utilisateur)request.getAttribute("item"); 

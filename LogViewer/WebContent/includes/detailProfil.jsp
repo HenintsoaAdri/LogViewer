@@ -4,7 +4,7 @@
 <% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); 
 	BaseModel item = (BaseModel)request.getAttribute("item"); %>
 
-<a href="${pageContext.request.contextPath}/Profil/new?item.listeGroupe.id=<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>Nouveau</a>
+<a href="${pageContext.request.contextPath}/Profil/new?item.liste<% out.print(item.instance()); %>.id=<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>Nouveau</a>
   	<% if(pagination == null || pagination.getListe() == null || pagination.getListe().isEmpty() ){ %>
       <p class="text-danger">Aucun profil dans cette entité</p>
   	<%

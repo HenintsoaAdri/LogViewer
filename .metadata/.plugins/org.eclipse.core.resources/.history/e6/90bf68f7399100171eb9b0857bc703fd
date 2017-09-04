@@ -1,0 +1,10 @@
+package adri.logviewe.model;
+
+public class UtilisateurView extends Utilisateur {
+	
+	@Override
+	public String instance() {
+		return getClass().getSuperclass().getSimpleName();
+	}
+	
+}

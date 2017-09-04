@@ -41,13 +41,10 @@
 <fullyQualifiedTypeName name="com.opensymphony.xwork2.Action"/>
 <fullyQualifiedTypeName name="adri.logviewermain.model.Utilisateur"/>
 <fullyQualifiedTypeName name="adri.logviewermain.model.AgentView"/>
-<fullyQualifiedTypeName name="adri.logviewermain.model.BaseModel"/>
 <fullyQualifiedTypeName name="adri.logviewermain.model.GroupeView"/>
 <fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="java.lang.reflect.Method"/>
 <fullyQualifiedTypeName name="adri.logviewermain.action.BaseAction"/>
-<fullyQualifiedTypeName name="adri.logviewermain.model.BaseModelPagination"/>
-<fullyQualifiedTypeName name="java.lang.reflect.Field"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
 <fullyQualifiedTypeName name="adri.logviewermain.filemanager.Log"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="java.util.Set"/>
 <fullyQualifiedTypeName name="java.util.Collection"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="adri.logviewermain.model.BaseModel"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Field"/>
+<fullyQualifiedTypeName name="adri.logviewermain.model.BaseModelPagination"/>
 </qualifiedTypeNameHistroy>
