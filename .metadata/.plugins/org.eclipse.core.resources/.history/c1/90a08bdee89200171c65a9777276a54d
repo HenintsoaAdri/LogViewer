@@ -1,0 +1,8 @@
+package snippet;
+
+public class Snippet {
+	public static void main(String[] args) {
+		java -jar ./agent.server-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+	}
+}
+

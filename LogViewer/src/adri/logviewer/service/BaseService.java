@@ -27,7 +27,7 @@ public class BaseService {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. " + e.getMessage());
+			throw new Exception("Informations non retrouvées. ", e);
 		}
 	}
 	public void findById(BaseModel model, String... field) throws Exception{
@@ -37,14 +37,14 @@ public class BaseService {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. " + e.getMessage());
+			throw new Exception("Informations non retrouvées. ", e);
 		}
 	}
 	public void save(BaseModel model) throws Exception{
 		try {
 			this.getDao().save(model);			
 		} catch (Exception e) {
-			throw new Exception("Informations non enregistrées. " + e.getMessage());
+			throw new Exception("Informations non enregistrées. ", e);
 		}
 	}
 	public void update(BaseModel model) throws Exception{
@@ -54,7 +54,7 @@ public class BaseService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Informations non changées. " + e.getMessage());
+			throw new Exception("Informations non changées. ", e);
 		}
 	}
 	public void delete(BaseModel model) throws Exception{
@@ -71,14 +71,14 @@ public class BaseService {
 				this.getDao().delete(model);
 			}
 		} catch (Exception e) {
-			throw new Exception("Informations non retirées. " + e.getMessage());			
+			throw new Exception("Informations non retirées. ", e);			
 		}
 	}
 	public List<? extends BaseModel> findAll(BaseModel model) throws Exception{
 		try {
 			return this.getDao().findAll(model);
 		} catch (Exception e) {
-			throw new Exception("Informations non retrouvées. /n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. /n", e);
 		}
 	}
 	public void findAll(BaseModelPagination pagination)throws Exception{
@@ -86,14 +86,14 @@ public class BaseService {
 			this.getDao().findAll(pagination);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. \n", e);
 		}
 	}
 	public List<? extends BaseModel> findAllByBaseModel(Class<? extends BaseModel> many, BaseModel one) throws Exception{
 		try {
 			return this.getDao().findAllByBaseModel(many, one);
 		} catch (Exception e) {
-			throw new Exception("Informations non retrouvées. /n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. /n", e);
 		}
 	}
 	public void findAllByBaseModel(BaseModelPagination pagination, BaseModel one) throws Exception{
@@ -101,7 +101,7 @@ public class BaseService {
 			this.getDao().findAllByBaseModel(pagination, one);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. /n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. /n", e);
 		}
 	}
 	public List<? extends BaseModel> findAllByBaseModel(Class<? extends BaseModel> many, BaseModel one, String field)throws Exception{
@@ -109,7 +109,7 @@ public class BaseService {
 			return this.getDao().findAllByBaseModel(many, one, field);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. \n", e);
 		}
 	}
 	public void findAllByBaseModel(BaseModelPagination pagination, BaseModel one, String field)throws Exception{
@@ -117,7 +117,7 @@ public class BaseService {
 			this.getDao().findAllByBaseModel(pagination, one, field);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. \n", e);
 		}
 	}
 	public void findAllByBaseModel(BaseModelPagination pagination, Collection<? extends BaseModel> one, String field)throws Exception{
@@ -125,7 +125,7 @@ public class BaseService {
 			this.getDao().findAllByBaseModel(pagination, one, field);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. \n", e);
 		}
 	}
 	public List<? extends BaseModel> findAllByBaseModel(Class<? extends BaseModel> many, Collection<? extends BaseModel> one, String field) throws Exception {
@@ -133,7 +133,7 @@ public class BaseService {
 			return this.getDao().findAllByBaseModel(many, one, field);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. \n", e);
 		}
 	}
 	public List<? extends BaseModel> search(BaseModel model) throws Exception {
@@ -141,7 +141,7 @@ public class BaseService {
 			return this.getDao().search(model);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. \n", e);
 		}
 	}
 	public void search(BaseModelPagination pagination, BaseModel model) throws Exception {
@@ -149,7 +149,7 @@ public class BaseService {
 			this.getDao().search(pagination, model);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Informations non retrouvées. \n" + e.getMessage());
+			throw new Exception("Informations non retrouvées. \n", e);
 		}
 	}
 }

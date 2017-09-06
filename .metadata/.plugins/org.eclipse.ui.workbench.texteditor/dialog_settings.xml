@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="chain" key="selection"/>
+		<item value="+" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="+"/>
+			<item value="sys"/>
+			<item value="logviewermain"/>
 			<item value="redirectAction"/>
 			<item value="throws PermissionException"/>
 			<item value="return &quot;permission&quot;"/>
 			<item value="permission"/>
 			<item value="10"/>
-			<item value="upd"/>
-			<item value="findAllByBaseModel"/>
-			<item value="last"/>
 		</list>
 		<list key="replacehistory">
+			<item value="logviewer"/>
+			<item value=""/>
 			<item value="chain"/>
 			<item value="throws Exception"/>
 			<item value="throw e"/>
-			<item value=""/>
 			<item value="Agent"/>
 			<item value="long"/>
 			<item value="DistantName"/>
-			<item value="distantName"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

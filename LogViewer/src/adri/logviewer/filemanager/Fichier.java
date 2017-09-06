@@ -17,6 +17,7 @@ public class Fichier {
 	private ArrayList<Log> listeLog;
 	private String pattern = "";
 	private String mainPattern = "";
+	private int startLine;
 	private int lastLine;
 	
 	public Fichier(String pattern, File chemin) throws Exception {
@@ -86,7 +87,8 @@ public class Fichier {
 		}
 		else if(fichier.isFile() && fichier.getName().endsWith(".log")){
 			this.fichier = fichier;
-			parseFile(line, maxLine);
+			setStartLine(line);
+			parseFile(maxLine);
 		}
 	}
 	public void setFichier(String chemin) throws Exception  {
@@ -109,6 +111,13 @@ public class Fichier {
 		this.getListeLog().add(log);
 	}
 	
+	public int getStartLine() {
+		return startLine;
+	}
+	public void setStartLine(int startLine) {
+		this.startLine = startLine;
+	}
+	
 	public int getLastLine() {
 		return lastLine;
 	}
@@ -127,9 +136,10 @@ public class Fichier {
 			bufferedReader = new BufferedReader(fileReader);
 			String line;
 			Pattern	pattern = Pattern.compile(getPattern());
+			Matcher m = null;
 			while ((line = bufferedReader.readLine()) != null) {
 				try{
-					Matcher m = pattern.matcher(line.trim());
+					m = pattern.matcher(line.trim());
 					if(m.matches()){
 						addLog(new Log(this, m));
 					}
@@ -151,7 +161,7 @@ public class Fichier {
 			if(bufferedReader != null) bufferedReader.close();
 		}
 	}
-	public void parseFile(int lineNumber, int maxLines) throws Exception{
+	public void parseFile(int maxLines) throws Exception{
 		if(this.getFichier() == null){
 			throw new Exception("Fichier introuvable");
 		}
@@ -160,7 +170,7 @@ public class Fichier {
 		try {
 			fileReader = new FileReader(this.getFichier());
 			bufferedReader = new LineNumberReader(fileReader);
-			bufferedReader.setLineNumber(lineNumber);
+			bufferedReader.setLineNumber(getStartLine());
 			String line;
 			Pattern	pattern = Pattern.compile(getPattern());
 			int i = 0;

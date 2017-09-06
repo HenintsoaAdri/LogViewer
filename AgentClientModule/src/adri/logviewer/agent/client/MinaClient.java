@@ -36,16 +36,16 @@ public class MinaClient {
             LOGGER.error("Création du client échoué.", e);
     	}
 	}
-	public Object connect(String host, int port, String dossier) throws Exception{
+	public Object connect(String host, int port, String file) throws Exception{
 	    try {
-		    for (;;) {
+		    for (int i = 0; i<5;i++) {
 		        try {
 		            ConnectFuture future = getClient().connect(new InetSocketAddress(host, port));
 		            future.awaitUninterruptibly();
 		            setSession(future.getSession());
 		            getSession().getConfig().setUseReadOperation(true);
 		            System.out.println("Connexion établie");
-		            getSession().write(dossier);
+		            getSession().write(file);
 		    		ReadFuture read = getSession().read();
 		    		read.awaitUninterruptibly();
 		    		return read.getMessage();
@@ -54,17 +54,13 @@ public class MinaClient {
 		            Thread.sleep(5000);
 		        }
 		    }
+            throw new Exception("Connexion impossible. L'agent ne répond pas");
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error("Connexion échouée", e);
 			throw new Exception("Connexion échouée");
-		}finally{
-			if(getSession() != null){
-				getSession().closeOnFlush();
-			}
 		}
 	}
-
 	private NioSocketConnector getClient() {
 		return client;
 	}
@@ -106,6 +102,11 @@ public class MinaClient {
 	    
 		client.setHandler(new MinaClientHandler());
 	    return client;
+	}
+	public void closeSession(){
+		if(this.getSession() != null){
+			this.getSession().closeOnFlush();
+		}
 	}
 	public void dispose(){
 		if(this.getClient() != null){

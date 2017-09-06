@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="adri.logviewermain.model.Agent"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
-<fullyQualifiedTypeName name="adri.logviewermain.filemanager.LogFile"/>
 <fullyQualifiedTypeName name="java.nio.file.Paths"/>
 <fullyQualifiedTypeName name="java.nio.file.Path"/>
 <fullyQualifiedTypeName name="java.nio.file.InvalidPathException"/>
@@ -24,18 +21,14 @@
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
 <fullyQualifiedTypeName name="java.util.regex.Pattern"/>
 <fullyQualifiedTypeName name="adri.logviewermain.filemanager.MinaClient"/>
-<fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.lang.IndexOutOfBoundsException"/>
 <fullyQualifiedTypeName name="org.apache.mina.filter.codec.serialization.ObjectSerializationEncoder"/>
-<fullyQualifiedTypeName name="java.io.OutputStream"/>
 <fullyQualifiedTypeName name="java.lang.instrument.Instrumentation"/>
 <fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
-<fullyQualifiedTypeName name="adri.logviewer.agent.client.MinaClient"/>
 <fullyQualifiedTypeName name="adri.logviewer.agent.file.LogFile"/>
 <fullyQualifiedTypeName name="org.springframework.context.ConfigurableApplicationContext"/>
 <fullyQualifiedTypeName name="adri.logviewermain.service.UtilisateurService"/>
 <fullyQualifiedTypeName name="adri.logviewermain.model.Profil"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="com.opensymphony.xwork2.ActionContext"/>
 <fullyQualifiedTypeName name="com.opensymphony.xwork2.Action"/>
@@ -60,4 +53,11 @@
 <fullyQualifiedTypeName name="adri.logviewermain.model.BaseModel"/>
 <fullyQualifiedTypeName name="java.lang.reflect.Field"/>
 <fullyQualifiedTypeName name="adri.logviewermain.model.BaseModelPagination"/>
+<fullyQualifiedTypeName name="org.hibernate.exception.ConstraintViolationException"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="adri.logviewer.agent.client.MinaClient"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="adri.logviewer.model.Utilisateur"/>
+<fullyQualifiedTypeName name="java.io.File"/>
 </qualifiedTypeNameHistroy>

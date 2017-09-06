@@ -1,8 +1,10 @@
 package adri.logviewer.agent.server;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
+import java.util.Properties;
 
 import javax.net.ssl.SSLContext;
 
@@ -23,33 +25,38 @@ public class MinaAgentServer{
 	private int port = 2008;
 	private IoAcceptor server;
 	private SslFilter sslFilter;
+	private Properties properties;
 	
-//	public static void main(String[] args) throws Exception{
-//		try{
-//			int port = 0;
-//			try{
-//				if(!args[0].equalsIgnoreCase("-p")){
-//					throw new Exception("Commande invalide : " + args[0]);
-//				}
-//				port = Integer.parseInt(args[1]);
-//			}catch(IndexOutOfBoundsException e){
-//				System.out.println("Valeur de port inexistante.");
-//			}
-//			MinaAgentServer app = new MinaAgentServer(port);
-//			app.start();
-//			app.LOGGER.trace("Server started...");
-//		}catch(Exception e){
-//			throw e;
-//		}
-//	}
+	public static void main(String[] args) throws Exception{
+	  InputStream in = null;
+	  Properties properties = new Properties();
+		try{
+			in = MinaAgentServer.class.getClassLoader().getResourceAsStream("app.properties");
+			if(in == null) throw new Exception("Le fichier de configuration 'app.properties' est introuvable.");
+			properties.load(in);
+			MinaAgentServer app = new MinaAgentServer(properties);
+			app.start();
+			System.out.println("Le serveur a démaré...");
+			app.LOGGER.trace("Server started...");
+		}catch(Exception e){
+			throw e;
+		}finally{
+			if(in != null){
+				in.close();
+			}
+		}
+	}
 	
-	public MinaAgentServer(int port){
+	public MinaAgentServer(Properties properties) throws Exception{
 		try {
-			setPort(port);
+			this.setProperties(properties);
 			setSslFilter(createSSLFilter());
 			setServer(createServer());
-		} catch (Exception e) {
+		}catch (NumberFormatException e) {
+			throw new Exception("Port invalide");
+		}catch (Exception e) {
 			LOGGER.error("Erreur d'initialisation", e);
+			throw e;
 		}
 	}
 
@@ -74,7 +81,7 @@ public class MinaAgentServer{
 		  encoder.setMaxObjectSize(50000000);
 		  
 	      acceptor.getFilterChain().addLast( "codec", new ProtocolCodecFilter(encoder, new TextLineDecoder(Charset.forName("UTF-8"))));
-	      acceptor.setHandler(new MinaAgentHandler());
+	      acceptor.setHandler(new MinaAgentHandler(getProperties()));
 	      acceptor.getSessionConfig().setReadBufferSize(2048);
 	      acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 30);
 	      
@@ -112,6 +119,26 @@ public class MinaAgentServer{
 			LOGGER.warn("AutoSet Port : " + getPort());
 		}
 	}
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) throws Exception {
+		this.properties = properties;
+		checkProperties(properties);
+		int port = Integer.parseInt(properties.getProperty("port"));
+		setPort(port);
+	}
+	
+	public void checkProperties(Properties properties) throws Exception{
+		if(!properties.containsKey("ipAdress")){
+			throw new Exception("la propriété 'ipAdress' est introuvable");
+		}
+		if(!properties.containsKey("path")){
+			throw new Exception("la propriété 'path' est introuvable");
+		}
+	}
+
 	public void start() throws IOException{
 		getServer().bind( new InetSocketAddress(getPort()) );
 	}

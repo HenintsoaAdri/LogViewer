@@ -1,0 +1,14 @@
+package adri.logviewer.exception;
+
+public class PermissionException extends Exception {
+	String message;
+	public PermissionException() {
+		super();
+	}
+	public setMessage(String message){
+		this.message = message;
+	}	
+	public getMessage(){
+		return this.message;
+	}
+}

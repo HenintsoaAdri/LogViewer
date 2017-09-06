@@ -9,6 +9,8 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="agent.file"/>
+			<item value="agent.client"/>
 			<item value="agent"/>
 			<item value="agentlog"/>
 			<item value="logviewermain"/>
@@ -78,6 +80,8 @@
 	</section>
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="A:\Projet\Projet Stage\LogFile\src\adri\logviewer\agent\file\LogFile.java"/>
+			<item value="A:\Projet\Projet Stage\LogFile"/>
 			<item value="A:\Projet\Projet Stage"/>
 			<item value="A:\Projet\Projet Stage\AgentLogq"/>
 		</list>

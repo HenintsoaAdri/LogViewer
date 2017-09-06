@@ -89,7 +89,6 @@
 									                  <th>Nom</th>
 									                  <th>Adresse</th>
 									                  <th>Port</th>
-									                  <th>Répertoire</th>
 									                  <th>Syntaxe</th>
 									                  <th></th>
 									              </tr>
@@ -102,7 +101,6 @@
 											          <td><% out.print(i.getNom()); %></td>
 											          <td><% out.print(i.getAdresse()); %></td>
 											          <td><% out.print(i.getPort()); %></td>
-											          <td><% out.print(i.getRepertoire()); %></td>
 											          <td><% out.print(i.getSyntaxe()); %></td>
 											          <td>
 											          	<a href="" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-plug fa-fw" aria-hidden="true"></i>Connexion</a>

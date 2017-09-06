@@ -12,7 +12,7 @@ public class Agent extends BaseModel{
 	private String adresse;
 	private int port;
 	private String details;
-	private String repertoire;
+	private String cle;
 	private String syntaxe;
 	private Utilisateur createur;
 	private Date dateCreation = new Date();
@@ -22,14 +22,14 @@ public class Agent extends BaseModel{
 	public Agent(int id) {
 		super(id);
 	}
-	public Agent(int id, String nom, String adresse, int port, String details, String repertoire,
+	public Agent(int id, String nom, String adresse, int port, String details, String cle,
 			String syntaxe, Utilisateur createur, Date dateCreation) throws InputException {
 		super(id);
 		this.setNom(nom);
 		this.setAdresse(adresse);
 		this.setPort(port);
 		this.setDetails(details);
-		this.setRepertoire(repertoire);
+		this.setCle(cle);
 		this.setSyntaxe(syntaxe);
 		this.setCreateur(createur);
 		this.setDateCreation(dateCreation);
@@ -83,14 +83,14 @@ public class Agent extends BaseModel{
 		this.details = details;
 	}
 
-	public String getRepertoire() {
-		if(repertoire == null){
+	public String getCle() {
+		if(cle == null){
 			return "";
 		}
-		return repertoire;
+		return cle;
 	}
-	public void setRepertoire(String repertoire) {
-		this.repertoire = repertoire;
+	public void setCle(String cle) {
+		this.cle = cle;
 	}
 	
 	public String getSyntaxe() {
@@ -135,10 +135,14 @@ public class Agent extends BaseModel{
 			groupe.getListeAgent().add(this);
 		}		
 	}
+	public String getPathName() {
+		return "Agent" + getId() + "-" + getNom();
+	}
+	
 	@Override
 	public String getName() {
-		return "l'agent #" + getId() + " "
-		+ getNom()
-		+ " [ adresse&port : " + getAdresse() + ":" + getPort() + "]";
+		StringBuilder builder = new StringBuilder("l'agent #");
+		return builder.append(getId()).append(" ").append(getNom())
+		.append(" [ adresse&port : ").append(getAdresse()).append(":").append(getPort()).append("]").toString();
 	}
 }

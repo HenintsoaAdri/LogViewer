@@ -70,16 +70,7 @@
                                         </div>
                                         <!--/row-->
                                         <div class="row">
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Répertoire</label>
-                                                    <div class="col-md-9">
-                                                        <input name="item.repertoire" value="<% out.print(item.getRepertoire()); %>" type="text" class="form-control" placeholder="Chemin">
-										</div>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-5">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Syntaxe</label>
                                                     <div class="col-md-9">
@@ -88,7 +79,7 @@
                                                 </div>
                                             </div>
                                             <!--/span-->
-                                            <div class="col-md-2">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="col-md-12">
                                                         <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i> Rechercher</button>
@@ -121,7 +112,6 @@
                                             <th>Nom</th>
                                             <th>Adresse</th>
                                             <th>Port</th>
-                                            <th>Répertoire</th>
                                             <th>Syntaxe</th>
                                             <th></th>
                                         </tr>
@@ -134,7 +124,6 @@
                                             <td><% out.print(i.getNom()); %></td>
                                             <td><% out.print(i.getAdresse()); %></td>
                                             <td><% out.print(i.getPort()); %></td>
-                                            <td><% out.print(i.getRepertoire()); %></td>
                                             <td><% out.print(i.getSyntaxe()); %></td>
                                             <td>
                                             	<a href="" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-plug fa-fw" aria-hidden="true"></i>Connexion</a>

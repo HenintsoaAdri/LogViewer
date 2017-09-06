@@ -73,16 +73,7 @@ BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagi
 	                                </div>
 	                                <!--/row-->
 	                                <div class="row">
-	                                    <div class="col-md-4">
-	                                        <div class="form-group">
-	                                            <label class="control-label col-md-3">Répertoire:</label>
-	                                            <div class="col-md-9">
-	                                                <p class="form-control-static"> <% out.print(item.getRepertoire()); %> </p>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <!--/span-->
-	                                    <div class="col-md-4">
+	                                    <div class="col-md-6">
 	                                        <div class="form-group">
 	                                            <label class="control-label col-md-3">Syntaxe:</label>
 	                                            <div class="col-md-9">
@@ -91,7 +82,7 @@ BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagi
 	                                        </div>
 	                                    </div>
 	                                    <!--/span-->
-	                                    <div class="col-md-4">
+	                                    <div class="col-md-6">
 	                                        <div class="form-group">
 	                                            <label class="control-label col-md-3">Créé le :</label>
 	                                            <div class="col-md-9">

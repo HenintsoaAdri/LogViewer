@@ -26,7 +26,7 @@ public class FileAction extends BaseAction{
 		ConfigurableApplicationContext context = null;
 		try{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
-			base = FileService.getInstance(context).getFilePath();
+			base = FileService.getInstance(context).getFilePath(getUser());
 			return setFilepath(getPath(getFile()));
 		}catch(FileNotFoundException e){
 			setFileStructure("<p class=\"text-danger\">"+e.getMessage()+"</p>");

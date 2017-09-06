@@ -57,9 +57,11 @@ public class LogFile implements Serializable{
 	}
 	public void setFile(byte[] file) {
 		this.file = file;
-	}	
+	}
+	
 	@Override
 	public String toString() {
-		return "LogFile [name = " + filename + "]";
+		StringBuilder builder = new StringBuilder("LogFile [name = ");
+		return builder.append(filename).append("]").toString();
 	}
 }

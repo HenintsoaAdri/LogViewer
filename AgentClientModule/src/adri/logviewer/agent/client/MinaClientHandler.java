@@ -26,32 +26,38 @@ public class MinaClientHandler extends IoHandlerAdapter{
 	@Override
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		System.out.println("message recus :");
-		System.out.println(message.toString());
-		List<LogFile> received = (List<LogFile>) message;
-		if(message instanceof List){
-			LogFile f = received.get(0);
-			FileOutputStream fos = null;
-			try{
-				File temp = File.createTempFile(f.getName(), ".log");
-				temp.deleteOnExit();
-				fos = new FileOutputStream(temp);
-				fos.write(f.getFile());
-				f.setTempName(temp.getAbsolutePath());
-				System.out.println("Fichier mis en cache");
-			}catch(IOException e){
-				throw e;
-			}finally{
-				if(fos != null){
-					fos.close();
+		LOGGER.trace("message recus");
+		try {
+			List<LogFile> received = (List<LogFile>) message;
+			if(received.size() == 1){
+				LogFile f = received.get(0);
+				FileOutputStream fos = null;
+				try{
+					File temp = File.createTempFile(f.getName(), ".log");
+					temp.deleteOnExit();
+					fos = new FileOutputStream(temp);
+					fos.write(f.getFile());
+					f.setTempName(temp.getAbsolutePath());
+					System.out.println("Fichiers mis en cache");
+					LOGGER.trace("Fichiers mis en cache");
+				}catch(IOException e){
+					throw e;
+				}finally{
+					if(fos != null){
+						fos.close();
+					}
 				}
 			}
+			session.closeOnFlush();
+		} catch (ClassCastException e) {
+			throw new Exception((String)message);
 		}
-		session.closeOnFlush();
 	}
 
 	@Override
 	public void messageSent(IoSession session, Object message) throws Exception {
 		System.out.println("message envoyés : " + message.toString());
+		LOGGER.trace("message envoyés : " + message.toString());
 		super.messageSent(session, message);
 	}
 	

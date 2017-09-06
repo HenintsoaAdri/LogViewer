@@ -1,0 +1,31 @@
+-------------- LOGSAVER - 2017-09-06 --------------
+2017-09-06 12:53:35.860 [main] ERROR adri.logviewer.agent.server.MinaAgentServer - Erreur d'initialisation
+java.lang.Exception: la propriété 'ipAdress' est introuvable
+	at adri.logviewer.agent.server.MinaAgentServer.checkProperties(MinaAgentServer.java:139) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.setProperties(MinaAgentServer.java:132) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.<init>(MinaAgentServer.java:57) [classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.main(MinaAgentServer.java:42) [classes/:?]
+2017-09-06 12:54:11.494 [main] ERROR adri.logviewer.agent.server.MinaAgentServer - Erreur d'initialisation
+java.lang.Exception: la propriété 'ipAdress' est introuvable
+	at adri.logviewer.agent.server.MinaAgentServer.checkProperties(MinaAgentServer.java:139) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.setProperties(MinaAgentServer.java:132) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.<init>(MinaAgentServer.java:57) [classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.main(MinaAgentServer.java:42) [classes/:?]
+2017-09-06 12:54:43.096 [main] ERROR adri.logviewer.agent.server.MinaAgentServer - Erreur d'initialisation
+java.lang.Exception: la propriété 'ipAdress' est introuvable
+	at adri.logviewer.agent.server.MinaAgentServer.checkProperties(MinaAgentServer.java:140) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.setProperties(MinaAgentServer.java:133) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.<init>(MinaAgentServer.java:57) [classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.main(MinaAgentServer.java:42) [classes/:?]
+2017-09-06 12:55:11.629 [main] ERROR adri.logviewer.agent.server.MinaAgentServer - Erreur d'initialisation
+java.lang.Exception: la propriété 'ipAdress' est introuvable
+	at adri.logviewer.agent.server.MinaAgentServer.checkProperties(MinaAgentServer.java:141) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.setProperties(MinaAgentServer.java:134) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.<init>(MinaAgentServer.java:57) [classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.main(MinaAgentServer.java:42) [classes/:?]
+2017-09-06 12:55:44.341 [main] ERROR adri.logviewer.agent.server.MinaAgentServer - Erreur d'initialisation
+java.lang.Exception: la propriété 'path' est introuvable
+	at adri.logviewer.agent.server.MinaAgentServer.checkProperties(MinaAgentServer.java:143) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.setProperties(MinaAgentServer.java:133) ~[classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.<init>(MinaAgentServer.java:57) [classes/:?]
+	at adri.logviewer.agent.server.MinaAgentServer.main(MinaAgentServer.java:42) [classes/:?]

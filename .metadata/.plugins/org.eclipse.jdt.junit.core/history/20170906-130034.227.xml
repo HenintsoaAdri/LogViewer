@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ClientAgentTest" project="AgentClientModule" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="adri.logviewer.agent.client.ClientAgentTest" time="0.027">
+    <testcase name="testClient" classname="adri.logviewer.agent.client.ClientAgentTest" time="0.027">
+      <error>java.lang.NoClassDefFoundError: org/apache/logging/log4j/spi/AbstractLoggerAdapter&#13;
+	at java.lang.ClassLoader.defineClass1(Native Method)&#13;
+	at java.lang.ClassLoader.defineClass(Unknown Source)&#13;
+	at java.security.SecureClassLoader.defineClass(Unknown Source)&#13;
+	at java.net.URLClassLoader.defineClass(Unknown Source)&#13;
+	at java.net.URLClassLoader.access$100(Unknown Source)&#13;
+	at java.net.URLClassLoader$1.run(Unknown Source)&#13;
+	at java.net.URLClassLoader$1.run(Unknown Source)&#13;
+	at java.security.AccessController.doPrivileged(Native Method)&#13;
+	at java.net.URLClassLoader.findClass(Unknown Source)&#13;
+	at java.lang.ClassLoader.loadClass(Unknown Source)&#13;
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)&#13;
+	at java.lang.ClassLoader.loadClass(Unknown Source)&#13;
+	at org.slf4j.impl.StaticLoggerBinder.&lt;clinit&gt;(StaticLoggerBinder.java:36)&#13;
+	at org.slf4j.LoggerFactory.bind(LoggerFactory.java:150)&#13;
+	at org.slf4j.LoggerFactory.performInitialization(LoggerFactory.java:124)&#13;
+	at org.slf4j.LoggerFactory.getILoggerFactory(LoggerFactory.java:412)&#13;
+	at org.slf4j.LoggerFactory.getLogger(LoggerFactory.java:357)&#13;
+	at org.slf4j.LoggerFactory.getLogger(LoggerFactory.java:383)&#13;
+	at adri.logviewer.agent.client.MinaClient.&lt;clinit&gt;(MinaClient.java:26)&#13;
+	at adri.logviewer.agent.client.ClientAgentTest.testClient(ClientAgentTest.java:22)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)&#13;
+	at java.lang.reflect.Method.invoke(Unknown Source)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)&#13;
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)&#13;
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)&#13;
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)&#13;
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)&#13;
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)&#13;
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)&#13;
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)&#13;
+Caused by: java.lang.ClassNotFoundException: org.apache.logging.log4j.spi.AbstractLoggerAdapter&#13;
+	at java.net.URLClassLoader.findClass(Unknown Source)&#13;
+	at java.lang.ClassLoader.loadClass(Unknown Source)&#13;
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)&#13;
+	at java.lang.ClassLoader.loadClass(Unknown Source)&#13;
+	... 43 more&#13;
+&#13;
+</error>
+    </testcase>
+  </testsuite>
+</testrun>

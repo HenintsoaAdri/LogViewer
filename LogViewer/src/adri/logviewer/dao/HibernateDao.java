@@ -150,7 +150,8 @@ public class HibernateDao {
 		Session session = null;
 	    try{
 	    	session = getSessionFactory().openSession();
-	    	String fromClause = "FROM " + many.getName() + " WHERE id" + one.instance() + " = :one";
+	    	StringBuilder builder = new StringBuilder("FROM ");
+	    	String fromClause = builder.append(many.getName()).append(" WHERE id").append(one.instance()).append(" = :one").toString();
 	    	
 	    	return session.createQuery(fromClause, many)
             		.setParameter("one", one.getId())
@@ -166,8 +167,9 @@ public class HibernateDao {
 		Session session = null;
 	    try{
 	    	session = getSessionFactory().openSession();
-	    	
-	    	String fromClause = "FROM " + pagination.getClasse().getName() + " WHERE id" + one.instance() + " = :one";
+
+	    	StringBuilder builder = new StringBuilder("FROM ");
+	    	String fromClause = builder.append(pagination.getClasse().getName()).append(" WHERE id").append(one.instance()).append(" = :one").toString();
 	    	
 	    	pagination.setListe(session.createQuery(fromClause , pagination.getClasse())
             		.setParameter("one", one.getId())
@@ -189,10 +191,12 @@ public class HibernateDao {
     	Session session = null;
 	    try{
 	    	session = getSessionFactory().openSession();
-	    	
-	    	String fromClause = "FROM " + pagination.getClasse().getSimpleName() + " m JOIN m."
-	    			+ field + " o"
-	    			+ " WHERE o.id = :one";
+	    	StringBuilder builder = new StringBuilder("FROM ");
+	    	String fromClause = builder.append(pagination.getClasse().getSimpleName())
+	    					.append(" m JOIN m.")
+	    	    			.append(field)
+	    	    			.append(" o WHERE o.id = :one GROUP BY m.id")
+	    	    			.toString();
 	    	
 	    	pagination.setListe(session.createQuery("SELECT m " + fromClause , pagination.getClasse())
             		.setParameter("one", one.getId())
@@ -214,11 +218,13 @@ public class HibernateDao {
 		Session session = null;
 	    try{
 	    	session = getSessionFactory().openSession();
-	    	
-	    	String fromClause = "FROM " + many.getSimpleName() + " m JOIN m."
-	    			+ field + " o"
-	    			+ " WHERE o.id = :one";
-	    	
+	    	StringBuilder builder = new StringBuilder("FROM ");
+	    	String fromClause = builder.append(many.getSimpleName())
+	    					.append(" m JOIN m.")
+	    	    			.append(field)
+	    	    			.append(" o WHERE o.id = :one GROUP BY m.id")
+	    	    			.toString();
+	    	    	
 	    	return session.createQuery("SELECT m " + fromClause , many)
             		.setParameter("one", one.getId())
 	        		.list();
@@ -234,9 +240,12 @@ public class HibernateDao {
     	Session session = null;
 	    try{
 	    	session = getSessionFactory().openSession();
-	    	String fromClause = "FROM " + pagination.getClasse().getSimpleName()
-	    			+ " m JOIN m."
-	    			+ field + " o WHERE o IN :one";
+	    	StringBuilder builder = new StringBuilder("FROM ");
+	    	String fromClause = builder.append(pagination.getClasse().getSimpleName())
+	    					.append(" m JOIN m.")
+	    	    			.append(field)
+	    	    			.append(" o WHERE o IN :one")
+	    	    			.toString();
 	    	pagination.setListe(session.createQuery("SELECT m " + fromClause , pagination.getClasse())
             		.setParameterList("one", one)
 	        		.setFirstResult(pagination.getFirstResult())
@@ -257,10 +266,13 @@ public class HibernateDao {
 		Session session = null;
 	    try{
 	    	session = getSessionFactory().openSession();
-	    	
-	    	String fromClause = "FROM " + many.getSimpleName()
-	    			+ " m JOIN m."
-	    			+ field + " o WHERE o IN :one";
+
+	    	StringBuilder builder = new StringBuilder("FROM ");
+	    	String fromClause = builder.append(many.getSimpleName())
+	    					.append(" m JOIN m.")
+	    	    			.append(field)
+	    	    			.append(" o WHERE o IN :one")
+	    	    			.toString();
 	    	
 	    	return session.createQuery("SELECT m " + fromClause , many)
             		.setParameterList("one", one)
@@ -312,8 +324,8 @@ public class HibernateDao {
         try{
             session = getSessionFactory().openSession();
             tr = session.beginTransaction();
-            Utilisateur user = session.createQuery("FROM Utilisateur "
-            		+ "WHERE emailutilisateur = :email AND password = :password", Utilisateur.class)
+            Utilisateur user = session.createQuery("FROM Utilisateur WHERE emailutilisateur = :email AND password = :password"
+            										, Utilisateur.class)
             		.setParameter("email", email)
             		.setParameter("password", password).uniqueResult();
             if(user == null) throw new Exception("Connexion échouée, vos identifiants sont incorrects");
