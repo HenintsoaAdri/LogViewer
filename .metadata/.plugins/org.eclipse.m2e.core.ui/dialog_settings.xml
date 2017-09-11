@@ -9,6 +9,7 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="agent.server"/>
 			<item value="agent.file"/>
 			<item value="agent.client"/>
 			<item value="agent"/>

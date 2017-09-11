@@ -73,7 +73,7 @@ BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagi
 	                                </div>
 	                                <!--/row-->
 	                                <div class="row">
-	                                    <div class="col-md-6">
+	                                    <div class="col-md-4">
 	                                        <div class="form-group">
 	                                            <label class="control-label col-md-3">Syntaxe:</label>
 	                                            <div class="col-md-9">
@@ -82,7 +82,7 @@ BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagi
 	                                        </div>
 	                                    </div>
 	                                    <!--/span-->
-	                                    <div class="col-md-6">
+	                                    <div class="col-md-4">
 	                                        <div class="form-group">
 	                                            <label class="control-label col-md-3">Créé le :</label>
 	                                            <div class="col-md-9">
@@ -91,6 +91,14 @@ BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagi
 	                                            <label class="control-label col-md-3">par </label>
 	                                            <div class="col-md-9">
 	                                                 <p class="form-control-static"><% out.print(item.getNomCreateur()); %></p>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <!--/span-->
+	                                    <div class="col-md-4">
+	                                        <div class="form-group">
+	                                            <div class="col-md-9">
+	                                            	<a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/connect" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-plug fa-fw" aria-hidden="true"></i>Connexion</a>
 	                                            </div>
 	                                        </div>
 	                                    </div>

@@ -11,7 +11,7 @@
             <generator class="native"/>
         </id>
         <property name="permission" column="valeurpermission">
-	        <type name="org.hibernate.type.EnumType">
+	        <type name="org.hibernate.type.EnumType">	        
 	            <param name="enumClass">adri.logviewer.model.PermissionType</param>
 	        </type>
       	</property>

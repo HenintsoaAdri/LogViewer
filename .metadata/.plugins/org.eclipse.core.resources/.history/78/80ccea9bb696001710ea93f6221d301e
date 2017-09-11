@@ -1,0 +1,18 @@
+package agent;
+
+public class Main {
+	public static void main(String[] args) throws Exception {
+//		try {
+//			Server server = new Server();
+//			server.start();
+//			LogFile log = new LogFile(File.createTempFile("app", ".log"));
+//			log.setFileName("app.log");
+//			System.out.println("Server started");
+//			server.connect(log);
+////			System.out.println(log.getTempFile().getAbsolutePath());
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+}

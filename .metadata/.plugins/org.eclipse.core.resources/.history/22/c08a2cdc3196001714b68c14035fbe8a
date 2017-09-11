@@ -1,0 +1,59 @@
+package agent;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.handler.stream.StreamIoHandler;
+
+public class ServerHandler extends StreamIoHandler{
+
+	@Override
+	protected void processStreamIo(IoSession session, InputStream in, OutputStream out) {
+		try {
+	        String fileName="d:\\spring-flex-testdrive-spring3.zip";
+	        File f=new File(fileName);
+	        byte[] buf=new byte[2048];
+	        FileInputStream fis=new FileInputStream(f);
+	        int offset=0;
+	        while (true) {
+	          offset=fis.read(buf);
+	          if (offset == -1) {
+	            break;
+	          }
+	          System.out.println(offset);
+	          out.write(buf,0,offset);
+	        }
+	        fis.close();
+	        session.closeOnFlush();
+		} catch (IOException ex) {
+	        ex.printStackTrace();
+	        session.write(ex.getMessage());
+	    }
+	}
+
+	@Override
+	public void exceptionCaught(IoSession session, Throwable cause) {
+		session.write(cause.getMessage());
+		session.closeNow();
+	}
+
+	@Override
+	public void messageReceived(IoSession session, Object buf) {
+		String message = buf.toString();
+        try {
+			session.write(LogFileSearcher.getInstance().search(message));
+		} catch (Exception e) {
+			session.write(e.getMessage());
+		}
+	}
+
+	@Override
+	public void sessionIdle(IoSession session, IdleStatus status) {
+		session.closeNow();
+	}
+
+}

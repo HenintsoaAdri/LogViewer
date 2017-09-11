@@ -1,0 +1,42 @@
+package agent;
+
+import java.io.File;
+
+public class LogFile {
+	private String fileName;
+	private File tempFile;
+	private File distantFile;
+		
+	public LogFile(String filename, File distantFile) {
+		setDistantFile(new File(filename));
+	}
+	public LogFile(File distantFile) {
+		setDistantFile(distantFile);
+	}
+	
+	public File getTempFile() {
+		return tempFile;
+	}
+	public void setTempFile(File tempFile) {
+		this.tempFile = tempFile;
+	}
+	public File getDistantFile() {
+		return distantFile;
+	}
+	public void setDistantFile(File distantFile) {
+		this.distantFile = distantFile;
+	}
+	public String getName(){
+		return distantFile.getName().replace(".log", "");
+	}
+	
+	public float getMBLenght(){
+		return distantFile.length() / (1024*1024F);
+	}	
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder("LogFile [name = ");
+		return builder.append(distantFile.getName()).append("]").toString();
+	}
+}

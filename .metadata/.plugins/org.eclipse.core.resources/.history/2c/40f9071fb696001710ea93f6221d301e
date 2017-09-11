@@ -1,0 +1,33 @@
+package agent;
+
+import org.apache.mina.core.service.IoHandlerAdapter;
+import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.core.session.IoSession;
+
+public class ClientHandler extends IoHandlerAdapter {
+
+	@Override
+	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
+		session.write(cause.getMessage());
+		cause.printStackTrace();
+        LOGGER.error("Handler Error caught", cause);
+		session.closeNow();
+	}
+
+	@Override
+	public void messageReceived(IoSession session, Object message) throws Exception {
+		System.out.println("réception");
+		System.out.println(message);
+	}
+	
+	@Override
+	public void messageSent(IoSession session, Object message) throws Exception {
+		System.out.println("message envoyé : "+message.toString());
+		super.messageSent(session, message);
+	}
+
+	@Override
+	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
+		session.closeNow();
+	}
+}

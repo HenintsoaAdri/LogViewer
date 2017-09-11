@@ -13,7 +13,6 @@
         <property name="nom" column="nomagent" type="string"/>
         <property name="adresse" column="adresseagent" type="string"/>
         <property name="port" column="portagent" type="int"/>
-        <property name="cle" column="cleagent" type="string"/>
         <property name="details" column="detailsagent" type="string"/>
         <property name="syntaxe" column="syntaxeagent" type="string"/>
         <property name="dateCreation" column="datecreationagent" type="date"/>

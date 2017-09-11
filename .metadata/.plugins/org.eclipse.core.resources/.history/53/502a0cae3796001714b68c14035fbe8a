@@ -1,0 +1,19 @@
+package agent;
+
+import java.nio.charset.Charset;
+
+import org.apache.mina.core.service.IoConnector;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.serialization.ObjectSerializationEncoder;
+import org.apache.mina.filter.codec.textline.TextLineDecoder;
+import org.apache.mina.filter.logging.LoggingFilter;
+import org.apache.mina.transport.socket.nio.NioSocketConnector;
+
+public class Client{
+	private IoConnector createClient(){
+		IoConnector connector = new NioSocketConnector();
+		connector.getFilterChain().addLast( "logger", new LoggingFilter() );
+
+		acceptor.getFilterChain().addLast( "codec", new ProtocolCodecFilter(new ObjectSerializationEncoder(), new TextLineDecoder(Charset.forName("UTF-8"))));
+	}
+}

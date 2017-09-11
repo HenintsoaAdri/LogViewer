@@ -57,12 +57,6 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
 		                                        <input name="item.port" value="<% out.print(item.getPort()); %>" type="text" class="form-control form-control-line">
 		                                    </div>
 		                                </div>
-		                                <div class="form-group">
-		                                    <label class="col-md-12">Clé</label>
-		                                    <div class="col-md-12">
-		                                        <input name="item.cle" value="<% out.print(item.getCle()); %>" type="text" placeholder="Clé d'authentification à l'agent distant" class="form-control form-control-line">
-		                                    </div>
-		                                </div>
 		                                <%  if(liste != null){ %>	           
 			                           	<div class="form-group">
 			                               <label class="col-md-12">Groupe</label>

@@ -103,7 +103,7 @@
 											          <td><% out.print(i.getPort()); %></td>
 											          <td><% out.print(i.getSyntaxe()); %></td>
 											          <td>
-											          	<a href="" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-plug fa-fw" aria-hidden="true"></i>Connexion</a>
+											          	<a href="${pageContext.request.contextPath}/Agent/<% out.print(i.getId()); %>/connect" class="btn btn-success m-l-20 waves-effect waves-light"><i class="fa fa-plug fa-fw" aria-hidden="true"></i>Connexion</a>
 											          	<a href="${pageContext.request.contextPath}/Agent/<% out.print(i.getId()); %>" class="btn btn-primary m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir l'agent</a>
 											          </td>
 											      </tr>

@@ -12,7 +12,6 @@ public class Agent extends BaseModel{
 	private String adresse;
 	private int port;
 	private String details;
-	private String cle;
 	private String syntaxe;
 	private Utilisateur createur;
 	private Date dateCreation = new Date();
@@ -22,14 +21,13 @@ public class Agent extends BaseModel{
 	public Agent(int id) {
 		super(id);
 	}
-	public Agent(int id, String nom, String adresse, int port, String details, String cle,
+	public Agent(int id, String nom, String adresse, int port, String details,
 			String syntaxe, Utilisateur createur, Date dateCreation) throws InputException {
 		super(id);
 		this.setNom(nom);
 		this.setAdresse(adresse);
 		this.setPort(port);
 		this.setDetails(details);
-		this.setCle(cle);
 		this.setSyntaxe(syntaxe);
 		this.setCreateur(createur);
 		this.setDateCreation(dateCreation);
@@ -81,16 +79,6 @@ public class Agent extends BaseModel{
 	}
 	public void setDetails(String details) {
 		this.details = details;
-	}
-
-	public String getCle() {
-		if(cle == null){
-			return "";
-		}
-		return cle;
-	}
-	public void setCle(String cle) {
-		this.cle = cle;
 	}
 	
 	public String getSyntaxe() {

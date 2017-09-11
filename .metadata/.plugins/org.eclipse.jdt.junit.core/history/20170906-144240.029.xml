@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="ClientAgentTest" project="AgentClientModule" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="adri.logviewer.agent.client.ClientAgentTest" incomplete="true">
-    <testcase name="essaiAll" classname="adri.logviewer.agent.client.ClientAgentTest" time="1.012"/>
-    <testcase name="testClient" classname="adri.logviewer.agent.client.ClientAgentTest" incomplete="true"/>
-  </testsuite>
-</testrun>

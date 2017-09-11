@@ -1,7 +1,39 @@
--------------- LOGSAVER - 2017-09-06 --------------
-2017-09-06 13:03:32.145 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:03:32.149 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:03:32.152 [NioProcessor-2] WARN  org.apache.mina.filter.logging.LoggingFilter - EXCEPTION :
+-------------- LOGSAVER - 2017-09-07 --------------
+2017-09-07 17:50:33.050 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 17:50:33.130 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 17:50:33.151 [main] ERROR adri.logviewer.agent.client.MinaClient - Connexion échouée
+java.lang.IllegalArgumentException: Trying to write a null message : not allowed
+	at org.apache.mina.core.session.AbstractIoSession.write(AbstractIoSession.java:527) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.session.AbstractIoSession.write(AbstractIoSession.java:519) ~[mina-core-2.0.16.jar:?]
+	at adri.logviewer.agent.client.MinaClient.connect(MinaClient.java:48) [bin/:?]
+	at adri.logviewer.agent.client.ClientAgentTest.essaiAll(ClientAgentTest.java:14) [bin/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_121]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_121]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_121]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_121]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50) [junit.jar:4.12]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit.jar:4.12]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47) [junit.jar:4.12]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit.jar:4.12]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325) [junit.jar:4.12]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78) [junit.jar:4.12]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57) [junit.jar:4.12]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit.jar:4.12]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit.jar:4.12]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit.jar:4.12]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit.jar:4.12]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit.jar:4.12]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit.jar:4.12]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2017-09-07 17:50:33.206 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 17:51:10.255 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 17:51:10.257 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 17:51:10.261 [NioProcessor-2] WARN  org.apache.mina.filter.logging.LoggingFilter - EXCEPTION :
 java.io.IOException: Une connexion établie a été abandonnée par un logiciel de votre ordinateur hôte
 	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:1.8.0_121]
 	at sun.nio.ch.SocketDispatcher.read(Unknown Source) ~[?:1.8.0_121]
@@ -19,7 +51,7 @@ java.io.IOException: Une connexion établie a été abandonnée par un logiciel de v
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
 	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 13:03:32.158 [NioProcessor-2] ERROR adri.logviewer.agent.client.MinaClientHandler - Handler Error caught
+2017-09-07 17:51:10.266 [NioProcessor-2] ERROR adri.logviewer.agent.client.MinaClientHandler - Handler Error caught
 java.io.IOException: Une connexion établie a été abandonnée par un logiciel de votre ordinateur hôte
 	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:1.8.0_121]
 	at sun.nio.ch.SocketDispatcher.read(Unknown Source) ~[?:1.8.0_121]
@@ -37,89 +69,23 @@ java.io.IOException: Une connexion établie a été abandonnée par un logiciel de v
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
 	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 13:03:32.159 [main] ERROR adri.logviewer.agent.client.MinaClient - Connexion échouée. Tentative de reconnexion...
-2017-09-06 13:03:32.161 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 13:03:37.165 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:03:37.166 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:03:37.192 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 13:05:24.345 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:05:24.355 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:05:24.377 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 13:07:00.740 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:07:00.744 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:07:00.755 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 13:07:51.415 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:07:51.421 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:07:51.439 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 13:10:05.533 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:10:05.537 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:10:05.647 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 13:11:26.363 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:11:26.423 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:11:26.524 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 13:12:11.297 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:12:11.300 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:13:03.029 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:13:03.032 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:13:33.161 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 13:13:58.966 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:13:58.969 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:14:29.212 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 13:15:14.661 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 13:15:14.663 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 13:15:44.854 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:00:36.025 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:00:36.027 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:01:06.227 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:02:45.181 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:02:45.183 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:02:45.337 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:02:45.436 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app-2017-08-31.log], LogFile [name = app-2017-09-01.log], LogFile [name = app-2017-09-02.log], LogFile [name = app-2017-09-03.log], LogFile [name = app-2017-09-04.log], LogFile [name = app.log]]
-2017-09-06 14:02:45.438 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:08:13.487 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:08:13.489 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:08:13.658 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:08:13.719 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:08:13.721 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:10:55.317 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:10:55.320 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:10:55.414 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:10:55.427 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:10:55.430 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:19:24.140 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:19:24.143 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:19:24.329 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:19:24.357 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:19:24.359 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:24:48.535 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:24:48.538 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:24:48.652 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: app-2017-07-23.log
-2017-09-06 14:24:48.692 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: Lien erroné. Ce dossier n'existe pas.
-2017-09-06 14:24:48.692 [NioProcessor-2] WARN  org.apache.mina.filter.logging.LoggingFilter - EXCEPTION :
-java.lang.ClassCastException: java.lang.String cannot be cast to java.util.List
-	at adri.logviewer.agent.client.MinaClientHandler.messageReceived(MinaClientHandler.java:30) ~[bin/:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:858) ~[mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.logging.LoggingFilter.messageReceived(LoggingFilter.java:208) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:398) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:234) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslHandler.flushScheduledEvents(SslHandler.java:326) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslFilter.messageReceived(SslFilter.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:703) [mina-core-2.0.16.jar:?]
+2017-09-07 17:51:10.267 [main] ERROR adri.logviewer.agent.client.MinaClient - Connexion échouée. Tentative de reconnexion...
+2017-09-07 17:51:10.268 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 17:51:15.275 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 17:51:15.276 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 17:51:15.280 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 17:51:24.738 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 17:51:24.740 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 17:51:24.743 [NioProcessor-2] WARN  org.apache.mina.filter.logging.LoggingFilter - EXCEPTION :
+java.io.IOException: Une connexion établie a été abandonnée par un logiciel de votre ordinateur hôte
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketDispatcher.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketChannelImpl.read(Unknown Source) ~[?:1.8.0_121]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:317) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:683) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:659) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:648) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:68) [mina-core-2.0.16.jar:?]
@@ -128,31 +94,16 @@ java.lang.ClassCastException: java.lang.String cannot be cast to java.util.List
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
 	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 14:24:48.738 [NioProcessor-2] ERROR adri.logviewer.agent.client.MinaClientHandler - Handler Error caught
-java.lang.ClassCastException: java.lang.String cannot be cast to java.util.List
-	at adri.logviewer.agent.client.MinaClientHandler.messageReceived(MinaClientHandler.java:30) ~[bin/:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:858) ~[mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.logging.LoggingFilter.messageReceived(LoggingFilter.java:208) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:398) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:234) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslHandler.flushScheduledEvents(SslHandler.java:326) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslFilter.messageReceived(SslFilter.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:703) [mina-core-2.0.16.jar:?]
+2017-09-07 17:51:24.749 [NioProcessor-2] ERROR adri.logviewer.agent.client.MinaClientHandler - Handler Error caught
+java.io.IOException: Une connexion établie a été abandonnée par un logiciel de votre ordinateur hôte
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketDispatcher.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketChannelImpl.read(Unknown Source) ~[?:1.8.0_121]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:317) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:683) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:659) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:648) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:68) [mina-core-2.0.16.jar:?]
@@ -161,41 +112,23 @@ java.lang.ClassCastException: java.lang.String cannot be cast to java.util.List
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
 	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 14:24:48.741 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:33:35.618 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:33:35.620 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:33:35.795 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:33:35.822 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:33:35.827 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:33:35.856 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:33:35.856 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:33:35.886 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: app-2017-07-23.log
-2017-09-06 14:33:35.898 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: Lien erroné. Ce dossier/fichier n'existe pas : app-2017-07-23.log
-2017-09-06 14:33:35.899 [NioProcessor-8] WARN  org.apache.mina.filter.logging.LoggingFilter - EXCEPTION :
-java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : app-2017-07-23.log
-	at adri.logviewer.agent.client.MinaClientHandler.messageReceived(MinaClientHandler.java:53) ~[bin/:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:858) ~[mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.logging.LoggingFilter.messageReceived(LoggingFilter.java:208) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:398) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:234) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslHandler.flushScheduledEvents(SslHandler.java:326) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslFilter.messageReceived(SslFilter.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:703) [mina-core-2.0.16.jar:?]
+2017-09-07 17:51:24.750 [main] ERROR adri.logviewer.agent.client.MinaClient - Connexion échouée. Tentative de reconnexion...
+2017-09-07 17:51:24.752 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 17:51:29.756 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 17:51:29.756 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 17:51:29.765 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 17:52:16.698 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 17:52:16.700 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 17:52:16.703 [NioProcessor-2] WARN  org.apache.mina.filter.logging.LoggingFilter - EXCEPTION :
+java.io.IOException: Une connexion établie a été abandonnée par un logiciel de votre ordinateur hôte
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketDispatcher.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketChannelImpl.read(Unknown Source) ~[?:1.8.0_121]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:317) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:683) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:659) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:648) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:68) [mina-core-2.0.16.jar:?]
@@ -204,31 +137,16 @@ java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : app-2017-07-
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
 	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 14:33:35.909 [NioProcessor-8] ERROR adri.logviewer.agent.client.MinaClientHandler - Handler Error caught
-java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : app-2017-07-23.log
-	at adri.logviewer.agent.client.MinaClientHandler.messageReceived(MinaClientHandler.java:53) ~[bin/:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:858) ~[mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.logging.LoggingFilter.messageReceived(LoggingFilter.java:208) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:398) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:234) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslHandler.flushScheduledEvents(SslHandler.java:326) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslFilter.messageReceived(SslFilter.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:703) [mina-core-2.0.16.jar:?]
+2017-09-07 17:52:16.709 [NioProcessor-2] ERROR adri.logviewer.agent.client.MinaClientHandler - Handler Error caught
+java.io.IOException: Une connexion établie a été abandonnée par un logiciel de votre ordinateur hôte
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketDispatcher.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketChannelImpl.read(Unknown Source) ~[?:1.8.0_121]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:317) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:683) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:659) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:648) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:68) [mina-core-2.0.16.jar:?]
@@ -237,40 +155,26 @@ java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : app-2017-07-
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
 	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 14:34:36.068 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:34:36.070 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:34:36.170 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:34:36.181 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:34:36.185 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:34:36.201 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:34:36.202 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:34:36.220 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: logs/logs - Copie/app.log
-2017-09-06 14:34:36.258 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: Lien erroné. Ce dossier/fichier n'existe pas : logs/logs - Copie/app.log
-2017-09-06 14:34:36.258 [NioProcessor-8] WARN  org.apache.mina.filter.logging.LoggingFilter - EXCEPTION :
-java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : logs/logs - Copie/app.log
-	at adri.logviewer.agent.client.MinaClientHandler.messageReceived(MinaClientHandler.java:53) ~[bin/:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:858) ~[mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.logging.LoggingFilter.messageReceived(LoggingFilter.java:208) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:398) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:234) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslHandler.flushScheduledEvents(SslHandler.java:326) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslFilter.messageReceived(SslFilter.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:703) [mina-core-2.0.16.jar:?]
+2017-09-07 17:52:16.710 [main] ERROR adri.logviewer.agent.client.MinaClient - Connexion échouée. Tentative de reconnexion...
+2017-09-07 17:52:16.712 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 17:52:21.717 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 17:52:21.717 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 17:52:21.724 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 17:56:09.664 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 17:56:09.668 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 17:56:09.681 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 17:59:55.971 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 17:59:55.974 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 17:59:55.977 [NioProcessor-2] WARN  org.apache.mina.filter.logging.LoggingFilter - EXCEPTION :
+java.io.IOException: Une connexion établie a été abandonnée par un logiciel de votre ordinateur hôte
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketDispatcher.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketChannelImpl.read(Unknown Source) ~[?:1.8.0_121]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:317) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:683) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:659) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:648) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:68) [mina-core-2.0.16.jar:?]
@@ -279,31 +183,16 @@ java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : logs/logs - 
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
 	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 14:34:36.270 [NioProcessor-8] ERROR adri.logviewer.agent.client.MinaClientHandler - Handler Error caught
-java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : logs/logs - Copie/app.log
-	at adri.logviewer.agent.client.MinaClientHandler.messageReceived(MinaClientHandler.java:53) ~[bin/:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:858) ~[mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.logging.LoggingFilter.messageReceived(LoggingFilter.java:208) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:398) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:234) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslHandler.flushScheduledEvents(SslHandler.java:326) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslFilter.messageReceived(SslFilter.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:703) [mina-core-2.0.16.jar:?]
+2017-09-07 17:59:55.985 [NioProcessor-2] ERROR adri.logviewer.agent.client.MinaClientHandler - Handler Error caught
+java.io.IOException: Une connexion établie a été abandonnée par un logiciel de votre ordinateur hôte
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketDispatcher.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.IOUtil.read(Unknown Source) ~[?:1.8.0_121]
+	at sun.nio.ch.SocketChannelImpl.read(Unknown Source) ~[?:1.8.0_121]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:317) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45) ~[mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:683) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:659) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:648) [mina-core-2.0.16.jar:?]
 	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:68) [mina-core-2.0.16.jar:?]
@@ -312,120 +201,16 @@ java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : logs/logs - 
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
 	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 14:34:36.272 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:38:17.005 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:38:17.008 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:38:17.205 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:38:17.233 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:38:17.235 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:38:17.261 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:38:17.261 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:38:17.277 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: app-2017-07-23.log
-2017-09-06 14:38:17.306 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: Lien erroné. Ce dossier/fichier n'existe pas : app-2017-07-23.log
-2017-09-06 14:38:17.306 [NioProcessor-8] WARN  org.apache.mina.filter.logging.LoggingFilter - EXCEPTION :
-java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : app-2017-07-23.log
-	at adri.logviewer.agent.client.MinaClientHandler.messageReceived(MinaClientHandler.java:53) ~[bin/:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:858) ~[mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.logging.LoggingFilter.messageReceived(LoggingFilter.java:208) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:398) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:234) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslHandler.flushScheduledEvents(SslHandler.java:326) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslFilter.messageReceived(SslFilter.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:703) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:659) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:648) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:68) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1120) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64) [mina-core-2.0.16.jar:?]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
-	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 14:38:17.317 [NioProcessor-8] ERROR adri.logviewer.agent.client.MinaClientHandler - Handler Error caught
-java.lang.Exception: Lien erroné. Ce dossier/fichier n'existe pas : app-2017-07-23.log
-	at adri.logviewer.agent.client.MinaClientHandler.messageReceived(MinaClientHandler.java:53) ~[bin/:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:858) ~[mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.logging.LoggingFilter.messageReceived(LoggingFilter.java:208) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:398) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:234) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslHandler.flushScheduledEvents(SslHandler.java:326) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.filter.ssl.SslFilter.messageReceived(SslFilter.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:947) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:535) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:703) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:659) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:648) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:68) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1120) [mina-core-2.0.16.jar:?]
-	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64) [mina-core-2.0.16.jar:?]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
-	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
-2017-09-06 14:38:17.319 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:40:07.391 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:40:07.394 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:40:07.586 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:40:07.612 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:40:07.614 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:40:07.638 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:40:07.639 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:40:07.660 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: app-2017-07-23.log
-2017-09-06 14:40:11.173 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log]]
-2017-09-06 14:40:11.346 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:41:52.820 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:41:52.822 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:41:52.912 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:41:52.926 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:41:52.931 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:41:52.978 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:41:52.978 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:41:53.020 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: app-2017-07-23.log
-2017-09-06 14:41:56.444 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log]]
-2017-09-06 14:41:56.638 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:42:40.962 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:42:40.965 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:42:41.055 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:42:41.067 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:42:41.072 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:42:41.087 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:42:41.094 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:42:41.107 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: app-2017-07-23.log
-2017-09-06 14:42:44.321 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log]]
-2017-09-06 14:42:44.521 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:50:06.030 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:50:06.032 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:50:06.222 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
-2017-09-06 14:50:06.251 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
-2017-09-06 14:50:06.254 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
-2017-09-06 14:50:06.284 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
-2017-09-06 14:50:06.284 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
-2017-09-06 14:50:06.313 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: app-2017-07-23.log
-2017-09-06 14:50:09.508 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log]]
-2017-09-06 14:50:09.667 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 17:59:55.985 [main] ERROR adri.logviewer.agent.client.MinaClient - Connexion échouée. Tentative de reconnexion...
+2017-09-07 17:59:55.987 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 18:00:00.991 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 18:00:00.991 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 18:00:01.004 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 18:04:38.975 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 18:04:38.978 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 18:04:38.995 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+2017-09-07 18:06:55.652 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+2017-09-07 18:06:55.654 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+2017-09-07 18:06:55.882 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
+2017-09-07 18:06:55.946 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: [LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log], LogFile [name = app-2017-07-22.log], LogFile [name = app-2017-07-23.log], LogFile [name = app-2017-07-24.log], LogFile [name = app-2017-07-25.log], LogFile [name = app-2017-07-26.log], LogFile [name = app-2017-07-27.log], LogFile [name = app-2017-08-27.log], LogFile [name = app-2017-08-28.log], LogFile [name = app-2017-08-29.log], LogFile [name = app-2017-08-30.log], LogFile [name = app.log]]
+2017-09-07 18:06:55.949 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED

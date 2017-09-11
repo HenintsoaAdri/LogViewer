@@ -244,7 +244,7 @@ public class HibernateDao {
 	    	String fromClause = builder.append(pagination.getClasse().getSimpleName())
 	    					.append(" m JOIN m.")
 	    	    			.append(field)
-	    	    			.append(" o WHERE o IN :one")
+	    	    			.append(" o WHERE o IN :one GROUP BY m.id")
 	    	    			.toString();
 	    	pagination.setListe(session.createQuery("SELECT m " + fromClause , pagination.getClasse())
             		.setParameterList("one", one)

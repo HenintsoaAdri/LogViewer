@@ -1,0 +1,51 @@
+package agent;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
+import java.util.Properties;
+
+import org.apache.mina.core.service.IoAcceptor;
+import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.serialization.ObjectSerializationEncoder;
+import org.apache.mina.filter.codec.textline.TextLineDecoder;
+import org.apache.mina.filter.logging.LoggingFilter;
+import org.apache.mina.filter.ssl.SslFilter;
+import org.apache.mina.filter.stream.FileRegionWriteFilter;
+import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Server {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+	private int port = 2008;
+	private IoAcceptor server;
+	private SslFilter sslFilter;
+	private Properties properties;
+	
+	public Server(Properties properties) {
+		try {
+			this.properties = properties;
+			this.server = createServer(createSslFilter());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	private IoAcceptor createServer() {
+		IoAcceptor acceptor = new NioSocketAcceptor();
+	 	acceptor.getFilterChain().addLast( "logger", new LoggingFilter() );
+	 	ObjectSerializationEncoder encoder = new ObjectSerializationEncoder();
+		acceptor.getFilterChain().addLast( "codec", new ProtocolCodecFilter(encoder, new TextLineDecoder(Charset.forName("UTF-8"))));
+	 	acceptor.getFilterChain().addLast("fileRegionWrite", new FileRegionWriteFilter());
+	 	acceptor.setHandler(new ServerHandler());
+	    acceptor.getSessionConfig().setReadBufferSize(2048);
+	    acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 30);
+		return acceptor;
+ 	}
+	public void start() throws IOException{
+		IoAcceptor acceptor = createServer();
+		acceptor.bind(new InetSocketAddress("localhost", 2008));
+	}
+}

@@ -1,0 +1,83 @@
+package agent;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
+
+import org.apache.mina.core.RuntimeIoException;
+import org.apache.mina.core.future.ConnectFuture;
+import org.apache.mina.core.future.ReadFuture;
+import org.apache.mina.core.service.IoAcceptor;
+import org.apache.mina.core.service.IoConnector;
+import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.serialization.ObjectSerializationDecoder;
+import org.apache.mina.filter.codec.serialization.ObjectSerializationEncoder;
+import org.apache.mina.filter.codec.textline.TextLineDecoder;
+import org.apache.mina.filter.codec.textline.TextLineEncoder;
+import org.apache.mina.filter.compression.CompressionFilter;
+import org.apache.mina.filter.logging.LoggingFilter;
+import org.apache.mina.filter.stream.FileRegionWriteFilter;
+import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+import org.apache.mina.transport.socket.nio.NioSocketConnector;
+
+public class Server {
+	private IoAcceptor createServer() {
+
+		IoAcceptor acceptor = new NioSocketAcceptor();
+	 	acceptor.getFilterChain().addLast( "logger", new LoggingFilter() );
+	 	ObjectSerializationEncoder encoder = new ObjectSerializationEncoder();
+	 	encoder.setMaxObjectSize(Integer.MAX_VALUE);
+		acceptor.getFilterChain().addLast( "codec", new ProtocolCodecFilter(encoder, new TextLineDecoder(Charset.forName("UTF-8"))));
+	 	acceptor.getFilterChain().addLast("fileRegionWrite", new FileRegionWriteFilter());
+	 	acceptor.setHandler(new ServerHandler());
+	    acceptor.getSessionConfig().setReadBufferSize(2048);
+	    acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 30);
+		return acceptor;
+ 	}
+	private IoConnector createClient(){
+		IoConnector connector = new NioSocketConnector();
+		connector.getFilterChain().addLast( "logger", new LoggingFilter() );
+		connector.getFilterChain().addLast( "codec", new ProtocolCodecFilter(new TextLineEncoder(Charset.forName("UTF-8")), decoder));
+		connector.setHandler(new ClientHandler());
+		connector.getSessionConfig().setReadBufferSize(2048);
+		connector.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 30);
+		connector.getSessionConfig().setUseReadOperation(true);
+		return connector;
+	}
+	public Object connect() throws Exception{
+		IoConnector client = createClient();
+		for(int i = 0; i<5; i++){
+			try {
+				ConnectFuture connexion = client.connect(new InetSocketAddress("localhost", 2008));
+				connexion.awaitUninterruptibly();
+				IoSession session = connexion.getSession();
+				System.out.println("Connecté");
+				session.write("app.log");
+				ReadFuture read = session.read();
+				read.awaitUninterruptibly();
+				return read.getMessage();
+			} catch (RuntimeIoException e) {
+				Thread.sleep(5000);
+				e.printStackTrace();
+			}
+		}
+		throw new Exception("Connexion impossible");
+	}
+	public void start() throws IOException{
+		IoAcceptor acceptor = createServer();
+		acceptor.bind(new InetSocketAddress("localhost", 2008));
+	}
+	public static void main(String[] args) throws Exception {
+		try {
+			Server server = new Server();
+			server.start();
+			System.out.println("Server started");
+			System.out.println(server.connect());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

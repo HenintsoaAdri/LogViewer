@@ -1,67 +1,52 @@
 package adri.logviewer.agent.file;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class LogFile implements Serializable{
-	private String tempName;
-	private String filename;
-	private String distantName;
-	private long length;
-	private byte[] file;
+	private String fileName = "";
+	private File tempFile;
+	private File distantFile;
 		
-	public LogFile(String filename, byte[] file) {
-		setFilename(filename);
-		setFile(file);
+	public LogFile(String filename, File distantFile) {
+		setFileName(filename);
+		setDistantFile(distantFile);
 	}
-	public LogFile(String distantName, String filename, long length) {
-		setDistantName(distantName);
-		setFilename(filename);
-		setLength(length);
+	public LogFile(File tempFile) {
+		setTempFile(tempFile);
 	}
 	
-	public String getTempName() {
-		return tempName;
+	public LogFile() {
 	}
-	public void setTempName(String tempName) {
-		this.tempName = tempName;
+	public String getFileName() {
+		return fileName;
 	}
-	public String getFilename() {
-		return filename;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public File getTempFile() {
+		return tempFile;
+	}
+	public void setTempFile(File tempFile) {
+		this.tempFile = tempFile;
+	}
+	public File getDistantFile() {
+		return distantFile;
+	}
+	public void setDistantFile(File distantFile) {
+		this.distantFile = distantFile;
 	}
 	public String getName(){
-		return getFilename().substring(0, getFilename().indexOf(".log"));
+		return distantFile.getName().replace(".log", "");
 	}
 	
-	public String getDistantName() {
-		return distantName;
-	}
-	public void setDistantName(String distantName) {
-		this.distantName = distantName;
-	}
-	
-	public long getLength() {
-		return length;
-	}
-	public void setLength(long length) {
-		this.length = length;
-	}
 	public float getMBLenght(){
-		return getLength() / (1024*1024F);
-	}
-	
-	public byte[] getFile() {
-		return file;
-	}
-	public void setFile(byte[] file) {
-		this.file = file;
+		return distantFile.length() / (1024*1024F);
 	}	
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder("LogFile [name = ");
-		return builder.append(filename).append("]").toString();
+		return builder.append(getFileName()).append("]").toString();
 	}
 }

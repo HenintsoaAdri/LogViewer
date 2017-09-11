@@ -3,9 +3,7 @@
 <%@page import="java.io.File"%>
 <%@ include file="../includes/header.jsp" %>
 <% 
-	String fileName = (String)request.getAttribute("file");
-	String fileString = (String)request.getAttribute("fileString");
-	Fichier file = (Fichier)request.getAttribute("fichier");
+	String file = (String)request.getAttribute("file");
 %>
             <div class="container-fluid">
 				<div class="row bg-title">
@@ -23,51 +21,26 @@
 				<div class="row">
 				    <div class="col-md-12">
 				        <div class="white-box">
-							<a class="pull-right btn btn-success" href="${pageContext.request.contextPath}/Fichier/download?file=<% out.print(fileName); %>"><i class="fa fa-download fw"></i> Télécharger le fichier</a>
+				        	<div class="btn-group pull-right">
+								<a class="btn btn-success" href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(file); %>"><i class="fa fa-indent fw"></i> Parser le fichier</a>
+								<a class="btn-outline btn btn-success" href="${pageContext.request.contextPath}/Fichier/download?file=<% out.print(file); %>"><i class="fa fa-download fw"></i> Télécharger le fichier</a>
+				        	</div>
 							<h3 class="box-title">
-								<% out.print(fileString); %>
+								<i class="fa fa-file-text-o" aria-hidden="true"></i> <% out.print(file); %>
 							</h3>
-							<p class="text-muted">Syntaxe : <% out.print(file.getMainPattern()); %>	
-							</p>
 							<hr class="m-t-0 m-b-20">
 							<div class="row">
 								<div class="col-sm-12">	
-		                            <%  if(file == null || file.getListeLog() == null || file.getListeLog().isEmpty()){%>
-		                    		<p class="text-danger">Aucune ligne de log enregistrée.</p>
-		                    		<%  }else{ %>
-		                            <div class="table-responsive">
-		                                <table class="table">
-		                                    <thead>
-		                                        <tr>
-		                                            <th>Date</th>
-		                                            <th>Priorité</th>
-		                                            <th>Thread</th>
-		                                            <th>Classe</th>
-		                                            <th>Méthode</th>
-		                                            <th>Message</th>
-		                                        </tr>
-		                                    </thead>
-		                                    <tbody>
-		                                    	<% for(Log i : file.getListeLog()){ %>
-		                                        <tr>
-		                                            <td><% out.print(i.getDateString()); %></td>
-		                                            <td><% out.print(i.getPriority()); %></td>
-		                                            <td><% out.print(i.getThread()); %></td>
-		                                            <td><% out.print(i.getClasse()); %></td>
-		                                            <td><% out.print(i.getMethod()); %></td>
-		                                            <td><% out.print(i.getMessage()); %></td>
-		                                        </tr>
-		                                        <% if(!(i.getDetails() == null || i.getDetails().isEmpty())){ %>
-		                                        <tr>
-		                                            <td colspan="6"><% out.print(i.getDetails()); %></td>
-		                                        </tr>
-		                                        <% } 
-		                                        }
-		                                    %>
-		                                    </tbody>
-		                                </table>
-		                            </div>
-		                        <% } %>
+						        <% if(request.getAttribute("exception") != null){ 
+						      		Exception e = (Exception)request.getAttribute("exception");
+						        %>
+						      	<p class="text-danger">
+					      			<% out.print(e.getMessage()); e.printStackTrace();%>
+					            </p>
+				                <!--./row-->
+								<% } %>
+								<iframe width="100%;" src="">
+								</iframe>
 								</div>
 				           </div>
 				        </div>

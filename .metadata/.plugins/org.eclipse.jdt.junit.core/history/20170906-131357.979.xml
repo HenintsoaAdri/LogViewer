@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="ClientAgentTest" project="AgentClientModule" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="adri.logviewer.agent.client.ClientAgentTest" time="31.208">
-    <testcase name="testClient" classname="adri.logviewer.agent.client.ClientAgentTest" time="31.208"/>
-  </testsuite>
-</testrun>

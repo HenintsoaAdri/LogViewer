@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="A:/Java/apache-mina-2.0.16/apache-mina-2.0.16/dist/mina-core-2.0.16.jar"/>
+	<classpathentry kind="lib" path="A:/Java/apache-mina-2.0.16/apache-mina-2.0.16/lib/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="A:/Java/apache-log4j-2.8.2-bin/log4j-api-2.8.2.jar"/>
+	<classpathentry kind="lib" path="A:/Java/apache-log4j-2.8.2-bin/log4j-core-2.8.2.jar"/>
+	<classpathentry kind="lib" path="A:/Java/apache-log4j-2.8.2-bin/log4j-slf4j-impl-2.8.2.jar"/>
+	<classpathentry kind="lib" path="A:/Java/apache-mina-2.0.16/apache-mina-2.0.16/dist/mina-filter-compression-2.0.16.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

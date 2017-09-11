@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 //import java.util.List;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.context.ApplicationContext;
 import adri.logviewer.agent.client.MinaClient;
@@ -32,7 +34,7 @@ public class FileService {
 	}
 
 	public List<LogFile> connect(Agent agent) throws Exception{
-		return connect(agent, null);
+		return connect(agent, "");
 	}
 	public List<LogFile> connect(Agent agent, String file) throws Exception{
 		MinaClient client = null;
@@ -55,7 +57,7 @@ public class FileService {
 	public LogFile openFile(Agent agent, LogFile file) throws Exception{
 		return openFile(agent, file.getDistantName());
 	}
-	public void saveFile(Utilisateur user, Agent agent, LogFile logfile, boolean force) throws Exception{
+	public void saveFile(Utilisateur user, Agent agent, LogFile logfile) throws Exception{
 		File temp = null;
 		File save = null;
 		File path = null;
@@ -110,5 +112,19 @@ public class FileService {
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+	public Agent getAgent(File file) throws Exception{
+		try{
+			String nameAgent = file.getParentFile().getName();
+			Pattern p = Pattern.compile("Agent([0-9]+)-(.*)");
+			Matcher m = p.matcher(nameAgent);
+			if(m.matches()){
+				String id = m.group(1);
+				return new Agent(Integer.parseInt(id));
+			}
+			throw new Exception("Agent introuvable");
+		}catch(NumberFormatException e){
+			throw new Exception("Agent invalide");
+		}
 	}
 }
