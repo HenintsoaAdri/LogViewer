@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.apache.mina.filter.codec.demux.DemuxingProtocolDecoder"/>
 <fullyQualifiedTypeName name="org.apache.mina.filter.codec.ProtocolDecoder"/>
 <fullyQualifiedTypeName name="org.apache.mina.core.filterchain.IoFilterAdapter"/>
 <fullyQualifiedTypeName name="java.nio.ByteBuffer"/>
 <fullyQualifiedTypeName name="org.apache.mina.core.file.FileRegion"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
 <fullyQualifiedTypeName name="org.apache.mina.core.buffer.IoBuffer"/>
-<fullyQualifiedTypeName name="agent.LogFile"/>
-<fullyQualifiedTypeName name="adri.logviewer.agent.file.LogFile"/>
 <fullyQualifiedTypeName name="adri.logviewer.model.Agent"/>
 <fullyQualifiedTypeName name="adri.logviewer.service.FileService"/>
 <fullyQualifiedTypeName name="com.sun.media.jfxmedia.events.NewFrameEvent"/>
@@ -42,7 +39,6 @@
 <fullyQualifiedTypeName name="adri.logviewer.model.UtilisateurView"/>
 <fullyQualifiedTypeName name="adri.logviewer.model.Utilisateur"/>
 <fullyQualifiedTypeName name="java.lang.Character"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.lang.reflect.Field"/>
 <fullyQualifiedTypeName name="org.hibernate.cfg.ExtendsQueueEntry"/>
 <fullyQualifiedTypeName name="adri.logviewer.model.BaseModel"/>
@@ -54,10 +50,14 @@
 <fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
 <fullyQualifiedTypeName name="adri.logviewer.exception.InputException"/>
 <fullyQualifiedTypeName name="java.util.Collection"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="adri.logviewer.model.PermissionType"/>
 <fullyQualifiedTypeName name="adri.logviewer.model.Permission"/>
 <fullyQualifiedTypeName name="adri.logviewer.model.Profil"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="agent.LogFile"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="adri.logviewer.agent.file.LogFile"/>
 </qualifiedTypeNameHistroy>
