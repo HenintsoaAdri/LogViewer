@@ -114,10 +114,10 @@ List<LogFile> listeLog = (List<LogFile>)request.getAttribute("listeLog");
                             <% if(listeLog == null || listeLog.isEmpty() ){ %>
 						    	<p class="text-danger">Aucun fichier n'a été retourné par cet agent</p>
 							<% }else{ %>
-	                            <ul class="list-group list-inline">
+	                            <ul class="list-group">
 	                            <%	for(LogFile i : listeLog){  %>
-	                              <li class="text-center p-20"><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/open?file=<% out.print(i.getDistantName()); %>"><i class="fa fa-file text-success"></i>
-				                      <p><% out.print(i.getDistantName()); %></p>
+	                              <li class="text-center p-20"><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/open?log.fileName=<% out.print(i.getFileName()); %>">
+				                      <p><% out.print(i.getFileName()); %> (<% out.print(i.getDistantFile().length()/(1024*1024)); %> Mo)</p>
 	                              	  </a>
 	                              </li>
 	                            <% } %>

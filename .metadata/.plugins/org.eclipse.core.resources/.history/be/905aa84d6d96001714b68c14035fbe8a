@@ -1,7 +1,0 @@
-package agent;
-
-import org.apache.mina.core.filterchain.IoFilterAdapter;
-
-public class FileCacheFilter extends IoFilterAdapter{
-
-}

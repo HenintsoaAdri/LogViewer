@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Path" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="Filepath"/>
-			<item value="filepath"/>
-			<item value="File.jsp"/>
-			<item value="FileP"/>
-			<item value="File"/>
-			<item value="+"/>
-			<item value="sys"/>
-			<item value="logviewermain"/>
+			<item value="enregistré"/>
+			<item value="input-group-btn .btn"/>
+			<item value="input-group-btn"/>
+			<item value="input-group"/>
+			<item value="index"/>
+			<item value="index&lt;"/>
+			<item value="exce"/>
+			<item value="parse"/>
 		</list>
 		<list key="replacehistory">
-			<item value="Path"/>
-			<item value="path"/>
-			<item value="directory"/>
-			<item value="logviewer"/>
 			<item value=""/>
-			<item value="chain"/>
-			<item value="throws Exception"/>
-			<item value="throw e"/>
+			<item value="LOWER"/>
+			<item value="="/>
+			<item value="LIKE"/>
+			<item value="string"/>
+			<item value="Pagination"/>
+			<item value="pagination"/>
+			<item value="totalLine"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="381" key="DIALOG_HEIGHT"/>
-		<item value="798" key="DIALOG_X_ORIGIN"/>
-		<item value="282" key="DIALOG_Y_ORIGIN"/>
+		<item value="916" key="DIALOG_X_ORIGIN"/>
+		<item value="208" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

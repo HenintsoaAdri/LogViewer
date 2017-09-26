@@ -1,12 +1,20 @@
+<%@page import="java.text.ParseException"%>
+<%@page import="javafx.scene.control.Pagination"%>
 <%@page import="adri.logviewer.filemanager.Log"%>
 <%@page import="adri.logviewer.filemanager.Fichier"%>
 <%@page import="java.io.File"%>
 <%@ include file="../includes/header.jsp" %>
-<% 
-	String fileName = (String)request.getAttribute("file");
+<style>
+.table-responsive{
+	height:75vh;
+	overflow: auto;
+}
+</style>
+<%  String fileName = (String)request.getAttribute("file");
 	Fichier file = (Fichier)request.getAttribute("fichier");
-%>
-            <div class="container-fluid">
+	String query = request.getQueryString() == null? "" : request.getQueryString();
+	if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
+        <div class="container-fluid">
 				<div class="row bg-title">
 				    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
 				        <h4 class="page-title">Fichiers</h4>
@@ -23,24 +31,35 @@
 				    <div class="col-md-12">
 				        <div class="white-box">
 				        	<div class="btn-group pull-right">
-								<a class="btn btn-success" href="${pageContext.request.contextPath}/Fichier?file=<% out.print(fileName); %>"><i class="fa fa-outdent fw"></i> Visionner le fichier</a>
-								<a class="btn-outline btn btn-success" href="${pageContext.request.contextPath}/Fichier/download?file=<% out.print(fileName); %>"><i class="fa fa-download fw"></i> Télécharger le fichier</a>
+								<a class="btn btn-success" href="${pageContext.request.contextPath}/Fichier?file=<% out.print(fileName); %>"><i class="fa fa-outdent fw"></i> Visionner</a>
+								<a class="btn-outline btn btn-success" href="${pageContext.request.contextPath}/Fichier/download?file=<% out.print(fileName); %>"><i class="fa fa-download fw"></i> Télécharger</a>
 							</div>
 							<h3 class="box-title">
 								<i class="fa fa-file-text-o" aria-hidden="true"></i> <% out.print(fileName); %>
 							</h3>
-							<p class="text-muted">Syntaxe : <% out.print(file.getMainPattern()); %>	
-							</p>
+						<% try{ 
+							String pattern = file.getMainPattern();
+						%>
+							<p class="text-muted">Syntaxe : <% out.print(pattern); %></p>
 							<hr class="m-t-0 m-b-20">
+							<div class="btn-group">
+							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=FATAL" class="btn btn-outline btn-danger">FATAL</a>
+							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=ERROR" class="btn btn-outline btn-danger">ERROR</a>
+							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=WARN" class="btn btn-outline btn-warning">WARN</a>
+							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=INFO" class="btn btn-outline btn-info">INFO</a>
+							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=DEBUG" class="btn btn-outline btn-primary">DEBUG</a>
+							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=TRACE" class="btn btn-outline btn-success">TRACE</a>
+							</div>
 							<div class="row">
-								<div class="col-sm-12">	
-		                            <%  if(file == null || file.getListeLog() == null || file.getListeLog().isEmpty()){%>
-		                    		<p class="text-danger">Aucune ligne de log enregistrée.</p>
+								<div class="col-sm-12">
+		                            <%  if(file == null || file.getPagination().getListeLog() == null || file.getPagination().getListeLog().isEmpty()){%>
+		                    		<p class="text-danger">Aucune ligne de log retrouvée.</p>
 		                    		<%  }else{ %>
 		                            <div class="table-responsive">
 		                                <table class="table">
 		                                    <thead>
 		                                        <tr>
+		                                        	<th>Ligne</th>
 		                                            <th>Date</th>
 		                                            <th>Priorité</th>
 		                                            <th>Thread</th>
@@ -50,8 +69,9 @@
 		                                        </tr>
 		                                    </thead>
 		                                    <tbody>
-		                                    	<% for(Log i : file.getListeLog()){ %>
+		                                    	<% for(Log i : file.getPagination().getListeLog()){ %>
 		                                        <tr>
+		                                        	<td><% out.print(i.getLine()); %></td>
 		                                            <td><% out.print(i.getDateString()); %></td>
 		                                            <td><% out.print(i.getPriority()); %></td>
 		                                            <td><% out.print(i.getThread()); %></td>
@@ -61,7 +81,14 @@
 		                                        </tr>
 		                                        <% if(!(i.getDetails() == null || i.getDetails().isEmpty())){ %>
 		                                        <tr>
-		                                            <td colspan="6"><% out.print(i.getDetails()); %></td>
+		                                        	<td colspan="7"><a data-toggle="collapse" href="#<% out.print(i.hashCode()); %>"><b>Détails</b></a>
+			                                            <div id="<% out.print(i.hashCode()); %>" class="collapse">
+			                                            	<pre><% String details = i.getDetails().replaceAll("&", "&amp;");
+			                                            			details = details.replace(">", "&gt;");
+			                                            			details = details.replace("<", "&lt;");
+			                                            			out.print(details); %></pre>
+			                                            </div>
+		                                            </td>
 		                                        </tr>
 		                                        <% } 
 		                                        }
@@ -69,12 +96,43 @@
 		                                    </tbody>
 		                                </table>
 		                            </div>
+		                            <ul class="pagination">
+		                            <% if(!file.getPagination().isStart()){ %>
+		                            	<li><a href="${pageContext.request.contextPath}/Fichier/parse?<% out.print(query); %>page=<% out.print(file.getPagination().getPreviewStart()); %>">&lt; Précédent</a></li>
+		                            <% } %>
+		                            	<li><a href="${pageContext.request.contextPath}/Fichier/parse?<% out.print(query); %>page=<% out.print(file.getPagination().getCurrentEnd()+1); %>">Suivant &gt;</a></li>
+		                            </ul>
 		                        <% } %>
 								</div>
 				           </div>
+				           <% }catch(NullPointerException ex){ %>
+				           		<p class="text-danger">Parsage impossible.	
+						        <% if(request.getAttribute("exception") != null){ 
+						      		Exception e = (Exception)request.getAttribute("exception");
+						        %>
+						      	<p class="text-danger"><% 
+					      			try{
+					      				out.print(e.getMessage());
+					            		out.print(e.getCause().getMessage());
+					            		out.print(e.getClass());
+					            	}catch(NullPointerException e1){}
+						      		if(e instanceof ParseException){ %>
+			      					<a class="btn btn-default" href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&force=true">Forcer le parsage</a>
+			      				<%	} %>
+			      				</p>
+				                <!--./row-->
+								<% } %>	
+				           <% } %>
 				        </div>
 				    </div>
 				</div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a data-toggle="modal" href="${pageContext.request.contextPath}/Fichier/delete?file=<% out.print(fileName); %>" class="text-danger pull-right">Supprimer le fichier</a>
+                    </div>
+                </div>
+                <!-- /.row -->
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>

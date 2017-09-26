@@ -1,6 +1,0 @@
-package adri.logviewer.agent.client;
-
-public class Snippet {
-	getPath() + file
-}
-

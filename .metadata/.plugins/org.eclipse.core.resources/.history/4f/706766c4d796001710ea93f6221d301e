@@ -1,7 +1,0 @@
-package agent;
-
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
-
-public class ClientProtocolCodecFilter extends ProtocolCodecFilter {
-
-}

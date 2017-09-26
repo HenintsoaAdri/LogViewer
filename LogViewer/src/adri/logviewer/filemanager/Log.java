@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import adri.logviewer.util.StringUtil;
 
 public class Log {
+	private int line;
 	private Date date;
 	private String classe = "";
 	private String method = "";
@@ -16,8 +17,7 @@ public class Log {
 	private String thread = "";
 	private String details = "";
 	private Fichier fichier;
-	
-	public Log(Fichier fichier, Matcher m) throws Exception{
+	public Log(Fichier fichier, Matcher m, int line) throws Exception{
 		setFichier(fichier);
 		setDate(m,fichier.getDatePattern());
 		setClasse(m);
@@ -25,6 +25,13 @@ public class Log {
 		setPriority(m);
 		setThread(m);
 		setMessage(m);
+		setLine(line);
+	}
+	public int getLine() {
+		return line;
+	}
+	public void setLine(int line) {
+		this.line = line;
 	}
 	public Date getDate() {
 		return date;

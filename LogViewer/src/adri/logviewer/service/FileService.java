@@ -2,17 +2,18 @@ package adri.logviewer.service;
 
 import java.io.File;
 import java.io.FileInputStream;
-//import java.io.OutputStream;
-//import java.util.List;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.context.ApplicationContext;
-import adri.logviewer.agent.client.MinaClient;
+import adri.logviewer.agent.client.Client;
 import adri.logviewer.agent.file.LogFile;
 import adri.logviewer.exception.PermissionException;
+import adri.logviewer.filemanager.Fichier;
 import adri.logviewer.model.Agent;
 import adri.logviewer.model.Utilisateur;
 
@@ -21,8 +22,11 @@ public class FileService {
 	private static FileService service;
 	
 	private FileService(){}
-	public static FileService getInstance(ApplicationContext context){
+	public static FileService getInstance(ApplicationContext context, Utilisateur user) throws Exception{
 		try{
+			if(!user.isGenerallyAllowed("Fichier")){
+				throw new PermissionException("Vous n'etes pas autorisé à effectuer ces opérations");
+			}
 			if(service == null){
 				service = (FileService)context.getBean("fileService");
 			}
@@ -33,49 +37,50 @@ public class FileService {
 		}
 	}
 
-	public List<LogFile> connect(Agent agent) throws Exception{
-		return connect(agent, "");
-	}
-	public List<LogFile> connect(Agent agent, String file) throws Exception{
-		MinaClient client = null;
+	public LogFile connect(Agent agent) throws Exception{
+		Client client = null;
 		try{
-			client = new MinaClient();
-			return (List<LogFile>)client.connect(agent.getAdresse(), agent.getPort(), file);
+			client = new Client();
+			return (LogFile)client.connect(agent.getAdresse(), agent.getPort());
 		}finally{
 			if(client != null){
 				client.dispose();
 			}
 		}
 	}
-	public LogFile openFile(Agent agent, String file) throws Exception{
-		List<LogFile> result = (List<LogFile>)connect(agent, file);
-		if(result.size() == 1){
-			return result.get(0);
+	public void openFile(Agent agent, LogFile file) throws Exception{
+		Client client = null;
+		try{
+			client = new Client(file);
+			if(file.getTempFile() == null){
+				String extension = file.getFileName().substring(file.getFileName().lastIndexOf('.'));
+				file.setTempFile(File.createTempFile(file.getFileName(), extension));
+			}
+			client.connect(agent.getAdresse(), agent.getPort());
+		}finally{
+			if(client != null){
+				client.dispose();
+			}
 		}
-		throw new Exception("Fichier introuvable");
 	}
-	public LogFile openFile(Agent agent, LogFile file) throws Exception{
-		return openFile(agent, file.getDistantName());
-	}
+	
 	public void saveFile(Utilisateur user, Agent agent, LogFile logfile) throws Exception{
-		File temp = null;
 		File save = null;
 		File path = null;
 		try {
-			path = new File(filePath + File.separator + user.getProfil().getName() + File.separator + agent.getPathName());
+			path = new File(getRootPath(user) + File.separator + agent.getPathName());
 			if(!path.exists()){
 				path.mkdirs();
 			}
-			temp = new File(logfile.getFilename());
-			if(!temp.exists()){
+			if(!logfile.getTempFile().exists()){
 				throw new Exception("Ce fichier n'est plus en cache ou a été déplacé");
 			}
-			save = new File(path.getAbsolutePath() + File.separator + logfile.getFilename());
-			if(!temp.renameTo(save)){
+			String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+			save = new File(path.getAbsolutePath() + File.separator + date + logfile.getFileName().replace("/", "~~"));
+			if(!logfile.getTempFile().renameTo(save)){
 				throw new Exception("Le fichier n'a pas pu etre sauvegardé");
 			}
-			logfile.setTempName(save.getAbsolutePath());
-			temp.delete();
+			logfile.setTempFile(save);
 		} catch (Exception e) {
 			throw e;	
 		}
@@ -85,7 +90,7 @@ public class FileService {
 		byte[] buffer = new byte[1024];
 		try {
 			int reader;
-			read = new FileInputStream(new File(logfile.getTempName()));
+			read = new FileInputStream(logfile.getTempFile());
 			while((reader = read.read(buffer)) != -1){
 				out.write(reader);	
 			}
@@ -97,7 +102,7 @@ public class FileService {
 			}
 		}
 	}
-	public String getFilePath(Utilisateur user) throws PermissionException {
+	public String getFilePath(Utilisateur user) throws Exception {
 		File f = new File(filePath);
 		if(!f.exists()){
 			f.mkdir();
@@ -106,9 +111,16 @@ public class FileService {
 			return f.getAbsolutePath();
 		}
 		else if(user.getProfil() != null){
-			return f.getAbsolutePath() + File.separator + user.getProfil().getId();
+			String base = getRootPath(user);
+			if(!new File(base).exists()){
+				throw new Exception("Aucun fichier n'a encore été enregistré dans votre profil");
+			}
+			return base;
 		}
 		throw new PermissionException("Vous n'etes rattaché à aucun profil");
+	}
+	public String getRootPath(Utilisateur user){
+		return new File(filePath).getAbsolutePath() + File.separator + user.getProfil().getNom();
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
@@ -122,9 +134,14 @@ public class FileService {
 				String id = m.group(1);
 				return new Agent(Integer.parseInt(id));
 			}
-			throw new Exception("Agent introuvable");
+			throw new Exception("Agent introuvable.");
 		}catch(NumberFormatException e){
 			throw new Exception("Agent invalide");
 		}
+	}
+	public Fichier parseFile(Agent agent, File file, int line, int maxLine, boolean force, String level)throws Exception{
+		Fichier f = new Fichier(agent.getSyntaxe(), file, line, maxLine, force, level);
+		f.parseFile();
+		return f;
 	}
 }

@@ -3,6 +3,9 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+	<filter-def name="searchGroupe">
+		<filter-param name="nom" type="string"/>
+	</filter-def>
     <class name="adri.logviewer.model.Groupe" table="groupe">
         <meta attribute="class-description">
             This class contains the groupe detail.
@@ -33,5 +36,6 @@
 	    	<property name="nombreAgent" column="nbagent" type="int" />
 	    	<property name="nombreProfil" column="nbprofil" type="int"/>
 	    </union-subclass>
+	    <filter name="searchGroupe" condition="lower(nomgroupe) like :nom"></filter>
     </class>
 </hibernate-mapping>

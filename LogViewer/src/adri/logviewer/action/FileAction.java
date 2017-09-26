@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -22,22 +21,9 @@ public class FileAction extends BaseAction{
 	private Fichier fichier;
 	private InputStream fileInputStream;
 	private long fileLength;
-	private List<LogFile> listeLog;
-	
-	@Override
-	public String start() {
-		try{
-			setPath(getFile());
-			if(path.isFile()){
-				return "file";
-			}
-			return SUCCESS;
-		}catch(Exception e){
-			e.printStackTrace();
-			setException(e);
-			return ERROR;
-		}
-	}
+	private LogFile log;
+	private boolean force;
+	private String level;
 	
 	public String connexion(){
 
@@ -45,7 +31,7 @@ public class FileAction extends BaseAction{
 		try{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).find(getItem(), getUser());
-			setListeLog(FileService.getInstance(context).connect((Agent)getItem()));
+			setLog(FileService.getInstance(context, getUser()).connect((Agent)getItem()));
 			return SUCCESS;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -57,14 +43,15 @@ public class FileAction extends BaseAction{
 			}
 		}
 	}
-
+	
 	public String open(){
 
 		ConfigurableApplicationContext context = null;
 		try{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).find(getItem(), getUser());
-			setListeLog(FileService.getInstance(context).connect((Agent)getItem(), getFile()));
+			FileService.getInstance(context, getUser()).openFile((Agent)getItem(), getLog());
+			setFileInputStream(new FileInputStream(getLog().getTempFile()));
 			return SUCCESS;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -76,6 +63,100 @@ public class FileAction extends BaseAction{
 			}
 		}
 	}
+	public String view() {
+		try{
+			String tempDir = System.getProperty("java.io.tmpdir");
+			getLog().setTempFile(new File(tempDir + getFile()));
+			setFileInputStream(new FileInputStream(getLog().getTempFile()));
+			return SUCCESS;
+		}catch(FileNotFoundException e){
+			setException(e);
+			return NONE;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			return ERROR;
+		}
+	}
+
+	public String parse(){
+	
+		ConfigurableApplicationContext context = null;
+		try{
+			String tempDir = System.getProperty("java.io.tmpdir");
+			getLog().setTempFile(new File(tempDir + getFile()));
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			UtilisateurService.getInstance(context).find(getItem(), getUser());
+			setFichier(FileService.getInstance(context, getUser()).parseFile((Agent)getItem(), getLog().getTempFile(), getPage(),10, isForce(),getLevel()));		
+			return SUCCESS;
+		}catch(FileNotFoundException e){
+			setException(e);
+			return NONE;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+
+	public String save() throws IOException {
+		ConfigurableApplicationContext context = null;
+		try{
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			String tempDir = System.getProperty("java.io.tmpdir");
+			getLog().setTempFile(new File(tempDir + getFile()));
+			UtilisateurService.getInstance(context).find(getItem(), getUser());
+			FileService.getInstance(context, getUser()).saveFile(getUser(), (Agent)getItem(), getLog());
+			return SUCCESS;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			setFileInputStream(new FileInputStream(getLog().getTempFile()));
+			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+
+	public String download() throws IOException {
+		try{
+			String tempDir = System.getProperty("java.io.tmpdir");
+			getLog().setTempFile(new File(tempDir + getFile()));
+			if(getLog().getTempFile().exists() && getLog().getTempFile().isFile()){
+				fileInputStream = new FileInputStream(getLog().getTempFile());
+				setFileLength(getLog().getTempFile().length());
+				return SUCCESS;
+			}
+			return view();
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			return ERROR;
+		}
+	}
+
+	@Override
+	public String start() {
+		try{
+			setPath(getFile());
+			if(path.isFile()){
+				setFileInputStream(new FileInputStream(getPath()));
+				return "file";
+			}
+			return SUCCESS;
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			return ERROR;
+		}
+	}
+
 	public String parseFile(){
 
 		ConfigurableApplicationContext context = null;
@@ -83,13 +164,19 @@ public class FileAction extends BaseAction{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			setPath(getFile());
 			try {
-				setItem(FileService.getInstance(context).getAgent(getPath()));
+				setItem(FileService.getInstance(context, getUser()).getAgent(getPath()));
 			} catch (Exception e) {
-				setException(e);
-				return "file";
+				try{
+					setException(new Exception("Parsage impossible.", e));
+					setFileInputStream(new FileInputStream(getPath()));
+					return "file";
+				}catch(FileNotFoundException ex){
+					setException(ex);
+					return NONE;
+				}
 			}
-			UtilisateurService.getInstance(context).find(getItem(), getUser());				
-			setFichier(new Fichier(((Agent)getItem()).getSyntaxe(), getPath(), getPage(),10));			
+			UtilisateurService.getInstance(context).find(getItem(), getUser());		
+			setFichier(FileService.getInstance(context, getUser()).parseFile((Agent)getItem(), getPath(), getPage(),10, isForce(), getLevel()));			
 			return SUCCESS;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -101,31 +188,11 @@ public class FileAction extends BaseAction{
 			}
 		}
 	}
-	public String parse(){
-
-		ConfigurableApplicationContext context = null;
+	public String downloadFile() throws IOException {
 		try{
-			context = new ClassPathXmlApplicationContext("list-beans.xml");
-			UtilisateurService.getInstance(context).find(getItem(), getUser());				
-			setFichier(new Fichier(((Agent)getItem()).getSyntaxe(), getPath(), getPage(),10));			
-			return SUCCESS;
-		}catch(Exception e){
-			e.printStackTrace();
-			setException(e);
-			return ERROR;
-		}finally{
-			if(context != null){
-				context.close();
-			}
-		}
-	}
-	public String download() throws IOException {
-		ConfigurableApplicationContext context = null;
-		try{
-			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			setPath(getFile());
 			if(getPath().exists() && getPath().isFile()){
-				fileInputStream = new FileInputStream(getPath());
+				setFileInputStream(new FileInputStream(getPath()));
 				setFileLength(getPath().length());
 				return SUCCESS;
 			}
@@ -134,13 +201,25 @@ public class FileAction extends BaseAction{
 			e.printStackTrace();
 			setException(e);
 			return ERROR;
-		}finally{
-			if(context != null){
-				context.close();
-			}
 		}
 	}
-	
+	public String deleteFile() throws Exception{
+		try{
+			setPath(getFile());
+			if(getPath().exists() && getPath().isFile()){
+				if(!getPath().delete()){
+					setFileInputStream(new FileInputStream(getPath()));
+					throw new Exception("Ce fichier n'a pu etre supprimé");
+				}
+				return SUCCESS;
+			}
+			return open();
+		}catch(Exception e){
+			e.printStackTrace();
+			setException(e);
+			return ERROR;
+		}
+	}
 	public File getPath() {
 		return path;
 	}
@@ -148,20 +227,11 @@ public class FileAction extends BaseAction{
 		this.path = path;
 	}
 
-	public String getFile() {
-		return file;
-	}
-	public void setFile(String file) {
-		if(file == null || file.isEmpty()){
-			return;
-		}
-		this.file = file;
-	}
 	private void setPath(String folder) throws Exception{
 		ConfigurableApplicationContext context = null;
 		try {
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
-			String base = FileService.getInstance(context).getFilePath(getUser());
+			String base = FileService.getInstance(context, getUser()).getFilePath(getUser());
 			File f = new File(base + folder);
 			if(!f.exists()){
 				throw new FileNotFoundException((f.isDirectory()?"Dossier":"Fichier")+" inexistant");
@@ -174,6 +244,15 @@ public class FileAction extends BaseAction{
 		}
 	}
 
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		if(file == null || file.isEmpty()){
+			return;
+		}
+		this.file = file;
+	}
 	public Fichier getFichier() {
 		return fichier;
 	}
@@ -194,11 +273,32 @@ public class FileAction extends BaseAction{
 		this.fileLength = fileLength;
 	}
 
-	public List<LogFile> getListeLog() {
-		return listeLog;
+	public LogFile getLog() {
+		return log;
 	}
-	public void setListeLog(List<LogFile> listeLog) {
-		this.listeLog = listeLog;
+	public void setLog(LogFile log) {
+		this.log = log;
 	}
 
+	@Override
+	public void setPage(int page) {
+		super.setPage(page+1);
+	}
+
+	public boolean isForce() {
+		return force;
+	}
+
+	public void setForce(boolean force) {
+		this.force = force;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	
 }

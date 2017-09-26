@@ -33,8 +33,11 @@ public class Client{
 		this.client = createClient(createSslFilter());
 	}
 	public Client(LogFile log) throws Exception {
-		this.log = log;
+		setLog(log);
 		this.client = createClient(createSslFilter());
+	}
+	private void setLog(LogFile log) {
+		this.log = log;
 	}
 	public Object connect(String host, int port, LogFile log)throws Exception{
 		this.log = log;
@@ -70,9 +73,7 @@ public class Client{
 		
 		client.getFilterChain().addFirst("sslFilter",
 				SslFilter);
-		if(log != null){
-			client.getFilterChain().addLast("cache", new FileCacheFilter(log));
-		}
+		client.getFilterChain().addLast("cache", new FileCacheFilter(log));
 		ObjectSerializationDecoder decoder = new ObjectSerializationDecoder();
 		client.getFilterChain().addLast( "codec", new ProtocolCodecFilter(new TextLineEncoder(Charset.forName("UTF-8")), decoder));
 		client.getFilterChain().addLast( "logger", new LoggingFilter() );

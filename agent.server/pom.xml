@@ -40,7 +40,7 @@
 		  <configuration>
 	        <archive>
 	          <manifest>
-	            <mainClass>adri.logviewer.agent.server.MinaAgentServer</mainClass>
+	            <mainClass>adri.logviewer.agent.server.Server</mainClass>
 	          </manifest>
 	        </archive>
 			<descriptorRefs>

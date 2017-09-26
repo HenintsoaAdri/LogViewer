@@ -22,6 +22,7 @@ public class ClientHandler extends IoHandlerAdapter {
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		LOGGER.trace("réception de message par le client");
 		System.out.println(message);
+		super.messageReceived(session, message);
 	}
 	
 	@Override

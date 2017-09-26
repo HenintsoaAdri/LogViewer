@@ -1,5 +1,6 @@
 package adri.logviewer.action;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.ConfigurableApplicationContext;
@@ -10,6 +11,7 @@ import com.opensymphony.xwork2.interceptor.ValidationErrorAware;
 import adri.logviewer.exception.PermissionException;
 import adri.logviewer.model.Agent;
 import adri.logviewer.model.BaseModel;
+import adri.logviewer.model.Profil;
 import adri.logviewer.model.Utilisateur;
 import adri.logviewer.service.UtilisateurService;
 
@@ -43,13 +45,9 @@ public class CrudAction extends BaseAction implements ValidationErrorAware{
 		ConfigurableApplicationContext context = null;
 		try{
 			if(getItem() == null || getItem().getId() <= 0) return NONE;
+			System.out.print(Arrays.toString(((Profil)getItem()).getListeGroupe().toArray()));
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).crud(getItem(), "update", getUser());
-			if (getUser().equals(getItem())) {
-				UtilisateurService.getInstance(context).crud(getItem(), "findById", getUser());
-				Utilisateur u = (Utilisateur)getItem();
-				getSession().put("user", u);
-			}
 			return SUCCESS;
 		}catch(PermissionException e){
 			e.printStackTrace();

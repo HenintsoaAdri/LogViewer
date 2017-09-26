@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;agent.LogFile.child&apos; in &apos;agent.LogFile&apos;&#x0D;&#x0A;- Original project: &apos;TestTCPFile&apos;&#x0D;&#x0A;- Original element: &apos;agent.LogFile.child&apos;&#x0D;&#x0A;- Getter method name: &apos;getChild&apos;&#x0D;&#x0A;- Setter method name: &apos;setChild&apos;&#x0D;&#x0A;- Field visibility: &apos;public&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;child&apos;" flags="589830" getter="getChild" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;agent{LogFile.java[LogFile^child" insertion="8" setter="setChild" stamp="1506390240745" version="1.0" visibility="1"/>
+</session>

@@ -1,4 +1,3 @@
-var page = document.getElementById('page');
 $(document).ready(function(){
 	$.ajax({
         url : url + '/Includes/detail/'+item+'/'+detail,

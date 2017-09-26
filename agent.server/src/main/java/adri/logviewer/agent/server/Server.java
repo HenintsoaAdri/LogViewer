@@ -115,4 +115,13 @@ public class Server {
 			server.dispose();
 		}
 	}
+	public static void main(String[] args) {
+		try {
+			Server server = new Server();
+			server.start();
+			System.out.println("Le serveur a demarré");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

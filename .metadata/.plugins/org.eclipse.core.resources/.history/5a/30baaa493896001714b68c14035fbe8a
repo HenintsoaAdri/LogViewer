@@ -1,7 +1,0 @@
-package agent;
-
-import org.apache.mina.core.service.IoHandlerAdapter;
-
-public class ClientHandler extends IoHandlerAdapter {
-
-}

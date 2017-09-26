@@ -15,7 +15,6 @@
 	            <param name="enumClass">adri.logviewer.model.PermissionType</param>
 	        </type>
       	</property>
-        <many-to-one name="profil" class="adri.logviewer.model.Profil" column="idprofil" not-null="false" fetch="select" insert="false" update="false"/>
         <property name="dateAjout" column="dateajoutpermission" type="date"/>
     </class>
 </hibernate-mapping>

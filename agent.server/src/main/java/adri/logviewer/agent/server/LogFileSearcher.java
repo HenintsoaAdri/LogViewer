@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Properties;
 
 import adri.logviewer.agent.file.LogFile;
-
-import java.util.ArrayList;
 
 public class LogFileSearcher {
 	
@@ -43,18 +40,18 @@ public class LogFileSearcher {
 	public static LogFileSearcher getInstance(){
 		return Holder.instance;
 	}
-	public List<LogFile> search(File f) throws Exception{
-		List<LogFile> listeLog = new ArrayList<LogFile>();
-		filterFile(listeLog, f.listFiles(), f.getAbsolutePath().replace(getPath(), ""));
+	public LogFile search(File f) throws Exception{
+		LogFile listeLog = new LogFile(f.getAbsolutePath().replace(getPath(), "/"), f);
+		filterFile(listeLog, f.listFiles());
 		return listeLog;
 	}
-	private void filterFile(List<LogFile> listeLog, File[] listeFile, String root) throws IOException{
+	private void filterFile(LogFile file, File[] listeFile) throws IOException{
 		for(File f : listeFile){
 			if(f.isDirectory()){
-				filterFile(listeLog, f.listFiles(), root + f.getName()+"/");
+				filterFile(file, f.listFiles());
 			}
 			else{
-				listeLog.add(new LogFile(root + f.getName(), f));
+				file.addChild(new LogFile(f.getName(), f));
 			}
 		}
 	}

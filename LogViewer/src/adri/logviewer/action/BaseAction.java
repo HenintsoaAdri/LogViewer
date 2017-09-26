@@ -64,7 +64,7 @@ public class BaseAction extends ActionSupport implements SessionAware, Parameter
 		return page;
 	}
 	public void setPage(int page) {
-		this.page = page - 1;
+		this.page = Math.max(0, page-1);
 	}
 	public int getNbItem() {
 		return nbItem;

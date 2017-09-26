@@ -24,16 +24,23 @@ public class FileCacheFilter extends IoFilterAdapter{
 	public void messageReceived(NextFilter nextFilter, IoSession session, Object message) throws Exception {
 		if(message instanceof IoBuffer){
 			IoBuffer buffer = (IoBuffer) message;
-			FileOutputStream fos = null;
-			if(buffer.remaining() > 0){
-				byte[] bytes = new byte[buffer.remaining()];
-				try {
-					fos = new FileOutputStream(temp.getTempFile(), true);
-					buffer.get(bytes);
-					fos.write(bytes);
-				}finally {
-					if(fos != null){
-						fos.close();
+			try{
+				Object received = buffer.duplicate().getObject();
+				if(received instanceof LogFile){
+					nextFilter.messageReceived(session, buffer);
+				}
+			}catch(Exception e){
+				FileOutputStream fos = null;
+				if(buffer.remaining() > 0){
+					byte[] bytes = new byte[buffer.remaining()];
+					try {
+						fos = new FileOutputStream(temp.getTempFile(), true);
+						buffer.get(bytes);
+						fos.write(bytes);
+					}finally {
+						if(fos != null){
+							fos.close();
+						}
 					}
 				}
 			}

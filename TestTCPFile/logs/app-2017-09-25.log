@@ -1,0 +1,122 @@
+-------------- LOGVIEWER SAVE - 2017-09-26 --------------
+05:44:33.797 [main] TRACE agent.Server - Adresse IP : 127.0.0.1
+05:44:33.799 [main] TRACE agent.Server - Dossier de log : A:/eclipse/logs
+05:44:33.800 [main] TRACE agent.Server - Valeur de port inexistante dans le fichier 'app.properties'. AutoSet Port : 2008
+05:44:34.330 [main] TRACE agent.Server - Le serveur agent a démarré...
+05:44:34.361 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Adding the SSL Filter sslFilter to the chain
+05:44:34.361 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Adding the SSL Filter sslFilter to the chain
+05:44:34.363 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](no sslEngine) Initializing the SSL Handler
+05:44:34.363 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](no sslEngine) Initializing the SSL Handler
+05:44:34.390 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](no sslEngine) SSL Handler Initialization done.
+05:44:34.391 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](ssl...) : Starting the first handshake
+05:44:34.394 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_UNWRAP state
+05:44:34.396 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+05:44:34.397 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+05:44:34.398 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](no sslEngine) SSL Handler Initialization done.
+05:44:34.399 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...) : Starting the first handshake
+05:44:34.399 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_WRAP state
+05:44:34.401 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=222 cap=264: 16 03 03 00 D9 01 00 00 D5 03 03 59 C9 BF 12 45...]
+05:44:34.403 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_UNWRAP state
+05:44:34.403 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CREATED
+05:44:34.403 [main] TRACE agent.Client - Utilisateur connecté
+05:44:34.403 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - OPENED
+05:44:34.405 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](ssl...): Message received : HeapBuffer[pos=0 lim=222 cap=2048: 16 03 03 00 D9 01 00 00 D5 03 03 59 C9 BF 12 45...]
+05:44:34.406 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) Processing the received message
+05:44:34.406 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_UNWRAP state
+05:44:34.406 [main] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=1 cap=2: 0A]
+05:44:34.407 [main] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...): Writing Message : MessageWriteRequest, parent : WR WrapperWriteRequest: 
+05:44:34.407 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_TASK state
+05:44:34.423 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_WRAP state
+05:44:34.423 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](ssl...): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=357 cap=528: 16 03 03 01 60 02 00 00 4D 03 03 59 C9 BF 12 36...]
+05:44:34.425 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_UNWRAP state
+05:44:34.425 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](ssl...): Processing the SSL Data 
+05:44:34.426 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...): Message received : HeapBuffer[pos=0 lim=357 cap=2048: 16 03 03 01 60 02 00 00 4D 03 03 59 C9 BF 12 36...]
+05:44:34.426 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) Processing the received message
+05:44:34.427 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_UNWRAP state
+05:44:34.427 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_TASK state
+05:44:34.498 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_WRAP state
+05:44:34.498 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=139 cap=264: 16 03 03 00 86 10 00 00 82 00 80 F1 65 47 63 8E...]
+05:44:34.499 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_WRAP state
+05:44:34.500 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=6 cap=8: 14 03 03 00 01 01]
+05:44:34.500 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_WRAP state
+05:44:34.500 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=45 cap=66: 16 03 03 00 28 00 00 00 00 00 00 00 00 4F AB D8...]
+05:44:34.501 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_UNWRAP state
+05:44:34.501 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_UNWRAP state
+05:44:34.501 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_UNWRAP state
+05:44:34.502 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...): Processing the SSL Data 
+05:44:34.503 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](ssl...): Message received : HeapBuffer[pos=0 lim=139 cap=2048: 16 03 03 00 86 10 00 00 82 00 80 F1 65 47 63 8E...]
+05:44:34.503 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) Processing the received message
+05:44:34.503 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_UNWRAP state
+05:44:34.505 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_TASK state
+05:44:34.508 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_UNWRAP state
+05:44:34.508 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](ssl...): Processing the SSL Data 
+05:44:34.509 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](ssl...): Message received : HeapBuffer[pos=0 lim=51 cap=1024: 14 03 03 00 01 01 16 03 03 00 28 00 00 00 00 00...]
+05:44:34.509 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) Processing the received message
+05:44:34.509 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_UNWRAP state
+05:44:34.510 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_WRAP state
+05:44:34.511 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](ssl...): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=6 cap=8: 14 03 03 00 01 01]
+05:44:34.511 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the NEED_WRAP state
+05:44:34.511 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](ssl...): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=45 cap=66: 16 03 03 00 28 00 00 00 00 00 00 00 00 77 34 51...]
+05:44:34.512 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](ssl...) processing the FINISHED state
+05:44:34.512 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](SSL) is now secured
+05:44:34.512 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](SSL) processing the FINISHED state
+05:44:34.512 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](SSL) is now secured
+05:44:34.512 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](SSL): Processing the SSL Data 
+05:44:34.513 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](ssl...): Message received : HeapBuffer[pos=0 lim=51 cap=2048: 14 03 03 00 01 01 16 03 03 00 28 00 00 00 00 00...]
+05:44:34.513 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) Processing the received message
+05:44:34.514 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the NEED_UNWRAP state
+05:44:34.514 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](ssl...) processing the FINISHED state
+05:44:34.515 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](SSL) is now secured
+05:44:34.515 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](SSL): Processing the SSL Data 
+05:44:34.515 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](SSL): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=1 cap=2: 0A]
+05:44:34.516 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](SSL): Writing Message : MessageWriteRequest, parent : WR WrapperWriteRequest: 
+05:44:34.516 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: 
+05:44:34.516 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](SSL): Message received : HeapBuffer[pos=0 lim=30 cap=1024: 17 03 03 00 19 00 00 00 00 00 00 00 01 64 69 B3...]
+05:44:34.516 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Server[1](SSL) Processing the received message
+05:44:34.517 [NioProcessor-8] TRACE agent.ClientHandler - message envoyés : 
+05:44:34.517 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](SSL): Processing the SSL Data 
+05:44:34.517 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - RECEIVED: HeapBuffer[pos=0 lim=1 cap=30: 0A]
+05:44:34.517 [NioProcessor-2] DEBUG org.apache.mina.filter.codec.ProtocolCodecFilter - Processing a MESSAGE_RECEIVED for session 1
+05:44:34.519 [NioProcessor-2] TRACE agent.ServerHandler - recherche de : 
+05:44:34.554 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](SSL): Writing Message : WriteRequest: HeapBuffer[pos=0 lim=1906 cap=2048: 00 00 07 6E AC ED 00 05 73 72 01 00 0D 61 67 65...]
+05:44:34.557 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1](SSL): Writing Message : MessageWriteRequest, parent : WR WrapperWriteRequest: LogFile [name = A:\eclipse\logs]
+05:44:34.557 [NioProcessor-2] TRACE agent.ServerHandler - envoi de la liste LogFile
+05:44:34.558 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: HeapBuffer[pos=0 lim=1906 cap=2048: 00 00 07 6E AC ED 00 05 73 72 01 00 0D 61 67 65...]
+05:44:34.558 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](SSL): Message received : HeapBuffer[pos=0 lim=1024 cap=1024: 17 03 03 07 8A 00 00 00 00 00 00 00 01 4A C2 37...]
+05:44:34.558 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](SSL) Processing the received message
+05:44:34.558 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - SENT: LogFile [name = A:\eclipse\logs]
+05:44:34.559 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](SSL): Processing the SSL Data 
+05:44:34.559 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Server[1]: Writing Message : WriteRequest: HeapBuffer[pos=0 lim=31 cap=33: 15 03 03 00 1A 00 00 00 00 00 00 00 02 78 47 3C...]
+05:44:34.560 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](SSL): Message received : HeapBuffer[pos=0 lim=911 cap=2048: A3 C8 18 E2 CF 67 DA 6F 8E 4C AE 3E 7F A4 02 C3...]
+05:44:34.560 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](SSL) Processing the received message
+05:44:34.570 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](SSL): Processing the SSL Data 
+05:44:34.578 [NioProcessor-8] DEBUG org.apache.mina.filter.codec.ProtocolCodecFilter - Processing a MESSAGE_RECEIVED for session 2
+05:44:34.578 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](SSL): Message received : HeapBuffer[pos=0 lim=31 cap=2048: 15 03 03 00 1A 00 00 00 00 00 00 00 02 78 47 3C...]
+05:44:34.579 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslHandler - Session Client[2](SSL) Processing the received message
+05:44:34.561 [NioProcessor-2] DEBUG org.apache.mina.filter.ssl.SslHandler - Unexpected exception from SSLEngine.closeInbound().
+javax.net.ssl.SSLException: Inbound closed before receiving peer's close_notify: possible truncation attack?
+	at sun.security.ssl.Alerts.getSSLException(Unknown Source) ~[?:1.8.0_121]
+	at sun.security.ssl.SSLEngineImpl.fatal(Unknown Source) ~[?:1.8.0_121]
+	at sun.security.ssl.SSLEngineImpl.fatal(Unknown Source) ~[?:1.8.0_121]
+	at sun.security.ssl.SSLEngineImpl.closeInbound(Unknown Source) ~[?:1.8.0_121]
+	at org.apache.mina.filter.ssl.SslHandler.destroy(SslHandler.java:213) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.filter.ssl.SslFilter.sessionClosed(SslFilter.java:473) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextSessionClosed(DefaultIoFilterChain.java:504) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$900(DefaultIoFilterChain.java:48) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.sessionClosed(DefaultIoFilterChain.java:927) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.filterchain.IoFilterAdapter.sessionClosed(IoFilterAdapter.java:88) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextSessionClosed(DefaultIoFilterChain.java:504) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireSessionClosed(DefaultIoFilterChain.java:497) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.service.IoServiceListenerSupport.fireSessionDestroyed(IoServiceListenerSupport.java:245) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.removeNow(AbstractPollingIoProcessor.java:587) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.removeSessions(AbstractPollingIoProcessor.java:544) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$800(AbstractPollingIoProcessor.java:68) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1128) [mina-core-2.0.16.jar:?]
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64) [mina-core-2.0.16.jar:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_121]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_121]
+	at java.lang.Thread.run(Unknown Source) [?:1.8.0_121]
+05:44:34.579 [NioProcessor-2] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED
+05:44:34.579 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2](SSL): Processing the SSL Data 
+05:44:34.579 [NioProcessor-8] DEBUG org.apache.mina.filter.ssl.SslFilter - Session Client[2]: Writing Message : WriteRequest: HeapBuffer[pos=0 lim=31 cap=33: 15 03 03 00 1A 00 00 00 00 00 00 00 02 B1 BF 2B...]
+05:44:34.580 [NioProcessor-8] INFO  org.apache.mina.filter.logging.LoggingFilter - CLOSED

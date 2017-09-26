@@ -3,6 +3,13 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+
+	<filter-def name="searchAgent">
+		<filter-param name="nom" type="string"/>
+		<filter-param name="portString" type="string"/>
+		<filter-param name="adresse" type="string"/>
+		<filter-param name="syntaxe" type="string"/>
+	</filter-def>
     <class name="adri.logviewer.model.Agent" table="agent">
         <meta attribute="class-description">
             This class contains the Agent detail.
@@ -28,5 +35,6 @@
 	    <union-subclass name="adri.logviewer.model.AgentView" table="agentview">
 	    	<property name="nomCreateur" column="nomcreateur" type="string" not-null="true"/>
 	    </union-subclass>
+	    <filter name="searchAgent" condition="lower(nomagent) like :nom and portagent like :portString and lower(adresseagent) like :adresse and lower(syntaxeagent) like :syntaxe"/>
     </class>
 </hibernate-mapping>

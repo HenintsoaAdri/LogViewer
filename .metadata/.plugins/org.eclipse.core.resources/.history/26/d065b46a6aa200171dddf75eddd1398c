@@ -1,0 +1,55 @@
+package agent;
+
+import java.io.FileOutputStream;
+
+import org.apache.mina.core.buffer.IoBuffer;
+import org.apache.mina.core.filterchain.IoFilterAdapter;
+import org.apache.mina.core.session.IoSession;
+
+public class FileCacheFilter extends IoFilterAdapter{
+	LogFile temp;
+	
+	public FileCacheFilter(LogFile temp) {
+		setTemp(temp);
+	}
+	
+	public LogFile getTemp() {
+		return temp;
+	}
+	public void setTemp(LogFile temp) {
+		this.temp = temp;
+	}
+
+	@Override
+	public void messageReceived(NextFilter nextFilter, IoSession session, Object message) throws Exception {
+		if(message instanceof IoBuffer){
+			IoBuffer buffer = (IoBuffer) message;
+			System.out.println(buffer.position());
+			try{
+				Object received = buffer.getObject();
+				if(received instanceof LogFile){
+					System.out.println("ici");
+					buffer.clear();
+					buffer.putObject(received);
+					nextFilter.messageReceived(session, buffer);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				FileOutputStream fos = null;
+				if(buffer.remaining() > 0){
+					byte[] bytes = new byte[buffer.remaining()];
+					try {
+						fos = new FileOutputStream(temp.getTempFile(), true);
+						buffer.get(bytes);
+						fos.write(bytes);
+					}finally {
+						if(fos != null){
+							fos.close();
+						}
+					}
+				}
+			}
+		}
+	}
+	
+}

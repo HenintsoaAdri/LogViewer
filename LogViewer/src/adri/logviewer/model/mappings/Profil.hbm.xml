@@ -3,6 +3,9 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+	<filter-def name="searchProfil">
+		<filter-param name="nom" type="string"/>
+	</filter-def>
     <class name="adri.logviewer.model.Profil" table="profil" >
         <meta attribute="class-description">
             This class contains the Profil detail.
@@ -32,5 +35,6 @@
         	<property name="nombreUtilisateur" column="nbutilisateur" type="int" />
         	<property name="nombreGroupe" column="nbgroupe" type="int" />
         </union-subclass>
+        <filter name="searchProfil" condition="lower(nomprofil) like :nom"/>
     </class>
 </hibernate-mapping>

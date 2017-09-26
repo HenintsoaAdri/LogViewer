@@ -3,6 +3,11 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+	<filter-def name="searchUtilisateur">
+    	<filter-param name="nom" type="string"/>
+    	<filter-param name="poste" type="string"/>
+    	<filter-param name="sexe" type="string"/>
+	</filter-def>
     <class name="adri.logviewer.model.Utilisateur" table="utilisateur">
         <meta attribute="class-description">
             This class contains the utilisateur detail.
@@ -19,7 +24,10 @@
         <property name="superUtilisateur" column="issuperutilisateur" type="boolean" update="false"/>
         <property name="lastLogged" column="lastloggedutilisateur" type="timestamp"/>
         <many-to-one name="profil" class="adri.logviewer.model.Profil" column="idprofil" lazy="false" not-null="false" fetch="select"/>
-	    <union-subclass name="adri.logviewer.model.UtilisateurView" table="utilisateurview">
-	    </union-subclass>
+	    <union-subclass name="adri.logviewer.model.UtilisateurView" table="utilisateurview"/>
+	    
+        <filter name="searchUtilisateur" condition="(LOWER(nomutilisateur) like :nom or LOWER(prenomutilisateur) like :nom or LOWER(emailutilisateur) like :nom)"/>
+        <filter name="searchUtilisateur" condition="LOWER(posteutilisateur) like :poste" />
+        <filter name="searchUtilisateur" condition="LOWER(sexeutilisateur) like :sexe" />
     </class>
 </hibernate-mapping>

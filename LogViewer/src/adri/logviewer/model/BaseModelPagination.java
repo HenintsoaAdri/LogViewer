@@ -50,6 +50,9 @@ public class BaseModelPagination {
 	}
 	public void setTotalResult(long total) {
 		this.totalResult = total;
+		if(getPage() > getNombrePage()){
+			setPage(0);
+		}
 	}
 	
 	public int getNombrePage(){

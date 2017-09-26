@@ -40,9 +40,28 @@
 	<% if(pagination.getNombrePage()>1){%>
         <ul class="pagination">
         <% for(int i=0; i<pagination.getNombrePage(); i++){ %>
-		  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="?item.id=<% out.print(item.getId()); %>&page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
+		  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="#" class="page" data-page="<% out.print(i+1); %>" ><% out.print(i+1); %></a></li>
 		<% } %>
 		</ul>
   <%  }
 	} %>
  <div class="clearfix"></div>
+ <script>
+	$(".page").on("click", function(){
+		var page = $(this).attr("data-page");
+		$.ajax({
+	        url : url + '/Includes/detail/'+item+'/'+detail,
+	        type : 'GET',
+	        data : 'item.id=' + id + '&page=' + page,
+	        success : function(html, statut){
+	            if(html){
+	                $('#' + detail).html(html);
+	            }else{
+	                $('#' + detail).load(url.value + '/Includes/Loader');
+	            }
+	        },
+	        error : function(resultat, statut, erreur){
+	        }
+	    });
+	});
+ </script>

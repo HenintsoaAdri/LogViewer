@@ -1,5 +1,6 @@
 package adri.logviewer.dao;
 
+import org.hibernate.Filter;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,10 +14,12 @@ import adri.logviewer.model.PermissionType;
 import adri.logviewer.model.Profil;
 import adri.logviewer.model.Utilisateur;
 
-import java.lang.reflect.Field;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -72,10 +75,8 @@ public class HibernateDao {
 	        session = getSessionFactory().openSession();
             tr = session.beginTransaction();
             if(model instanceof Profil){
-            	List<? extends BaseModel> liste = findAllByBaseModel(Permission.class, model);
-            	for(BaseModel p : liste){
-            		delete(p);
-            	}
+            	session.createQuery("DELETE FROM Permission WHERE idprofil = :id")
+            			.setParameter("id", model.getId()).executeUpdate();
             }
 	        session.update(model);
             tr.commit();
@@ -130,14 +131,13 @@ public class HibernateDao {
 	    	session = getSessionFactory().openSession();
 	    	
 	    	String fromClause = "FROM " + pagination.getClasse().getName();
-	    	
+	    	long total = session.createQuery("SELECT COUNT(id) " + fromClause, Long.class)
+	    				.uniqueResult();
+	    	pagination.setTotalResult(total);
 	    	pagination.setListe(session.createQuery(fromClause , pagination.getClasse())
 	        		.setFirstResult(pagination.getFirstResult())
 	        		.setMaxResults(pagination.getMaxResult())
 	        		.list());
-	    	long total = (long)session.createQuery("SELECT COUNT(id) " + fromClause)
-	    				.uniqueResult();
-	    	pagination.setTotalResult(total);
 	    }catch (Exception ex){
 	        throw ex;
 	    }finally {
@@ -170,16 +170,16 @@ public class HibernateDao {
 
 	    	StringBuilder builder = new StringBuilder("FROM ");
 	    	String fromClause = builder.append(pagination.getClasse().getName()).append(" WHERE id").append(one.instance()).append(" = :one").toString();
-	    	
+
+	    	long total = session.createQuery("SELECT COUNT(id) " + fromClause, Long.class)
+            			.setParameter("one", one.getId())
+	    				.uniqueResult();
+	    	pagination.setTotalResult(total);
 	    	pagination.setListe(session.createQuery(fromClause , pagination.getClasse())
             		.setParameter("one", one.getId())
 	        		.setFirstResult(pagination.getFirstResult())
 	        		.setMaxResults(pagination.getMaxResult())
 	        		.list());
-	    	long total = (long)session.createQuery("SELECT COUNT(id) " + fromClause)
-            			.setParameter("one", one.getId())
-	    				.uniqueResult();
-	    	pagination.setTotalResult(total);
 	    }catch (Exception ex){
 	        throw ex;
 	    }finally {
@@ -195,18 +195,16 @@ public class HibernateDao {
 	    	String fromClause = builder.append(pagination.getClasse().getSimpleName())
 	    					.append(" m JOIN m.")
 	    	    			.append(field)
-	    	    			.append(" o WHERE o.id = :one GROUP BY m.id")
+	    	    			.append(" o WHERE o.id = :one")
 	    	    			.toString();
-	    	
-	    	pagination.setListe(session.createQuery("SELECT m " + fromClause , pagination.getClasse())
+	    	pagination.setTotalResult(session.createQuery("SELECT COUNT(m.id) " + fromClause, Long.class)
+            			.setParameter("one", one.getId())
+	    				.uniqueResult());
+	    	pagination.setListe(session.createQuery("SELECT m " + fromClause + " GROUP BY m.id" , pagination.getClasse())
             		.setParameter("one", one.getId())
 	        		.setFirstResult(pagination.getFirstResult())
 	        		.setMaxResults(pagination.getMaxResult())
 	        		.list());
-	    	long total = (long)session.createQuery("SELECT COUNT(m.id) " + fromClause)
-            			.setParameter("one", one.getId())
-	    				.uniqueResult();
-	    	pagination.setTotalResult(total);
 	    }catch (Exception ex){
 	        throw ex;
 	    }finally {
@@ -244,17 +242,16 @@ public class HibernateDao {
 	    	String fromClause = builder.append(pagination.getClasse().getSimpleName())
 	    					.append(" m JOIN m.")
 	    	    			.append(field)
-	    	    			.append(" o WHERE o IN :one GROUP BY m.id")
+	    	    			.append(" o WHERE o IN :one")
 	    	    			.toString();
-	    	pagination.setListe(session.createQuery("SELECT m " + fromClause , pagination.getClasse())
+	    	pagination.setTotalResult(session.createQuery("SELECT COUNT(DISTINCT m.id)" + fromClause, Long.class)
             		.setParameterList("one", one)
+            		.uniqueResult());
+	    	pagination.setListe(session.createQuery("SELECT m " + fromClause + " GROUP BY m.id", pagination.getClasse())
+	    			.setParameterList("one", one)
 	        		.setFirstResult(pagination.getFirstResult())
 	        		.setMaxResults(pagination.getMaxResult())
 	        		.list());
-	    	long total = (long)session.createQuery("SELECT COUNT(m.id) " + fromClause)
-            			.setParameterList("one", one)
-	    				.uniqueResult();
-	    	pagination.setTotalResult(total);
 	    }catch (Exception ex){
 	        throw ex;
 	    }finally {
@@ -288,11 +285,22 @@ public class HibernateDao {
     	Session session = null;
         try{
             session = getSessionFactory().openSession();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<? extends BaseModel> criteria = builder.createQuery(model.getClass());
-            criteria.from(model.getClass());
-            Field[] fields = model.getClass().getFields();
-            return session.createQuery(criteria).getResultList();
+            Filter filter = session.enableFilter("search"+model.instance());
+            Object obj = null;
+            Set<String> param = filter.getFilterDefinition().getParameterNames();
+            for(String f : param){
+            	obj = new PropertyDescriptor(f, model.getClass()).getReadMethod().invoke(model);
+            	if(obj != null){
+            		if(obj instanceof Collection<?>){
+            			filter.setParameterList(f, (Collection<?>) obj);
+            			continue;
+            		}
+        			String wild = "%";
+        			obj = wild + obj.toString().toLowerCase() + wild;
+            		filter.setParameter(f, obj);
+            	}
+            }
+            return session.createQuery("FROM "+model.getClass().getSimpleName(), model.getClass()).list();
         }catch (Exception ex){
         	ex.printStackTrace();
             throw ex;
@@ -301,15 +309,32 @@ public class HibernateDao {
                 session.close();
         }
     }
-	public void search(BaseModelPagination pagination, BaseModel model) {
+	public void search(BaseModelPagination pagination, BaseModel model) throws Exception {
 		Session session = null;
         try{
+        	String fromClause = "FROM " + model.getClass().getSimpleName();
             session = getSessionFactory().openSession();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<? extends BaseModel> criteria = builder.createQuery(model.getClass());
-            criteria.from(model.getClass());
-            Field[] fields = model.getClass().getFields();
-            pagination.setListe(session.createQuery(criteria).getResultList());
+            Filter filter = session.enableFilter("search"+model.instance());
+            Object obj = null;
+            Set<String> param = filter.getFilterDefinition().getParameterNames();
+            for(String f : param){
+            	obj = new PropertyDescriptor(f, model.getClass()).getReadMethod().invoke(model);
+            	if(obj != null){
+            		if(obj instanceof Collection<?> && !((Collection<?>)obj).isEmpty()){
+                		filter.setParameterList(f, (Collection<?>) obj);
+            			continue;
+            		}
+        			String wild = "%";
+        			obj = wild + obj.toString().toLowerCase().trim() + wild;
+            		filter.setParameter(f, obj);
+            	}
+            }
+            pagination.setTotalResult(session.createQuery("SELECT COUNT(id) " + fromClause, Long.class)
+            		.uniqueResult());
+            pagination.setListe(session.createQuery(fromClause, model.getClass())
+            		.setFirstResult(pagination.getFirstResult())
+	        		.setMaxResults(pagination.getMaxResult())
+	        		.list());
         }catch (Exception ex){
         	ex.printStackTrace();
             throw ex;

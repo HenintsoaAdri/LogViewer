@@ -16,6 +16,7 @@ public class DetailAction extends BaseAction{
 			setPagination(UtilisateurService.getInstance(context).findAllByBaseModel(getItem(), getDetailClass(), getPage(), getNbItem()));
 			return SUCCESS;
 		}catch(NullPointerException e){
+			e.printStackTrace();
 			return NONE;
 		}catch(Exception e){
 			e.printStackTrace();

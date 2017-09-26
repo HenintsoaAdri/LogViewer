@@ -9,7 +9,7 @@ public class Utilisateur extends BaseModel{
 
 	private String nom;
 	private String prenom;
-	private char sexe;
+	private char sexe = ' ';
 	private String email;
 	private String password;
 	private String confirm;
@@ -18,7 +18,9 @@ public class Utilisateur extends BaseModel{
 	private Date lastLogged;
 	private boolean superUtilisateur;
 	
-	public Utilisateur(){}
+	public Utilisateur(){
+		super();
+	}
 	public Utilisateur(int id) {
 		super(id);
 	}		
@@ -71,7 +73,7 @@ public class Utilisateur extends BaseModel{
 			case 'M' : break;
 			case 'G' : sexe = 'M';
 			case 'H' : sexe = 'M';
-			default : sexe = 0;
+			default : sexe = ' ';
 		}
 		this.sexe = sexe;
 	}

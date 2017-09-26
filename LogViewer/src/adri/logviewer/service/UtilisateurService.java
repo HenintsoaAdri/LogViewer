@@ -180,13 +180,14 @@ public class UtilisateurService {
 	}
 	public void edit(BaseModel model, Utilisateur user) throws Exception {
 		String[] field = null;
-		if(getAuthorization(model, user)){
-			switch(model.instance()){
-				case "Profil" : field = new String[]{"ListeGroupe"};
-				case "Agent"  : field = new String[]{"ListeGroupe"};
-			}
-			getService().findById(model, field);
+		if(!getAuthorization(model, user) && !user.isSuperUtilisateur()){
+			throw new PermissionException("Vous n'êtes pas autorisé à faire des modidications sur " + model.getName());
 		}
+		switch(model.instance()){
+			case "Profil" : field = new String[]{"ListeGroupe"};
+			case "Agent"  : field = new String[]{"ListeGroupe"};
+		}
+		getService().findById(model, field);
 	}
 	public List<? extends BaseModel> findAllByBaseModel(BaseModel model, Class<? extends BaseModel> classe) throws Exception{
 		return this.getService().findAllByBaseModel(classe, model, "liste".concat(model.instance()));
@@ -224,7 +225,7 @@ public class UtilisateurService {
 	}
 	public BaseModelPagination search(BaseModel model, int maxResult, int page, Utilisateur user) throws Exception{
 
-		if(getAuthorization(model, user)){
+		if(user.isSuperUtilisateur() || getAuthorization(model, user)){
 			BaseModelPagination pagination = new BaseModelPagination(model.getClass(), maxResult, page);
 			this.getService().search(pagination, model);
 			return pagination;

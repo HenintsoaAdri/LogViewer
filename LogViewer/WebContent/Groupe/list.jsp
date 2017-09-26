@@ -3,13 +3,23 @@
 <%@page import="adri.logviewer.model.BaseModel"%>
 <%@page import="adri.logviewer.model.BaseModelPagination"%>
 <%@ include file="../includes/header.jsp" %>
-<% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); %>
-<% Groupe item = (Groupe)request.getAttribute("item"); %>
+<% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination");
+   Groupe item = (Groupe)request.getAttribute("item");
+	String query = request.getQueryString() == null? "" : request.getQueryString();
+	if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Groupe</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    	<form action="${pageContext.request.contextPath}/Groupe/search" class="col-xs-4 pull-right">
+                           <div class="input-group">
+                           	<input value="<% out.print(item.getNom()); %>" type="text" name="item.nom" class="form-control input-sm" placeholder="Recherche">
+                           	<span class="input-group-btn">
+                      			<button type="submit" class="btn waves-effect waves-light btn-info input-sm"><i class="fa fa-search"></i></button>
+                      		</span>
+                		  </div>
+                        </form>
                         <ol class="breadcrumb">
                             <li><a href="${pageContext.request.contextPath}">Log Viewer</a></li>
                             <li class="active">Groupe</li>
@@ -29,46 +39,14 @@
                 <!--./row-->
 				<% } %>
                 <div class="row">
-                	<div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Recherche</h3>
-                            <p class="text-muted">Recherche de groupe</p>
-                            <div class="panel-body">
-                                <form action="#" class="form-horizontal form-material">
-                                    <div class="form-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Nom</label>
-                                                    <div class="col-md-9">
-                                                        <input name="item.nom" value="<% out.print(item.getNom()); %>" type="text" class="form-control" placeholder="Nom de l'agent">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-offset-2 col-md-4">
-                                                <div class="form-group">
-                                                    <div class="col-md-9">
-                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i> Rechercher</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                        <!--/row-->
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-sm-12">
                         <div class="white-box">
-                        <a href="${pageContext.request.contextPath}/Groupe/new" class="btn btn-info pull-right m-l-20 waves-effect waves-light"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>Nouveau</a>
+                        <a href="${pageContext.request.contextPath}/Groupe/new" class="btn-outline btn btn-info pull-right m-l-20 waves-effect waves-light"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>Nouveau</a>
                             <h3 class="box-title">Liste</h3>
                             <p class="text-muted">Liste des groupes enregistr&eacute;s</p>
                             <div class="table-responsive">
                             <%  if(pagination == null || pagination.getListe() == null ){%>
-                    		<p class="text-danger">Aucun groupe enregistré</p>
+                    		<p class="text-danger">Aucun groupe trouvé</p>
                     		<%  }else{ %>
                                 <table class="table">
                                     <thead>
@@ -97,7 +75,7 @@
                            		<% if(pagination.getNombrePage()>1){%>
 		                            <ul class="pagination">
 		                            <% for(int i=0; i<pagination.getNombrePage(); i++){ %>
-									  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="?page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
+									  <li <% if(pagination.getPage() == i)out.print("class=\"active\""); %>><a href="?<% out.print(query); %>page=<% out.print(i+1); %>"><% out.print(i+1); %></a></li>
 									<% } %>
 									</ul>
 							  <%  }

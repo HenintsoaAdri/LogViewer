@@ -17,7 +17,9 @@ public class Agent extends BaseModel{
 	private Date dateCreation = new Date();
 	private Set<Groupe> listeGroupe;
 
-	public Agent(){}
+	public Agent(){
+		super();
+	}
 	public Agent(int id) {
 		super(id);
 	}
@@ -68,7 +70,17 @@ public class Agent extends BaseModel{
 		return port;
 	}
 	public void setPort(int port) throws InputException {
+		if(port <= 0){
+			throw new InputException("Le port doit etre un chiffre compris entre 1 et 65535");
+		}
 		this.port = port;
+	}
+	public void setPortString(String port) throws InputException{
+		try{
+			setPort(Integer.parseInt(port));
+		}catch(NumberFormatException e){
+			throw new InputException("Valeur de port invalide");
+		}
 	}
 
 	public String getDetails() {
