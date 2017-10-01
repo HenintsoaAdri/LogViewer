@@ -163,4 +163,8 @@ public class StringUtil {
 	public String getTimeString(Date date){
 		return DateFormat.getTimeInstance().format(date);
 	}
+	public String getDateString(long date) {
+		return getDateString(new Date(date));
+		
+	}
 }

@@ -3,8 +3,11 @@ package adri.logviewer.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -51,7 +54,8 @@ public class FileAction extends BaseAction{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).find(getItem(), getUser());
 			FileService.getInstance(context, getUser()).openFile((Agent)getItem(), getLog());
-			setFileInputStream(new FileInputStream(getLog().getTempFile()));
+			setFileInputStream(new FileInputStream(getLog().getFile()));
+			getSession().put("tempFile", getLog().getFile());
 			return SUCCESS;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -64,18 +68,24 @@ public class FileAction extends BaseAction{
 		}
 	}
 	public String view() {
+		ConfigurableApplicationContext context = null;
 		try{
-			String tempDir = System.getProperty("java.io.tmpdir");
-			getLog().setTempFile(new File(tempDir + getFile()));
-			setFileInputStream(new FileInputStream(getLog().getTempFile()));
+			context = new ClassPathXmlApplicationContext("list-beans.xml");
+			UtilisateurService.getInstance(context).find(getItem(), getUser());
+			getLog().setFile((File) getSession().get("tempFile"));
+			setFileInputStream(new FileInputStream(getLog().getFile()));
 			return SUCCESS;
 		}catch(FileNotFoundException e){
-			setException(e);
+			setException(new FileNotFoundException("Le fichier n'est plus en cache."));
 			return NONE;
 		}catch(Exception e){
 			e.printStackTrace();
 			setException(e);
 			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
 		}
 	}
 
@@ -83,14 +93,13 @@ public class FileAction extends BaseAction{
 	
 		ConfigurableApplicationContext context = null;
 		try{
-			String tempDir = System.getProperty("java.io.tmpdir");
-			getLog().setTempFile(new File(tempDir + getFile()));
+			getLog().setFile((File) getSession().get("tempFile"));
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).find(getItem(), getUser());
-			setFichier(FileService.getInstance(context, getUser()).parseFile((Agent)getItem(), getLog().getTempFile(), getPage(),10, isForce(),getLevel()));		
+			setFichier(FileService.getInstance(context, getUser()).parseFile((Agent)getItem(), getLog().getFile(), getPage(),10, isForce(),getLevel()));		
 			return SUCCESS;
 		}catch(FileNotFoundException e){
-			setException(e);
+			setException(new FileNotFoundException(e.getMessage()+"Il n'est plus en cache."));
 			return NONE;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -107,15 +116,17 @@ public class FileAction extends BaseAction{
 		ConfigurableApplicationContext context = null;
 		try{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
-			String tempDir = System.getProperty("java.io.tmpdir");
-			getLog().setTempFile(new File(tempDir + getFile()));
+			getLog().setFile((File) getSession().get("tempFile"));
 			UtilisateurService.getInstance(context).find(getItem(), getUser());
 			FileService.getInstance(context, getUser()).saveFile(getUser(), (Agent)getItem(), getLog());
 			return SUCCESS;
+		}catch(FileNotFoundException e){
+			setException(e);
+			return NONE;
 		}catch(Exception e){
 			e.printStackTrace();
 			setException(e);
-			setFileInputStream(new FileInputStream(getLog().getTempFile()));
+			setFileInputStream(new FileInputStream(getLog().getFile()));
 			return ERROR;
 		}finally{
 			if(context != null){
@@ -126,11 +137,10 @@ public class FileAction extends BaseAction{
 
 	public String download() throws IOException {
 		try{
-			String tempDir = System.getProperty("java.io.tmpdir");
-			getLog().setTempFile(new File(tempDir + getFile()));
-			if(getLog().getTempFile().exists() && getLog().getTempFile().isFile()){
-				fileInputStream = new FileInputStream(getLog().getTempFile());
-				setFileLength(getLog().getTempFile().length());
+			getLog().setFile((File) getSession().get("tempFile"));
+			if(getLog().getFile().exists() && getLog().getFile().isFile()){
+				fileInputStream = new FileInputStream(getLog().getFile());
+				setFileLength(getLog().getFile().length());
 				return SUCCESS;
 			}
 			return view();
@@ -223,16 +233,15 @@ public class FileAction extends BaseAction{
 	public File getPath() {
 		return path;
 	}
-	public void setPath(File path) {
+	private void setPath(File path) {
 		this.path = path;
 	}
-
 	private void setPath(String folder) throws Exception{
 		ConfigurableApplicationContext context = null;
 		try {
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			String base = FileService.getInstance(context, getUser()).getFilePath(getUser());
-			File f = new File(base + folder);
+			File f = new File(base + File.separator + folder);
 			if(!f.exists()){
 				throw new FileNotFoundException((f.isDirectory()?"Dossier":"Fichier")+" inexistant");
 			}
@@ -248,7 +257,7 @@ public class FileAction extends BaseAction{
 		return file;
 	}
 	public void setFile(String file) {
-		if(file == null || file.isEmpty()){
+		if(file == null){
 			return;
 		}
 		this.file = file;
@@ -272,7 +281,46 @@ public class FileAction extends BaseAction{
 	public void setFileLength(long fileLength) {
 		this.fileLength = fileLength;
 	}
-
+	
+	public String getPrevious() {
+		return file.replaceFirst(path.getName()+"(\\\\*)", "");
+	}
+	public String getLogString(){
+		try {
+			StringBuilder builder = new StringBuilder("[");
+			displayAgentTree(builder, getLog());
+			builder.append("]");
+			return builder.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "<p class=\"text-danger\">Aucun fichier n'a été retourné par cet agent</p>";
+		}
+	}
+	public void displayAgentTree(StringBuilder builder, LogFile log){
+		builder.append("{");
+		builder.append("text: \"");
+		builder.append(log.getFileName().replaceAll("\\\\", "\\\\\\\\"));
+		builder.append("\"");
+		if(log.getChild() == null || log.getChild().isEmpty()){
+			builder.append(",href:\"open?log.fileName=");
+			builder.append(log.getFileName().replaceAll("\\\\", "\\\\\\\\"));
+			builder.append("\"");
+			builder.append(",icon:\"fa fw fa-file-text-o\"");
+		}
+		else{
+			builder.append(",icon:\"fa fw fa-folder-o\"");
+			builder.append(",nodes:[");
+			String virgule = "";
+			for(LogFile i : log.getChild()){
+				builder.append(virgule);
+				displayAgentTree(builder, i);
+				virgule = ",";
+			}
+			builder.substring(builder.length()-1);
+			builder.append("]");
+		}
+		builder.append("}");
+	}
 	public LogFile getLog() {
 		return log;
 	}
@@ -300,5 +348,4 @@ public class FileAction extends BaseAction{
 	public void setLevel(String level) {
 		this.level = level;
 	}
-	
 }

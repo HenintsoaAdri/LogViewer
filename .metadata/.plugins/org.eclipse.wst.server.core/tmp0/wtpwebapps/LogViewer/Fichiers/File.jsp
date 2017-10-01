@@ -3,10 +3,9 @@
 <%@page import="adri.logviewer.filemanager.Fichier"%>
 <%@page import="java.io.File"%>
 <%@ include file="../includes/header.jsp" %>
-<% 
-	String file = (String)request.getAttribute("file");
-	File path = (File)request.getAttribute("path");
-%>
+<% String file = (String)request.getAttribute("file");
+File path = (File)request.getAttribute("path");
+String previous = (String)request.getAttribute("previous"); %>
 <style>
 .frame{
 	height : 80vh;
@@ -17,7 +16,14 @@
             <div class="container-fluid">
 				<div class="row bg-title">
 				    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+					<%  try{
+							if(file!= previous){ %>
+							<a href="${pageContext.request.contextPath}/Fichier?file=<%out.print(previous);%>" class="btn btn-default btn-outline fa-1x"><i class="fa fa-caret-left fw"></i> <% out.print(previous); %></a>
+						<% }
+						}catch(Exception e){
+							e.printStackTrace(); %>
 				        <h4 class="page-title">Fichiers</h4>
+					<% } %>
 				    </div>
 				    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 				        <ol class="breadcrumb">
@@ -79,10 +85,36 @@
                 <!-- /.row -->
                 <div class="row">
                     <div class="col-xs-12">
-                        <a data-toggle="modal" href="${pageContext.request.contextPath}/Fichier/delete?file=<% out.print(file); %>" class="text-danger pull-right">Supprimer le fichier</a>
+                        <a data-toggle="modal" href="#delete" class="text-danger pull-right">Supprimer le fichier</a>
                     </div>
                 </div>
                 <!-- /.row -->
+			    <!-- Modal -->
+			    <div class="modal fade" id="delete" role="dialog">
+			        <div class="modal-dialog">
+			
+			            <!-- Modal content-->
+			            <div class="modal-content">
+			                <div class="modal-header">
+			                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+			                </div>
+			                <div class="modal-body">
+			                    <div class="row">
+			                        <div class="col-sm-12">
+			                            <p class="text-center">&Ecirc;tes vous sûr(e) de vouloir supprimer le fichier "<% out.print(file); %>" ?</p>
+			                            <br>
+			                        </div>
+			                        <div class="col-sm-12 text-center">
+			                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			                            <a class="btn btn-danger" href="${pageContext.request.contextPath}/Fichier/delete?file=<% out.print(file); %>">Supprimer</a>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			
+			        </div>
+			    </div>
+                <!-- /.Modal -->
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>

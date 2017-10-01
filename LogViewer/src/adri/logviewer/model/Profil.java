@@ -137,7 +137,7 @@ public class Profil extends BaseModel{
 				+" [nom = " + getNom() + "]";
 	}
 	@Override
-	public String getName() {
+	public String getNomString() {
 		return "le profil " + getNom();
 	}
 	

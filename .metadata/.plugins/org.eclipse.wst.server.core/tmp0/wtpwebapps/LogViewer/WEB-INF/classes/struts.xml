@@ -11,6 +11,7 @@
      	<interceptor name="loginInterceptor" class="adri.logviewer.interceptor.LoginInterceptor" />
      	<interceptor name="permissionInterceptor" class="adri.logviewer.interceptor.PermissionInterceptor" />
      	<interceptor name="filePermissionInterceptor" class="adri.logviewer.interceptor.FilePermissionInterceptor" />
+     	<interceptor name="cleanCacheInterceptor" class="adri.logviewer.interceptor.CleanCacheInterceptor" />
         <interceptor-stack name="defaultStack">
             <interceptor-ref name="exception"/>
             <interceptor-ref name="alias"/>
@@ -37,6 +38,9 @@
      	<interceptor-stack name="loginStack">
      		<interceptor-ref name="loginInterceptor"/>
      		<interceptor-ref name="defaultStack"/>
+	        <interceptor-ref name="cleanCacheInterceptor">
+			    <param name="excludeMethods">parse, view, download, save</param>
+			</interceptor-ref>
      	</interceptor-stack>
      	<interceptor-stack name="crudStack">
      		<interceptor-ref name="loginStack"/>
@@ -56,7 +60,7 @@
          <result name="file">/Fichiers/File.jsp</result>
      </global-results>
      <global-exception-mappings>
-     	<exception-mapping exception="java.lang.NullPointerException" result="NONE" />
+     	<exception-mapping exception="java.lang.NullPointerException" result="none" />
      	<exception-mapping exception="adri.logviewer.exception.PermissionException" result="permission" />
      </global-exception-mappings>
      
@@ -70,8 +74,7 @@
      <action name="Deconnexion" 
             class="adri.logviewer.action.UtilisateurAction" 
             method="logout">
-	     <result name="success" type="redirectAction">MesInformations</result>
-	     <result name="error" type="redirectAction">MesInformations</result>
+	     <result name="success, error" type="redirectAction">MesInformations</result>
      </action>
      
      <!-- ************************
@@ -91,8 +94,7 @@
             method="selectEntities">
          <interceptor-ref name="crudStack"/>
          <param name="classe">adri.logviewer.model.{1}</param>
-         <result name="success">/{1}/create.jsp</result>
-         <result name="input">/{1}/create.jsp</result>
+         <result name="success, input">/{1}/create.jsp</result>
          <result name="error" type="redirectAction">{1}</result>
      </action>
      <action name="*/save" 
@@ -101,8 +103,7 @@
          <interceptor-ref name="crudStack"/>
          <param name="classe">adri.logviewer.model.{1}</param>
          <result name="success" type="redirectAction">{1}/${item.id}</result>
-         <result name="error">/{1}/create.jsp</result>
-         <result name="input">/{1}/create.jsp</result>
+         <result name="error, input">/{1}/create.jsp</result>
          <result name="none" type="redirectAction">{1}</result>
      </action>
      <action name="*/edit/*" 
@@ -121,8 +122,7 @@
          <interceptor-ref name="crudStack"/>
          <param name="classe">adri.logviewer.model.{1}</param>
          <result name="success" type="redirectAction">{1}/${item.id}</result>
-         <result name="error">/{1}/edit.jsp</result>
-         <result name="input">/{1}/edit.jsp</result>
+         <result name="error, input">/{1}/edit.jsp</result>
          <result name="none" type="redirectAction">{1}</result>
      </action>
      <action name="*/delete/*"
@@ -131,19 +131,15 @@
          <interceptor-ref name="crudStack"/>
          <param name="classe">adri.logviewer.model.{1}</param>
          <param name="item.id">{2}</param>
-         <result name="success" type="redirectAction">{1}</result>
-         <result name="error" type="chain">{1}/${item.id}</result>
-         <result name="input" type="chain">{1}/${item.id}</result>
-         <result name="none" type="redirectAction">{1}</result>
+         <result name="success, none" type="redirectAction">{1}</result>
+         <result name="error, input" type="chain">{1}/${item.id}</result>
      </action>
      <action name="*/search" 
             class="adri.logviewer.action.CrudAction" 
             method="search">
          <interceptor-ref name="crudStack"/>
          <param name="classe">adri.logviewer.model.{1}View</param>
-         <result name="success">/{1}/list.jsp</result>
-         <result name="error">/{1}/list.jsp</result>
-         <result name="input">/{1}/list.jsp</result>
+         <result name="success, error, input">/{1}/list.jsp</result>
      </action>
      <action name="*/*" 
             class="adri.logviewer.action.CrudAction" 
@@ -152,8 +148,7 @@
          <param name="classe">adri.logviewer.model.{1}View</param>
          <param name="item.id">{2}</param>
          <result name="success">/{1}/details.jsp</result>
-         <result name="error" type="redirectAction">{1}</result>
-         <result name="input" type="redirectAction">{1}</result>
+         <result name="error, input" type="redirectAction">{1}</result>
      </action>
      
      <!-- ************************
@@ -176,9 +171,8 @@
             class="adri.logviewer.action.UtilisateurAction" 
             method="update">
          <interceptor-ref name="loginStack"/>
-         <result name="success" type="redirectAction">MesInformations</result>
+         <result name="success, none" type="redirectAction">MesInformations</result>
          <result name="error">/MesInformations/edit.jsp</result>
-         <result name="none" type="redirectAction">MesInformations</result>
      </action>
      
      <!-- ************************
@@ -190,17 +184,14 @@
             class="adri.logviewer.action.FileAction" 
             method="start">
          <interceptor-ref name="fileStack"/>
-         <result name="success">/Fichiers/index.jsp</result>
-         <result name="none">/Fichiers/index.jsp</result>
-         <result name="error">Fichiers/index.jsp</result>
+         <result name="success, none, error">/Fichiers/index.jsp</result>
      </action>
      <action name="Fichier/parse" 
             class="adri.logviewer.action.FileAction" 
             method="parseFile">
          <interceptor-ref name="fileStack"/>
-         <result name="success">/Fichiers/Parsed.jsp</result>
+         <result name="success, error">/Fichiers/Parsed.jsp</result>
          <result name="none">/Fichiers/index.jsp</result>
-         <result name="error">/Fichiers/Parsed.jsp</result>
      </action>
      <action name="Fichier/download" 
      		class="adri.logviewer.action.FileAction" 
@@ -220,9 +211,8 @@
             class="adri.logviewer.action.FileAction" 
             method="deleteFile">
          <interceptor-ref name="fileStack"/>
-         <result name="success" type="redirectAction">/Fichier</result>
-         <result name="none">/Fichiers/index.jsp</result>
-         <result name="error">/Fichiers/index.jsp</result>
+         <result name="success" type="redirectAction">Fichier</result>
+         <result name="none, error" type="chain">Fichiers</result>
      </action>
      
      <!-- ************************
@@ -235,9 +225,8 @@
          <interceptor-ref name="fileStack"/>
          <param name="classe">adri.logviewer.model.AgentView</param>
          <param name="item.id">{1}</param>
-         <result name="success">/Agent/connexion.jsp</result>
+         <result name="success, error">/Agent/connexion.jsp</result>
          <result name="none" type="redirectAction">Agent/{1}</result>
-         <result name="error">/Agent/connexion.jsp</result>
      </action>
      <action name="Agent/*/open" 
             class="adri.logviewer.action.FileAction" 
@@ -255,9 +244,8 @@
          <interceptor-ref name="fileStack"/>
          <param name="classe">adri.logviewer.model.AgentView</param>
          <param name="item.id">{1}</param>
-         <result name="success">/Agent/Parsed.jsp</result>
-         <result name="none">/Agent/details.jsp</result>
-         <result name="error">/Agent/File.jsp</result>
+         <result name="success, error">/Agent/Parsed.jsp</result>
+         <result name="none">/Agent/connexion.jsp</result>
      </action>
      <action name="Agent/*/download" 
      		class="adri.logviewer.action.FileAction" 
@@ -272,8 +260,8 @@
 		  <param name="contentDisposition">attachment;filename="${log.fileName}"</param>
 		  <param name="bufferSize">1024</param>
 		</result>
-        <result name="none">/Fichiers/index.jsp</result>
-        <result name="error">/Fichiers/index.jsp</result>
+        <result name="error">/Agent/File.jsp</result>
+        <result name="none">/Agent/connexion.jsp</result>
 	 </action>
      <action name="Agent/*/save" 
             class="adri.logviewer.action.FileAction" 
@@ -281,8 +269,11 @@
          <interceptor-ref name="fileStack"/>
          <param name="classe">adri.logviewer.model.AgentView</param>
          <param name="item.id">{1}</param>
-         <result name="success" type="redirectAction">/Fichier</result>
-         <result name="none" type="redirectAction">/Agent/{1}</result>
+         <result name="success" type="redirectAction">
+         	<param name="actionName">Fichier</param>
+         	<param name="file">${log.fileName}</param>
+         </result>
+         <result name="none">/Agent/connexion.jsp</result>
          <result name="error">/Agent/File.jsp</result>
      </action>
      <action name="Agent/*/view" 
@@ -292,8 +283,7 @@
          <param name="classe">adri.logviewer.model.AgentView</param>
          <param name="item.id">{1}</param>
          <result name="success">/Agent/File.jsp</result>
-         <result name="none">Agent/details.jsp</result>
-         <result name="error">/Agent/connexion.jsp</result>
+         <result name="error, none">/Agent/connexion.jsp</result>
      </action>
      <!-- ************************
      	**********Includes***********
@@ -303,8 +293,7 @@
             class="adri.logviewer.action.BaseAction" 
             method="start">
          <result name="success">/includes/loader.html</result>
-         <result name="error">/blank.html</result>
-         <result name="login">/blank.html</result>
+         <result name="error, login">/blank.html</result>
      </action>
      <action name="Includes/deleteConfirm/*" 
             class="adri.logviewer.action.CrudAction" 
@@ -313,8 +302,7 @@
          <param name="classe">adri.logviewer.model.{1}</param>
          <result name="success">/includes/deleteConfirm.jsp</result>
          <result name="permission">/includes/NotAllowed_1.jsp</result>
-         <result name="error">/blank.html</result>
-         <result name="login">/blank.html</result>
+         <result name="error, login">/blank.html</result>
      </action>
      <action name="Includes/detail/*/*" 
             class="adri.logviewer.action.DetailAction" 
@@ -323,9 +311,8 @@
          <param name="classe">adri.logviewer.model.{1}View</param>
          <param name="detail">adri.logviewer.model.{2}View</param>
          <result name="success">/includes/detail{2}.jsp</result>
-         <result name="error">/blank.html</result>
+         <result name="error, login">/blank.html</result>
          <result name="permission">/includes/NotAllowed_1.jsp</result>
-         <result name="login">/blank.html</result>
      </action>
      
    </package>

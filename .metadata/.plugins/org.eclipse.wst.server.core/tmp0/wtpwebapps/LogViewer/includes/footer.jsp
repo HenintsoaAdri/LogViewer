@@ -19,9 +19,6 @@
     <script src="${pageContext.request.contextPath}/js/jquery.slimscroll.js"></script>
     <!--Wave Effects -->
     <script src="${pageContext.request.contextPath}/js/waves.js"></script>
-    <!--Counter js -->
-    <script src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.counterup.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="${pageContext.request.contextPath}/js/custom.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.toast.js"></script>

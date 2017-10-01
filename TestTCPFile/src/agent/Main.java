@@ -13,13 +13,13 @@ public class Main {
 			File temp = File.createTempFile("app", ".log");
 			temp.deleteOnExit();
 			LogFile log = new LogFile(temp);
-			log.setFileName("logs - Copie");
+			log.setFileName("\\logs - Copie\\");
 			
 			client = new Client(log);
 			
 			System.out.println("received " + client.connect("localhost", 2008));
-			System.out.println(log.getTempFile().getAbsolutePath());
-			System.out.println("distant : "+ (log.getDistantFile() != null? log.getDistantFile().length():""));
+			System.out.println(log.getFile().getAbsolutePath());
+			System.out.println("distant : "+ (log.getFile() != null? log.getFile().length():""));
 			System.out.println("Fini");
 		} catch (Exception e) {
 			e.printStackTrace();

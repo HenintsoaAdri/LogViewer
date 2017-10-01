@@ -198,7 +198,7 @@ public class Utilisateur extends BaseModel{
 				+" [Profil = "+ getProfil() + "]";
 	}
 	@Override
-	public String getName() {
+	public String getNomString() {
 		return "l'utilisateur : " + getFullName();
 	}
 	

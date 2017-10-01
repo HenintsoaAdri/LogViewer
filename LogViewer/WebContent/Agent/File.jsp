@@ -18,12 +18,14 @@
             <div class="container-fluid">
 				<div class="row bg-title">
 				    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-				        <h4 class="page-title">Fichiers</h4>
+				        <h4 class="page-title">Agent</h4>
 				    </div>
 				    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 				        <ol class="breadcrumb">
                             <li><a href="${pageContext.request.contextPath}">Log Viewer</a></li>
-				            <li class="active"><a href="${pageContext.request.contextPath}/Fichier">Fichiers</a></li>
+				            <li><a href="${pageContext.request.contextPath}/Agent">Agent</a></li>
+				            <li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/connect"><% out.print(item.getNom()); %></a></li>
+				            <li class="active">Lecture de fichier</li>
 				        </ol>
 				    </div>
 				    <!-- /.col-lg-12 -->
@@ -32,12 +34,12 @@
 				    <div class="col-md-12">
 				        <div class="white-box">
 				        	<div class="btn-group pull-right">
-								<a class="btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(file.getFileName()); %>&file=<% out.print(file.getTempFile().getName()); %>"><i class="fa fa-indent fw"></i> Parser le fichier</a>
-								<a class="btn-outline btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/download?log.fileName=<% out.print(file.getFileName()); %>&file=<% out.print(file.getTempFile().getName()); %>"><i class="fa fa-download fw"></i> Télécharger le fichier</a>
-								<a class="btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/save?log.fileName=<% out.print(file.getFileName()); %>&file=<% out.print(file.getTempFile().getName()); %>"><i class="fa fa-save fw"></i> Enregistrer le fichier</a>
+								<a class="btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(file.getFileName()); %>"><i class="fa fa-indent fw"></i> Parser le fichier</a>
+								<a class="btn-outline btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/download?log.fileName=<% out.print(file.getFileName()); %>"><i class="fa fa-download fw"></i> Télécharger le fichier</a>
+								<a class="btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/save?log.fileName=<% out.print(file.getFileName()); %>"><i class="fa fa-save fw"></i> Enregistrer le fichier</a>
 				        	</div>
 							<h3 class="box-title">
-								<i class="fa fa-file-text-o" aria-hidden="true"></i> <% out.print(file); %>
+								<i class="fa fa-file-text-o" aria-hidden="true"></i> <% out.print(file.getFileName()); %>
 							</h3>
 							<hr class="m-t-0 m-b-20">
 							<div class="row">
@@ -60,13 +62,13 @@
 											for(int i = 0; i < numberPage ; i++){ 
 												if(i == 0 || i+1 == numberPage || currentPage-2 <= i && i <= currentPage+2){ %>
 										  		<li <% if(i==currentPage) out.print("class=\"active\""); %>>
-												  	<a href="${pageContext.request.contextPath}/Fichier?log.fileName=<% out.print(file.getFileName()); %>&amp;file=<% out.print(file.getTempFile().getName()); %>&amp;page=<% out.print(i); %>">
+												  	<a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/view?log.fileName=<% out.print(file.getFileName()); %>&amp;page=<% out.print(i); %>">
 												  		<% out.print((i*100)+" - "+((i*100)+100)); %>
 											  		</a>
 									  			</li>
 										  		<% }else if(i == currentPage - 3 || i == currentPage + 3){ %>
 										  		<li>
-											  		<a href="${pageContext.request.contextPath}/Fichier?log.fileName=<% out.print(file.getFileName()); %>&amp;file=<% out.print(file.getTempFile().getName()); %>&amp;page=<% out.print(i); %>">
+											  		<a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/view?log.fileName=<% out.print(file.getFileName()); %>&amp;page=<% out.print(i); %>">
 												  		...
 											  		</a>
 										  		</li>

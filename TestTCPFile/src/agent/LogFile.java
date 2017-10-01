@@ -7,15 +7,14 @@ import java.util.List;
 
 public class LogFile implements Serializable{
 	private String fileName = "";
-	private File tempFile;
-	private File distantFile;
+	private File file;
 	private List<LogFile> child;
-	public LogFile(String filename, File distantFile) {
+	public LogFile(String filename, File File) {
 		setFileName(filename);
-		setDistantFile(distantFile);
+		setFile(File);
 	}
-	public LogFile(File tempFile) {
-		setTempFile(tempFile);
+	public LogFile(File File) {
+		setFile(File);
 	}
 	
 	public LogFile() {
@@ -26,17 +25,11 @@ public class LogFile implements Serializable{
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	public File getTempFile() {
-		return tempFile;
+	public File getFile() {
+		return file;
 	}
-	public void setTempFile(File tempFile) {
-		this.tempFile = tempFile;
-	}
-	public File getDistantFile() {
-		return distantFile;
-	}
-	public void setDistantFile(File distantFile) {
-		this.distantFile = distantFile;
+	public void setFile(File File) {
+		this.file = File;
 	}
 	public List<LogFile> getChild() {
 		return child;
@@ -53,16 +46,23 @@ public class LogFile implements Serializable{
 		}
 	}
 	public String getName(){
-		return distantFile.getName().replace(".log", "");
+		return file.getName().replace(".log", "");
 	}
 	
 	public float getMBLenght(){
-		return distantFile.length() / (1024*1024F);
+		return file.length() / (1024*1024F);
 	}	
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder("LogFile [name = ");
-		return builder.append(getFileName()).append("]").toString();
+		 builder.append(getFileName());
+		 if(getChild() != null){
+			 for(LogFile f : getChild()){
+				 builder.append("\n\t-" + f.toString()+",");
+			 }
+		 }
+		 builder.append("]");
+		 return builder.toString();
 	}
 }

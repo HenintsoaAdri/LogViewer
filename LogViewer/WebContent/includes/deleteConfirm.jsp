@@ -1,7 +1,5 @@
 <%@page import="adri.logviewer.model.*"%>
-<% 
-	BaseModel item = (BaseModel)request.getAttribute("item");
-%>
+<% BaseModel item = (BaseModel)request.getAttribute("item"); %>
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -12,7 +10,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <p class="text-center">&Ecirc;tes vous sûr(e) de vouloir supprimer <% out.print(item.getName()); %> ?</p>
+                            <p class="text-center">&Ecirc;tes vous sûr(e) de vouloir supprimer <% out.print(item.getNomString()); %> ?</p>
                             <br>
                         </div>
                         <div class="col-sm-12 text-center">

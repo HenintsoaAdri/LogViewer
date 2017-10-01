@@ -69,7 +69,7 @@ public class Fichier {
 	}
 	public void setFichier(File fichier, boolean force) throws Exception {
 		if(!fichier.exists() || fichier.isDirectory()){
-			throw new FileNotFoundException("Fichier invalide");
+			throw new FileNotFoundException("Ce Fichier est introuvable.");
 		}
 		if(!force){
 			if(!fichier.getName().endsWith(".log"))

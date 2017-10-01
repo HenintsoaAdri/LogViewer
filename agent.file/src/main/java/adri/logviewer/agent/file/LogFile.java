@@ -7,15 +7,14 @@ import java.util.List;
 
 public class LogFile implements Serializable{
 	private String fileName = "";
-	private File tempFile;
-	private File distantFile;
+	private File file;
 	private List<LogFile> child;
-	public LogFile(String filename, File distantFile) {
+	public LogFile(String filename, File file) {
 		setFileName(filename);
-		setDistantFile(distantFile);
+		setFile(file);
 	}
-	public LogFile(File tempFile) {
-		setTempFile(tempFile);
+	public LogFile(File File) {
+		setFile(file);
 	}
 	
 	public LogFile() {
@@ -26,17 +25,11 @@ public class LogFile implements Serializable{
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	public File getTempFile() {
-		return tempFile;
+	public File getFile() {
+		return file;
 	}
-	public void setTempFile(File tempFile) {
-		this.tempFile = tempFile;
-	}
-	public File getDistantFile() {
-		return distantFile;
-	}
-	public void setDistantFile(File distantFile) {
-		this.distantFile = distantFile;
+	public void setFile(File File) {
+		this.file = File;
 	}
 	public List<LogFile> getChild() {
 		return child;
@@ -53,11 +46,11 @@ public class LogFile implements Serializable{
 		}
 	}
 	public String getName(){
-		return distantFile.getName().replace(".log", "");
+		return file.getName().replaceFirst("\\.(.*)$", "");
 	}
 	
 	public float getMBLenght(){
-		return distantFile.length() / (1024*1024F);
+		return file.length() / (1024*1024F);
 	}	
 	
 	@Override

@@ -1,12 +1,17 @@
-<%@page import="adri.logviewer.agent.file.LogFile"%>
+<%@page import="org.apache.mina.core.RuntimeIoException"%>
 <%@page import="adri.logviewer.model.BaseModelPagination"%>
 <%@page import="adri.logviewer.model.BaseModel"%>
 <%@page import="adri.logviewer.model.GroupeView"%>
 <%@ include file="../includes/header.jsp" %>
 <%@page import="adri.logviewer.model.AgentView"%>
 <% AgentView item = (AgentView)request.getAttribute("item"); 
-List<LogFile> listeLog = (List<LogFile>)request.getAttribute("listeLog");
+String listeLog = (String)request.getAttribute("logString");
+Exception e = (Exception)request.getAttribute("exception");
 %>
+<link href="${pageContext.request.contextPath}/css/bootstrap-treeview.min.css" rel="stylesheet"/>
+<script type="text/javascript">
+	var data = <% out.print(listeLog); %>;
+</script>
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -22,13 +27,15 @@ List<LogFile> listeLog = (List<LogFile>)request.getAttribute("listeLog");
                 </div>
                 <!-- /.row --> 
 		        <%
-		        	if(request.getAttribute("exception") != null){ 
-		      		Exception e = (Exception)request.getAttribute("exception");
+		        	if(e != null && e.getMessage()!= null && !e.getMessage().isEmpty()){ 
+		      		
 		        %>
 		      	<div class="alert alert-danger alert-dismissable">
 	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	      			<% out.print(e.getMessage()); %>
+	      			<% out.print(e.getMessage()); 
+	      				if(e instanceof RuntimeIoException){ %>
 					<a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/connect" class="btn btn-default m-l-20 waves-effect waves-light"><i class="fa fa-plug fa-fw" aria-hidden="true"></i>Reconnexion</a>
+					<% } %>
 	            </div>
                 <!--./row-->
 				<% } %>
@@ -109,20 +116,11 @@ List<LogFile> listeLog = (List<LogFile>)request.getAttribute("listeLog");
                 	<div class="col-md-12">
                         <div class="white-box">
                             <h3 class="box-title"><i class="fa fa-gears"></i> Fichiers log</h3>
-                            <p class="text-muted">Liste des fichiers de log retrouvés</p>
+                            <p class="text-muted">Liste des fichiers de log reçus</p>
 	                        <hr class="m-t-0 m-b-10">
-                            <% if(listeLog == null || listeLog.isEmpty() ){ %>
-						    	<p class="text-danger">Aucun fichier n'a été retourné par cet agent</p>
-							<% }else{ %>
-	                            <ul class="list-group">
-	                            <%	for(LogFile i : listeLog){  %>
-	                              <li class="text-center p-20"><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/open?log.fileName=<% out.print(i.getFileName()); %>">
-				                      <p><% out.print(i.getFileName()); %> (<% out.print(i.getDistantFile().length()/(1024*1024)); %> Mo)</p>
-	                              	  </a>
-	                              </li>
-	                            <% } %>
-	                            </ul>
-                           <% } %>
+                            <div id="listFichier">
+                            	<% out.print(listeLog); %>
+                            </div>
                         </div>
                 	</div>
                 </div>
@@ -130,4 +128,10 @@ List<LogFile> listeLog = (List<LogFile>)request.getAttribute("listeLog");
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
-<script src="${pageContext.request.contextPath}/js/function.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-treeview.min.js"></script>
+<script>
+	$('#listFichier').treeview({ 
+		data: data,
+		enableLinks : true
+	});
+</script>

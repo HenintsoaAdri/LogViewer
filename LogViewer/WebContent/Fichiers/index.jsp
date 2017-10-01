@@ -1,14 +1,23 @@
-<%@page import="adri.logviewer.exception.InputException"%>
+<%@page import="adri.logviewer.util.StringUtil"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.io.File"%>
+<%@page import="adri.logviewer.exception.InputException"%>
 <%@ include file="../includes/header.jsp" %>
-<% 
-	String file = (String)request.getAttribute("file");
+<%  String file = (String)request.getAttribute("file");
 	File path = (File)request.getAttribute("path");
-%>
+	String previous = (String)request.getAttribute("previous"); %>
             <div class="container-fluid">
 				<div class="row bg-title">
 				    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+					<%  try{
+							if(file != previous){ %>
+							<a href="${pageContext.request.contextPath}/Fichier?file=<%out.print(previous);%>" class="btn btn-default btn-outline fa-1x"><i class="fa fa-caret-left fw"></i> <% out.print(previous); %></a>
+						<% }
+						}catch(Exception e){
+							e.printStackTrace(); %>
 				        <h4 class="page-title">Fichiers</h4>
+					<% } %>
 				    </div>
 				    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 				        <ol class="breadcrumb">
@@ -43,19 +52,18 @@
 								try{
 									File[] liste = path.listFiles();
 									if(liste != null && liste.length > 0){ %>
-									<ul class="list-group list-inline">
+									<div class="row">
 									<% for(File f : path.listFiles()){ 
-										long length = f.length()/(1024*1024);
-									%>
-										<li class="text-center p-20">
-											<a href="?file=<% out.print(file + File.separator + f.getName()); %>">
+										long length = f.length()/(1024*1024); %>
+										<div class="text-center col-sm-3" title="<% if(length>0)out.print("taille :" + length + " Mo, modifié le " + StringUtil.getInstance().getDateString(f.lastModified())); %>">
+											<a href="?file=<% out.print((file + File.separator + f.getName()).replaceAll("\\\\\\\\","\\\\")); %>">
 												<i class="fa fa-<% if(f.isDirectory()){ out.print("folder"); 
 												}else{ out.print("file-text"); } %>-o fa-5x text-info" aria-hidden="true"></i>
-								 				<p><% out.print(f.getName()); %><% if(length>0)out.print("(" + length + " Mo)"); %></p>
+								 				<p><% out.print(f.getName()); %></p>
 								 			</a>
-								 		</li>
+								 		</div>
 									<% } %>
-									</ul>
+									</div>
 								<% }else{ %>
 									<p class="text-danger">Aucun fichier n'a été enregistré.</p>
 								<% }

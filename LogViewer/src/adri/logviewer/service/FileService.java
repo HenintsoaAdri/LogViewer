@@ -2,10 +2,10 @@ package adri.logviewer.service;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +18,7 @@ import adri.logviewer.model.Agent;
 import adri.logviewer.model.Utilisateur;
 
 public class FileService {
-	private String filePath = "LogViewer-Fichiers/";
+	private String filePath = "LogViewer-Fichiers";
 	private static FileService service;
 	
 	private FileService(){}
@@ -52,9 +52,18 @@ public class FileService {
 		Client client = null;
 		try{
 			client = new Client(file);
-			if(file.getTempFile() == null){
-				String extension = file.getFileName().substring(file.getFileName().lastIndexOf('.'));
-				file.setTempFile(File.createTempFile(file.getFileName(), extension));
+			if(file.getFile() == null){
+				try {
+					String extension = file.getFileName().substring(file.getFileName().lastIndexOf('.'));
+					File tempFile = File.createTempFile(file.getFileName(), extension);
+					tempFile.deleteOnExit();
+					file.setFile(tempFile);
+				} catch (StringIndexOutOfBoundsException e) {
+					LogFile list = (LogFile)client.connect(agent.getAdresse(), agent.getPort());
+					file.setChild(list.getChild());
+					file.setFileName(list.getFileName());
+					throw new IllegalArgumentException("Ce fichier correspond à un dossier");
+				}
 			}
 			client.connect(agent.getAdresse(), agent.getPort());
 		}finally{
@@ -68,19 +77,21 @@ public class FileService {
 		File save = null;
 		File path = null;
 		try {
-			path = new File(getRootPath(user) + File.separator + agent.getPathName());
+			path = getRootPathFile(user);
 			if(!path.exists()){
 				path.mkdirs();
 			}
-			if(!logfile.getTempFile().exists()){
-				throw new Exception("Ce fichier n'est plus en cache ou a été déplacé");
+			if(!logfile.getFile().exists()){
+				throw new FileNotFoundException("Ce fichier n'est plus en cache ou a été déplacé");
 			}
 			String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			save = new File(path.getAbsolutePath() + File.separator + date + logfile.getFileName().replace("/", "~~"));
-			if(!logfile.getTempFile().renameTo(save)){
+			String name = agent.getPathName() + File.separator + date + logfile.getFileName().replaceAll("(\\\\|/|:|\\*|\\?|\"|<|>|\\|)", "~");
+			save = new File(path.getAbsolutePath() + File.separator + name);
+			if(!logfile.getFile().renameTo(save)){
 				throw new Exception("Le fichier n'a pas pu etre sauvegardé");
 			}
-			logfile.setTempFile(save);
+			logfile.setFileName(save.getAbsolutePath().replace(getFilePath(user), ""));
+			logfile.setFile(save);
 		} catch (Exception e) {
 			throw e;	
 		}
@@ -90,7 +101,7 @@ public class FileService {
 		byte[] buffer = new byte[1024];
 		try {
 			int reader;
-			read = new FileInputStream(logfile.getTempFile());
+			read = new FileInputStream(logfile.getFile());
 			while((reader = read.read(buffer)) != -1){
 				out.write(reader);	
 			}
@@ -111,19 +122,19 @@ public class FileService {
 			return f.getAbsolutePath();
 		}
 		else if(user.getProfil() != null){
-			String base = getRootPath(user);
-			if(!new File(base).exists()){
+			File base = getRootPathFile(user);
+			if(!base.exists()){
 				throw new Exception("Aucun fichier n'a encore été enregistré dans votre profil");
 			}
-			return base;
+			return base.getAbsolutePath();
 		}
 		throw new PermissionException("Vous n'etes rattaché à aucun profil");
 	}
 	public String getRootPath(Utilisateur user){
-		return new File(filePath).getAbsolutePath() + File.separator + user.getProfil().getNom();
+		return filePath + File.separator + user.getProfil().getNom();
 	}
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public File getRootPathFile(Utilisateur user){
+		return new File(getRootPath(user));
 	}
 	public Agent getAgent(File file) throws Exception{
 		try{

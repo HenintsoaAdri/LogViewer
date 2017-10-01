@@ -30,7 +30,7 @@ public class BaseModel {
 				+ this.getId()
 				+ " ]";
 	}
-	public String getName(){
+	public String getNomString(){
 		return "la Base Model #" + getId();
 	}
 	public String instance(){

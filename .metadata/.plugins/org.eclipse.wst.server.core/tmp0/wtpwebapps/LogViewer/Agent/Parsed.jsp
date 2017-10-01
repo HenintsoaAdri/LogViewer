@@ -19,12 +19,14 @@
             <div class="container-fluid">
 				<div class="row bg-title">
 				    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-				        <h4 class="page-title">Fichiers</h4>
+				        <h4 class="page-title">Agent</h4>
 				    </div>
 				    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 				        <ol class="breadcrumb">
                             <li><a href="${pageContext.request.contextPath}">Log Viewer</a></li>
-				            <li class="active"><a href="${pageContext.request.contextPath}/Fichier">Fichiers</a></li>
+				            <li><a href="${pageContext.request.contextPath}/Agent">Agent</a></li>
+				            <li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/connect"><% out.print(item.getNom()); %></a></li>
+				            <li class="active">Parsage de fichier</li>
 				        </ol>
 				    </div>
 				    <!-- /.col-lg-12 -->
@@ -33,16 +35,23 @@
 				    <div class="col-md-12">
 				        <div class="white-box">
 				        	<div class="btn-group pull-right">
-								<a class="btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/view?log.fileName=<% out.print(logFile.getFileName()); %>&file=<% out.print(logFile.getTempFile().getName()); %>"><i class="fa fa-outdent fw"></i> Visionner le fichier</a>
-								<a class="btn-outline btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/download?log.fileName=<% out.print(logFile.getFileName()); %>&file=<% out.print(logFile.getTempFile().getName()); %>"><i class="fa fa-download fw"></i> Télécharger le fichier</a>
-								<a class="btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/save?log.fileName=<% out.print(logFile.getFileName()); %>&file=<% out.print(logFile.getTempFile().getName()); %>"><i class="fa fa-save fw"></i> Enregistrer le fichier</a>
+								<a class="btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/view?log.fileName=<% out.print(logFile.getFileName()); %>"><i class="fa fa-outdent fw"></i> Visionner le fichier</a>
+								<a class="btn-outline btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/download?log.fileName=<% out.print(logFile.getFileName()); %>"><i class="fa fa-download fw"></i> Télécharger le fichier</a>
+								<a class="btn btn-success" href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/save?log.fileName=<% out.print(logFile.getFileName()); %>"><i class="fa fa-save fw"></i> Enregistrer le fichier</a>
 							</div>
 							<h3 class="box-title">
 								<i class="fa fa-file-text-o" aria-hidden="true"></i> <% out.print(logFile.getFileName()); %>
 							</h3>
-							<p class="text-muted">Syntaxe : <% out.print(file.getMainPattern()); %>	
-							</p>
+							<p class="text-muted">Syntaxe : <% out.print(file.getMainPattern()); %></p>
 							<hr class="m-t-0 m-b-20">
+							<div class="btn-group">
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=FATAL" class="btn btn-outline btn-danger">FATAL</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=ERROR" class="btn btn-outline btn-danger">ERROR</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=WARN" class="btn btn-outline btn-warning">WARN</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=INFO" class="btn btn-outline btn-info">INFO</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=DEBUG" class="btn btn-outline btn-primary">DEBUG</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=TRACE" class="btn btn-outline btn-success">TRACE</a>
+							</div>
 							<div class="row">
 								<div class="col-sm-12">	
 							        <% if(request.getAttribute("exception") != null){ 
@@ -59,7 +68,7 @@
 						      		%></p>
 					                <!--./row-->
 									<% } %>	
-		                            <%  if(file == null || file.getPagination().getListeLog() == null || file.getPagination().getListeLog().isEmpty()){ %>		                            %>
+		                            <%  if(file == null || file.getPagination().getListeLog() == null || file.getPagination().getListeLog().isEmpty()){ %>
 		                    		<p class="text-danger">Aucune ligne de log retrouvée.</p>
 		                    		<%  }else{ %>
 		                            <div class="table-responsive">
@@ -118,3 +127,13 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+<script type="text/javascript">
+	var level = '<% out.print(request.getAttribute("level")); %>';
+	$('.level').each(function(){
+		if($(this).html() == level){
+			$(this).removeClass('btn-outline');
+			href = $(this).attr("href");
+			$(this).attr("href", href.substring(0,href.indexOf('&level')));
+		}
+	})
+</script>

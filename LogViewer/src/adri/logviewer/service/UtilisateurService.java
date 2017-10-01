@@ -181,7 +181,7 @@ public class UtilisateurService {
 	public void edit(BaseModel model, Utilisateur user) throws Exception {
 		String[] field = null;
 		if(!getAuthorization(model, user) && !user.isSuperUtilisateur()){
-			throw new PermissionException("Vous n'êtes pas autorisé à faire des modidications sur " + model.getName());
+			throw new PermissionException("Vous n'êtes pas autorisé à faire des modidications sur " + model.getNomString());
 		}
 		switch(model.instance()){
 			case "Profil" : field = new String[]{"ListeGroupe"};

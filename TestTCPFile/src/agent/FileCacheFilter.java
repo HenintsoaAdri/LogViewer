@@ -34,7 +34,7 @@ public class FileCacheFilter extends IoFilterAdapter{
 				if(buffer.remaining() > 0){
 					byte[] bytes = new byte[buffer.remaining()];
 					try {
-						fos = new FileOutputStream(temp.getTempFile(), true);
+						fos = new FileOutputStream(temp.getFile(), true);
 						buffer.get(bytes);
 						fos.write(bytes);
 					}finally {

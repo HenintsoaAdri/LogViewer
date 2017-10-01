@@ -66,7 +66,7 @@ public class Groupe extends BaseModel{
 				+" [nom = " + getNom() + "]";
 	}
 	@Override
-	public String getName() {
+	public String getNomString() {
 		return "le groupe " + getNom();
 	}
 }

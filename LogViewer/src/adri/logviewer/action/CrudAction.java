@@ -45,7 +45,6 @@ public class CrudAction extends BaseAction implements ValidationErrorAware{
 		ConfigurableApplicationContext context = null;
 		try{
 			if(getItem() == null || getItem().getId() <= 0) return NONE;
-			System.out.print(Arrays.toString(((Profil)getItem()).getListeGroupe().toArray()));
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).crud(getItem(), "update", getUser());
 			return SUCCESS;

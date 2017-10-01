@@ -56,11 +56,11 @@ public class Client{
 					read.awaitUninterruptibly();
 					return read.getMessage();
 				} catch (RuntimeIoException e) {
-					Thread.sleep(5000);
+					Thread.sleep(3000);
 					e.printStackTrace();
 				}
 			}
-			throw new Exception("Connexion impossible");
+			throw new RuntimeIoException("Connexion impossible");
 		} catch (Exception e) {
 			LOGGER.error("Connexion échouée", e);
 			throw e;

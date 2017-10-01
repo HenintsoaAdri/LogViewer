@@ -140,7 +140,7 @@ public class Agent extends BaseModel{
 	}
 	
 	@Override
-	public String getName() {
+	public String getNomString() {
 		StringBuilder builder = new StringBuilder("l'agent #");
 		return builder.append(getId()).append(" ").append(getNom())
 		.append(" [ adresse&port : ").append(getAdresse()).append(":").append(getPort()).append("]").toString();
