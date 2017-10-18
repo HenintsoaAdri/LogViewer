@@ -114,9 +114,9 @@
 		                            </div>
 		                            <ul class="pagination">
 		                            <% if(!file.getPagination().isStart()){ %>
-		                            	<li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?<% out.print(query); %>&page=<% out.print(file.getPagination().getPreviewStart()); %>">&lt; Précédent</a></li>
+		                            	<li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?<% out.print(query); %>page=<% out.print(file.getPagination().getPreviewStart()); %>">&lt; Précédent</a></li>
 		                            <% } %>
-		                            	<li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?<% out.print(query); %>&page=<% out.print(file.getPagination().getCurrentEnd()+1); %>">Suivant &gt; </a></li>
+		                            	<li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?<% out.print(query); %>page=<% out.print(file.getPagination().getCurrentEnd()+1); %>">Suivant &gt; </a></li>
 		                            </ul>
 		                        <% } %>
 								</div>

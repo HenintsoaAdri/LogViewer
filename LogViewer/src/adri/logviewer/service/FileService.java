@@ -20,7 +20,6 @@ import adri.logviewer.model.Utilisateur;
 public class FileService {
 	private String filePath = "LogViewer-Fichiers";
 	private static FileService service;
-	
 	private FileService(){}
 	public static FileService getInstance(ApplicationContext context, Utilisateur user) throws Exception{
 		try{
@@ -77,7 +76,7 @@ public class FileService {
 		File save = null;
 		File path = null;
 		try {
-			path = getRootPathFile(user);
+			path = new File(getRootPath(user) + File.separator + agent.getPathName());
 			if(!path.exists()){
 				path.mkdirs();
 			}
@@ -85,7 +84,7 @@ public class FileService {
 				throw new FileNotFoundException("Ce fichier n'est plus en cache ou a été déplacé");
 			}
 			String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			String name = agent.getPathName() + File.separator + date + logfile.getFileName().replaceAll("(\\\\|/|:|\\*|\\?|\"|<|>|\\|)", "~");
+			String name = date + logfile.getFileName().replaceAll("(\\\\|/|:|\\*|\\?|\"|<|>|\\|)", "~");
 			save = new File(path.getAbsolutePath() + File.separator + name);
 			if(!logfile.getFile().renameTo(save)){
 				throw new Exception("Le fichier n'a pas pu etre sauvegardé");

@@ -90,7 +90,7 @@ public class Server {
 	}
 	private void setPort(String port){
 		if(port != null){
-			setPort(Integer.parseInt(port));
+			setPort(Integer.parseInt(port.trim()));
 			return;
 		}
 		LOGGER.trace("Valeur de port inexistante dans le fichier 'app.properties'. AutoSet Port : " + getPort());
@@ -107,7 +107,7 @@ public class Server {
 		return port;
 	}
 	public void start() throws IOException{
-		server.bind(new InetSocketAddress(2008));
+		server.bind(new InetSocketAddress(getPort()));
 		LOGGER.trace("Le serveur agent a démarré...");
 	}
 	public void stop()throws IOException{

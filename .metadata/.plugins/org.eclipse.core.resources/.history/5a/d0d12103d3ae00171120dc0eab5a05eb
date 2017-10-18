@@ -1,0 +1,25 @@
+package adri.logviewer.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import adri.logviewer.exception.PermissionException;
+import adri.logviewer.model.PermissionType;
+import adri.logviewer.model.Profil;
+
+public class DaoTest {
+
+	@Test
+	public void testSearch() {
+		Profil p = new Profil();
+		try {
+			p.allow(PermissionType.CONNEXION);
+			
+		} catch (PermissionException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+}

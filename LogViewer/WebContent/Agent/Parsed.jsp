@@ -45,12 +45,12 @@
 							<p class="text-muted">Syntaxe : <% out.print(file.getMainPattern()); %></p>
 							<hr class="m-t-0 m-b-20">
 							<div class="btn-group">
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=FATAL" class="btn btn-outline btn-danger">FATAL</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=ERROR" class="btn btn-outline btn-danger">ERROR</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=WARN" class="btn btn-outline btn-warning">WARN</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=INFO" class="btn btn-outline btn-info">INFO</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=DEBUG" class="btn btn-outline btn-primary">DEBUG</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=TRACE" class="btn btn-outline btn-success">TRACE</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=FATAL" class="btn btn-outline btn-danger level">FATAL</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=ERROR" class="btn btn-outline btn-danger level">ERROR</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=WARN" class="btn btn-outline btn-warning level">WARN</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=INFO" class="btn btn-outline btn-info level">INFO</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=DEBUG" class="btn btn-outline btn-primary level">DEBUG</a>
+							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=TRACE" class="btn btn-outline btn-success level">TRACE</a>
 							</div>
 							<div class="row">
 								<div class="col-sm-12">	
@@ -114,9 +114,9 @@
 		                            </div>
 		                            <ul class="pagination">
 		                            <% if(!file.getPagination().isStart()){ %>
-		                            	<li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?<% out.print(query); %>&page=<% out.print(file.getPagination().getPreviewStart()); %>">&lt; Précédent</a></li>
+		                            	<li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?<% out.print(query); %>page=<% out.print(file.getPagination().getPreviewStart()); %>">&lt; Précédent</a></li>
 		                            <% } %>
-		                            	<li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?<% out.print(query); %>&page=<% out.print(file.getPagination().getCurrentEnd()+1); %>">Suivant &gt; </a></li>
+		                            	<li><a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?<% out.print(query); %>page=<% out.print(file.getPagination().getCurrentEnd()+1); %>">Suivant &gt; </a></li>
 		                            </ul>
 		                        <% } %>
 								</div>

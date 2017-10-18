@@ -1,6 +1,5 @@
 package adri.logviewer.model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,9 +55,6 @@ public class Profil extends BaseModel{
 	}
 	public void setListeGroupe(Set<Groupe> listeGroupe) {
 		this.listeGroupe = listeGroupe;
-	}
-	public void setListeGroupe(Collection<? extends Groupe> listeGroupe) {
-		this.setListeGroupe(new HashSet<Groupe>(listeGroupe));
 	}
 	public boolean hasGroupe(Groupe groupe) {
 		return getListeGroupe() != null && getListeGroupe().contains(groupe);

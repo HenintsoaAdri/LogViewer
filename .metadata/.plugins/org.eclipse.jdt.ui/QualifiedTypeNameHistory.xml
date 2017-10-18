@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.sun.media.jfxmedia.events.NewFrameEvent"/>
-<fullyQualifiedTypeName name="java.text.DateFormat"/>
-<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
-<fullyQualifiedTypeName name="java.io.InputStream"/>
-<fullyQualifiedTypeName name="javax.management.Query"/>
 <fullyQualifiedTypeName name="org.hibernate.Query"/>
 <fullyQualifiedTypeName name="org.hibernate.query.Query"/>
 <fullyQualifiedTypeName name="adri.logviewer.action.UtilisateurAction"/>
@@ -14,7 +7,6 @@
 <fullyQualifiedTypeName name="adri.logviewer.exception.PermissionException"/>
 <fullyQualifiedTypeName name="adri.logviewer.filemanager.FichierPagination"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
-<fullyQualifiedTypeName name="java.io.FileInputStream"/>
 <fullyQualifiedTypeName name="java.text.ParseException"/>
 <fullyQualifiedTypeName name="javax.persistence.criteria.Expression"/>
 <fullyQualifiedTypeName name="javax.persistence.criteria.Root"/>
@@ -38,26 +30,34 @@
 <fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
 <fullyQualifiedTypeName name="adri.logviewer.exception.InputException"/>
 <fullyQualifiedTypeName name="java.util.Collection"/>
-<fullyQualifiedTypeName name="adri.logviewer.model.PermissionType"/>
 <fullyQualifiedTypeName name="adri.logviewer.model.Permission"/>
-<fullyQualifiedTypeName name="adri.logviewer.model.Profil"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="agent.LogFile"/>
 <fullyQualifiedTypeName name="java.nio.file.Path"/>
 <fullyQualifiedTypeName name="java.nio.file.Paths"/>
 <fullyQualifiedTypeName name="java.lang.StringIndexOutOfBoundsException"/>
 <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
-<fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="com.opensymphony.xwork2.validator.ValidationInterceptor"/>
 <fullyQualifiedTypeName name="com.opensymphony.xwork2.interceptor.MethodFilterInterceptor"/>
 <fullyQualifiedTypeName name="org.apache.commons.io.FilenameUtils"/>
 <fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
 <fullyQualifiedTypeName name="adri.logviewer.model.Utilisateur"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+<fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="agent.LogFile"/>
 <fullyQualifiedTypeName name="adri.logviewer.agent.file.LogFile"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="adri.logviewer.model.Profil"/>
+<fullyQualifiedTypeName name="adri.logviewer.model.PermissionType"/>
+<fullyQualifiedTypeName name="org.hibernate.criterion.Example"/>
+<fullyQualifiedTypeName name="org.hibernate.criterion.MatchMode"/>
 </qualifiedTypeNameHistroy>

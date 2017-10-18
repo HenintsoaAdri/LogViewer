@@ -4,7 +4,7 @@
 	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="3" key="TypeHierarchyViewPart.orientation"/>
 	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
-	<item value="A:\Java\apache-mina-2.0.16\apache-mina-2.0.16\dist" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="A:\Projet\Projet Stage\agent.file\target" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
 	<section name="SelfEncapsulateFieldWizard">
 		<item value="false" key="GenerateJavadoc"/>

@@ -13,7 +13,7 @@ public class LogFile implements Serializable{
 		setFileName(filename);
 		setFile(file);
 	}
-	public LogFile(File File) {
+	public LogFile(File file) {
 		setFile(file);
 	}
 	
@@ -28,8 +28,8 @@ public class LogFile implements Serializable{
 	public File getFile() {
 		return file;
 	}
-	public void setFile(File File) {
-		this.file = File;
+	public void setFile(File file) {
+		this.file = file;
 	}
 	public List<LogFile> getChild() {
 		return child;

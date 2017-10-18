@@ -9,14 +9,12 @@ import org.hibernate.Transaction;
 import adri.logviewer.exception.PermissionException;
 import adri.logviewer.model.BaseModel;
 import adri.logviewer.model.BaseModelPagination;
-import adri.logviewer.model.Permission;
 import adri.logviewer.model.PermissionType;
 import adri.logviewer.model.Profil;
 import adri.logviewer.model.Utilisateur;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -197,7 +195,7 @@ public class HibernateDao {
 	    	    			.append(field)
 	    	    			.append(" o WHERE o.id = :one")
 	    	    			.toString();
-	    	pagination.setTotalResult(session.createQuery("SELECT COUNT(m.id) " + fromClause, Long.class)
+	    	pagination.setTotalResult(session.createQuery("SELECT COUNT(DISTINCT m.id) " + fromClause, Long.class)
             			.setParameter("one", one.getId())
 	    				.uniqueResult());
 	    	pagination.setListe(session.createQuery("SELECT m " + fromClause + " GROUP BY m.id" , pagination.getClasse())

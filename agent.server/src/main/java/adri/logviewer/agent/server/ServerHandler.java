@@ -64,7 +64,7 @@ public class ServerHandler extends IoHandlerAdapter{
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
 		InetSocketAddress adresse = (InetSocketAddress) session.getRemoteAddress();		
-		if(!adresse.getAddress().getHostAddress().contentEquals(properties.getProperty("ipAdress"))){
+		if(!adresse.getAddress().getHostAddress().contentEquals(properties.getProperty("ipAdress").trim())){
 			throw new Exception("Connexion refusée à l'hote : " + adresse.getAddress().getHostAddress());
 		}		
 	}
