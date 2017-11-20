@@ -6,7 +6,7 @@
 	<filter-def name="searchProfil">
 		<filter-param name="nom" type="string"/>
 	</filter-def>
-    <class name="adri.logviewer.model.Profil" table="profil" >
+    <class name="adri.logviewer.model.Profil" table="profil" dynamic-update="true">
         <meta attribute="class-description">
             This class contains the Profil detail.
         </meta>
@@ -15,7 +15,6 @@
         </id>
         <property name="nom" column="nomprofil" type="string"/>
         <property name="description" column="descriptionprofil" type="string"/>
-        <property name="superProfil" column="issuperprofil" type="boolean"/>
          
         <set name="listeGroupe" table="profilgroupe" fetch="select">
 	        <key column="idprofil" not-null="true"/>
@@ -34,6 +33,10 @@
         <union-subclass name="adri.logviewer.model.ProfilView" table="profilview" >
         	<property name="nombreUtilisateur" column="nbutilisateur" type="int" />
         	<property name="nombreGroupe" column="nbgroupe" type="int" />
+        </union-subclass>
+        <union-subclass name="adri.logviewer.model.ProfilStat" table="profilstat" >
+        	<property name="nombre" column="nombre" type="int" />
+        	<property name="valeur" column="valeur" type="float" />
         </union-subclass>
         <filter name="searchProfil" condition="lower(nomprofil) like :nom"/>
     </class>

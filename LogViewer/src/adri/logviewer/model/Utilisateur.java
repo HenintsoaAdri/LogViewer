@@ -1,5 +1,6 @@
 package adri.logviewer.model;
 
+import java.util.Base64;
 import java.util.Date;
 
 import adri.logviewer.exception.InputException;
@@ -17,6 +18,7 @@ public class Utilisateur extends BaseModel{
 	private String poste;
 	private Date lastLogged;
 	private boolean superUtilisateur;
+	private boolean reinitPassword;
 	
 	public Utilisateur(){
 		super();
@@ -25,7 +27,7 @@ public class Utilisateur extends BaseModel{
 		super(id);
 	}		
 	public Utilisateur(int id, String nom, String prenom, char sexe, String email, String password, 
-			Profil Profil, String poste, Date lastLogged) throws InputException {
+			Profil Profil, String poste, Date lastLogged) throws Exception {
 		super(id);
 		this.setNom(nom);
 		this.setPrenom(prenom);
@@ -93,10 +95,7 @@ public class Utilisateur extends BaseModel{
 	}
 
 	public String getEmail() {
-		if(email == null){
-			return "";
-		}
-		return email;
+		return email == null? "" : email;
 	}
 	public void setEmail(String email) throws InputException {
 		StringUtil.getInstance().checkEmail(email);
@@ -104,13 +103,23 @@ public class Utilisateur extends BaseModel{
 	}
 
 	public String getPassword() {
-		if(password == null){
-			return "";
-		}
-		return password;
+		return password == null? "" : password;
 	}
-	public void setPassword(String password) throws InputException {
-		StringUtil.getInstance().checkPassword(password);
+	public void setPassword(String password) throws Exception {
+		try {
+			Base64.getDecoder().decode(password);
+			if(password.length() != 44){
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			try {
+				if(!StringUtil.getInstance().correctMdp(password)){
+					throw new InputException("Mot de passe invalide");
+				}
+			} catch (NullPointerException ex) {
+				throw new InputException("Un mot de passe est requis"); 
+			}
+		}
 		this.password = password;
 	}
 	public void setConfirm(String confirm) throws InputException{
@@ -122,7 +131,7 @@ public class Utilisateur extends BaseModel{
 	public String getConfirm(){
 		return this.confirm;
 	}
-	public void setPassword(String password, String confirm) throws InputException{
+	public void setPassword(String password, String confirm) throws Exception{
 		if(password == null || !password.contentEquals(confirm)){
 			throw new InputException("Le mot de passe de confirmation ne correspond pas au mot de passe entré");
 		}
@@ -149,8 +158,12 @@ public class Utilisateur extends BaseModel{
 	public Date getLastLogged() {
 		return lastLogged;
 	}
-	public String getLastLoggedString(){
-		return StringUtil.getInstance().durationInLetter(getLastLogged());
+	public String getLastLoggedString(String prefix){
+		try{			
+			return prefix + StringUtil.getInstance().durationInLetter(getLastLogged());
+		}catch(NullPointerException e){
+			return "Ne s'est pas encore connecté";
+		}
 	}
 	public void setLastLogged(Date lastLogged) {
 		this.lastLogged = lastLogged;
@@ -166,8 +179,18 @@ public class Utilisateur extends BaseModel{
 		this.superUtilisateur = superUtilisateur;
 	}
 	
+	public boolean isReinitPassword() {
+		return reinitPassword;
+	}
+	public boolean getReinitPassword() {
+		return reinitPassword;
+	}
+	public void setReinitPassword(boolean reinitPassword) {
+		this.reinitPassword = reinitPassword;
+	}
 	public boolean isAllowed(PermissionType permission){
-		if(getProfil()!= null){
+		if(isSuperUtilisateur()) return true;
+		else if(getProfil()!= null){
 			return getProfil().isAllowed(permission);
 		}
 		return false;
@@ -175,7 +198,7 @@ public class Utilisateur extends BaseModel{
 	public boolean isGenerallyAllowed(String permission){
 		switch (permission) {
 		case "Agent":
-			return isAllowed(PermissionType.CRUDAGENT) || isAllowed(PermissionType.LECTURETELECHARGEMENT);
+			return isAllowed(PermissionType.CRUDGROUPE)||isAllowed(PermissionType.CRUDAGENT) || isAllowed(PermissionType.LECTURETELECHARGEMENT);
 		case "Profil":
 			return isAllowed(PermissionType.CRUDUTILISATEUR);
 		case "Utilisateur":
@@ -184,6 +207,8 @@ public class Utilisateur extends BaseModel{
 			return isAllowed(PermissionType.CRUDGROUPE);
 		case "Fichier":
 			return isAllowed(PermissionType.LECTURETELECHARGEMENT);
+		case "Timeline" :
+			return isAllowed(PermissionType.CRUDUTILISATEUR);
 		default:
 			return false;
 		}
@@ -201,5 +226,8 @@ public class Utilisateur extends BaseModel{
 	public String getNomString() {
 		return "l'utilisateur : " + getFullName();
 	}
-	
+	@Override
+	public void validate() throws Exception {
+		setPassword(StringUtil.getInstance().checkPassword(password));
+	}
 }

@@ -38,7 +38,7 @@
                         			<% if(user.isAllowed(PermissionType.CRUDGROUPE)){ %>
 	                            	<a href="${pageContext.request.contextPath}/Groupe/edit/<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"> <i class="fa fa-pencil"></i> Modifier</a>
 	                            	<% } %>
-	                                <p class="text-muted">D&eacute;tails du groupe d'utilisateurs</p>
+	                                <p class="text-muted">D&eacute;tails du groupe d'agents</p>
 	                                <hr class="m-t-0 m-b-40">
 	                                <div class="row">
 	                                    <div class="col-md-6">
@@ -151,3 +151,5 @@ var id = <% out.print(item.getId());%> ;
 </script>
 <script src="${pageContext.request.contextPath}/js/detailFunction.js"></script>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
+</body>
+</html>

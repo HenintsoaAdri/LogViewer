@@ -1,0 +1,66 @@
+package adri.logviewer.model;
+
+import java.lang.reflect.Field;
+
+public class BaseModel {
+	private int id;
+	public BaseModel(int id){
+		setId(id);
+	}
+	public BaseModel() {}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return BaseModel.class.isInstance(obj) 
+				&& this.instance().contentEquals(((BaseModel)obj).instance())
+				&& getId() == ((BaseModel)obj).getId();
+	}
+	@Override
+	public int hashCode() {
+		return getId();
+	}
+	@Override
+	public String toString() {
+		return this.getClass().getName() + "[id = "
+				+ this.getId()
+				+ " ]";
+	}
+	public String getNomString(){
+		return "la Base Model #" + getId();
+	}
+	public String instance(){
+		return this.getClass().getSimpleName();
+	}
+	public String getDetail(){
+		StringBuilder builder = new StringBuilder(this.instance()).append(" [");
+		Field[] fields = this.getClass().getDeclaredFields();
+		String virgule = "";
+		String v = ", ";
+		try{
+			for(Field f : fields){
+				f.setAccessible(!f.getName().contentEquals("password")&&!f.getName().contentEquals("confirm"));
+				try{
+					Object value = f.get(this);
+					builder.append(virgule).append(f.getName())
+					.append(": ").append(value);
+					virgule = v;
+				}catch(Exception e){
+					builder.append(virgule).append(f.getName())
+					.append(": ").append(value);
+					virgule = v;
+				}
+			}
+		}catch(Exception e){
+			builder.append("informations protégées");
+		}
+		builder.append("]");
+		return builder.toString();
+	}
+}

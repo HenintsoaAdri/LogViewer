@@ -9,8 +9,12 @@ import org.hibernate.Transaction;
 import adri.logviewer.exception.PermissionException;
 import adri.logviewer.model.BaseModel;
 import adri.logviewer.model.BaseModelPagination;
+import adri.logviewer.model.DetailStat;
 import adri.logviewer.model.PermissionType;
 import adri.logviewer.model.Profil;
+import adri.logviewer.model.StatActivite;
+import adri.logviewer.model.TimelineView;
+import adri.logviewer.model.Timeline;
 import adri.logviewer.model.Utilisateur;
 
 import java.beans.PropertyDescriptor;
@@ -19,6 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.query.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -34,13 +39,17 @@ public class HibernateDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public void save(BaseModel model) throws Exception{
+    public void save(BaseModel model, Timeline timeline) throws Exception{
         Session session = null;
         Transaction tr = null;
         try{
             session = getSessionFactory().openSession();
             tr = session.beginTransaction();
+            model.validate();
             session.saveOrUpdate(model);
+	        if(timeline != null){
+		        session.save(timeline);	
+	        }
             tr.commit();
         }catch (Exception ex){
             if(tr!=null)
@@ -51,13 +60,16 @@ public class HibernateDao {
                 session.close();
         }
     }
-    public void delete(BaseModel model) throws Exception{
+    public void delete(BaseModel model, Timeline timeline) throws Exception{
 		Session session = null;
         Transaction tr = null;
 	    try{
 	        session = getSessionFactory().openSession();
             tr = session.beginTransaction();
 	        session.delete(model);
+	        if(timeline != null){
+		        session.save(timeline);	
+	        }
             tr.commit();
 	    }catch (Exception ex){
 	        throw ex;
@@ -66,7 +78,7 @@ public class HibernateDao {
 	            session.close();
 	    }
 	}
-	public void update(BaseModel model) throws Exception{
+	public void update(BaseModel model, Timeline timeline) throws Exception{
 		Session session = null;
         Transaction tr = null;
 	    try{
@@ -76,7 +88,11 @@ public class HibernateDao {
             	session.createQuery("DELETE FROM Permission WHERE idprofil = :id")
             			.setParameter("id", model.getId()).executeUpdate();
             }
+            model.validate();
 	        session.update(model);
+	        if(timeline != null){
+		        session.save(timeline);	
+	        }
             tr.commit();
 	    }catch (Exception ex){
 	        throw ex;
@@ -132,6 +148,7 @@ public class HibernateDao {
 	    	long total = session.createQuery("SELECT COUNT(id) " + fromClause, Long.class)
 	    				.uniqueResult();
 	    	pagination.setTotalResult(total);
+	    	if(pagination.getClasse().equals(TimelineView.class)) fromClause += " order by date";
 	    	pagination.setListe(session.createQuery(fromClause , pagination.getClasse())
 	        		.setFirstResult(pagination.getFirstResult())
 	        		.setMaxResults(pagination.getMaxResult())
@@ -143,7 +160,6 @@ public class HibernateDao {
 	            session.close();
 	    }
 	}
-
     public List<? extends BaseModel> findAllByBaseModel(Class<? extends BaseModel> many, BaseModel one)throws Exception{
 		Session session = null;
 	    try{
@@ -347,19 +363,106 @@ public class HibernateDao {
         try{
             session = getSessionFactory().openSession();
             tr = session.beginTransaction();
-            Utilisateur user = session.createQuery("FROM Utilisateur WHERE emailutilisateur = :email AND password = :password"
+            Utilisateur user = session.createQuery("FROM "+ Utilisateur.class.getName()+ " WHERE email = :email AND password = :password"
             										, Utilisateur.class)
             		.setParameter("email", email)
             		.setParameter("password", password).uniqueResult();
-            if(user == null) throw new Exception("Connexion échouée, vos identifiants sont incorrects");
-            else if(!user.getProfil().isAllowed(PermissionType.CONNEXION))throw new PermissionException("Vous ne pouvez pas vous connecter. Contactez l'administrateur");
-            user.loggedIn();
-            session.update(user);
-            tr.commit();
-            return user;
+            try{
+                if(user == null) throw new Exception("Connexion échouée, vos identifiants sont incorrects");
+                else if(user.isSuperUtilisateur()
+                		||user.getProfil().isAllowed(PermissionType.CONNEXION)){
+    	            user.loggedIn();
+    	            session.update(user);
+    	            tr.commit();
+    	            return user;
+                }
+            }catch(NullPointerException e){}
+            throw new PermissionException("Vous ne pouvez pas vous connecter. Contactez l'administrateur");
         }catch (Exception ex){
             if(tr!=null)
             	tr.rollback();
+            ex.printStackTrace();
+            throw ex;
+        }finally {
+            if(session!=null)
+                session.close();
+        }
+    }
+    public void reinitPassword(String email) throws Exception{
+    	Session session = null;
+        Transaction tr = null;
+        try{
+            session = getSessionFactory().openSession();
+            tr = session.beginTransaction();
+            Utilisateur user = session.createQuery("FROM Utilisateur WHERE emailutilisateur = :email"
+            										, Utilisateur.class)
+            		.setParameter("email", email).uniqueResult();
+            try{
+            	if(user.isSuperUtilisateur()){
+            		throw new Exception("Le mot de passe de l'administrateur ne peut être réinitialisé");
+            	}
+                user.setReinitPassword(true);
+                update(user, null);
+                tr.commit();
+            }catch(NullPointerException e){
+            	throw new Exception("Adresse email introuvable");
+            }
+        }catch (Exception ex){
+            if(tr!=null)
+            	tr.rollback();
+            throw ex;
+        }finally {
+            if(session!=null)
+                session.close();
+        }
+    }
+    public void findAllByCritere(BaseModelPagination pagination, String field,Object value){
+    	Session session = null;
+        try{
+        	String fromClause = "FROM " + pagination.getClasse().getSimpleName()
+        			+" WHERE "+field+"= :value";
+        	
+            session = getSessionFactory().openSession();
+            pagination.setTotalResult(session.createQuery("SELECT COUNT(id) " + fromClause, Long.class)
+            		.setParameter("value", value)
+            		.uniqueResult());
+            pagination.setListe(session.createQuery(fromClause, pagination.getClasse())
+            		.setParameter("value", value)
+            		.setFirstResult(pagination.getFirstResult())
+	        		.setMaxResults(pagination.getMaxResult())
+	        		.list());
+        }catch (Exception ex){
+        	ex.printStackTrace();
+            throw ex;
+        }finally {
+            if(session!=null)
+                session.close();
+        }
+    }
+    public void getStatActivite(StatActivite stat){
+    	Session session = null;
+        try{
+        	String fromClause = " FROM " + TimelineView.class.getSimpleName();
+        	
+           session = getSessionFactory().openSession();
+           Query<DetailStat> query = session.createQuery(
+        		   "SELECT new adri.logviewer.model.DetailStat(COUNT(id) AS nombre, " 
+        				   + stat.getBy().getSelect() + ")"
+        				   + fromClause
+        				   + (stat.getBy().getWhere().isEmpty() ? "" : " WHERE " + stat.getBy().getWhere())
+        				   + " GROUP BY " 
+        				   + stat.getBy().getGroup(), DetailStat.class);
+           		try{
+           			query.setParameter("month", stat.getMois());
+           			query.setParameter("year", stat.getAnnee());
+           		}catch(Exception e){
+           			try{
+               			query.setParameter("year", stat.getAnnee());
+               		}catch(Exception e1){}
+           		}
+           stat.setDetail(query.list());          
+        }catch (Exception ex){
+        	ex.printStackTrace();
             throw ex;
         }finally {
             if(session!=null)

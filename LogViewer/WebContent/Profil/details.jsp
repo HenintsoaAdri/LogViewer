@@ -108,7 +108,8 @@
 			                                        </tr>
 			                                    </thead>
 			                                    <tbody>
-			                                    	<% for(BaseModel u : pagination.getListe()){
+			                                    	<% String prefix = "Connecté il y a ";
+			                                    	for(BaseModel u : pagination.getListe()){
 			                                    		Utilisateur i = (Utilisateur)u;
 			                                    	%>
 			                                        <tr>
@@ -117,7 +118,7 @@
 			                                            <td><% out.print(i.getPoste()); %></td>
 			                                            <td><% out.print(i.getEmail()); %></td>
 			                                            <td><% out.print(i.getSexeString()); %></td>
-			                                            <td>Connecté il y a 2min</td>
+			                                            <td><% out.print(i.getLastLoggedString(prefix)); %></td>
 			                                            <td><a href="${pageContext.request.contextPath}/Utilisateur/edit/<% out.print(i.getId()); %>" class="btn btn-warning m-l-20 waves-effect waves-light"><i class="fa fa-user-times fa-fw" aria-hidden="true"></i>Retirer / Modifier</a></td>
 			                                        </tr>
 			                                        <% } %>
@@ -165,3 +166,5 @@ var id = <% out.print(item.getId());%> ;
 </script>
 <script src="${pageContext.request.contextPath}/js/detailFunction.js"></script>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
+</body>
+</html>

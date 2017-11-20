@@ -3,6 +3,11 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<% 
+String query = request.getQueryString() == null? "" : request.getQueryString();
+if(!query.isEmpty())query = query.replaceAll("(&)*page=([0-9]*)", "");
+query = query.isEmpty()? query : query + "&";
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -112,6 +117,11 @@
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
                 <ul class="nav" id="side-menu" style="padding: 70px 0 0;">
+                	<% if(user.isGenerallyAllowed("Utilisateur")){ %>
+                    <li>
+                    	<a href="${pageContext.request.contextPath}/Timeline" class="waves-effect"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>Timeline et statistiques</a>
+                	</li>
+                	<% } %>
                     <li>
                         <a href="${pageContext.request.contextPath}/MesInformations" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Mes Informations</a>
                     </li>

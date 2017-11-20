@@ -58,14 +58,14 @@ public class BaseModelPagination {
 	public int getNombrePage(){
 		return (int) Math.ceil((double)getTotalResult()/getMaxResult());
 	}
-	public int getPageValue(){
+	public int getFirstResult(){
 		return getPage()*getMaxResult();
 	}
-	public int getFirstResult() {
-		return (getPage()*getMaxResult());
-	}
 
+	public int getLastResult() {
+		return getFirstResult() + getMaxResult();
+	}
 	public boolean isWrongPage() {		
-		return getPage()<0 || getPageValue() > getTotalResult();
+		return getPage()<0 || getFirstResult() > getTotalResult();
 	}
 }

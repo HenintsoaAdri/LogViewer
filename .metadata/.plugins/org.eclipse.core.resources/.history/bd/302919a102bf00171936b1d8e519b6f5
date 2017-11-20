@@ -1,0 +1,71 @@
+<%@page import="adri.logviewer.model.Timeline"%>
+<%@page import="adri.logviewer.model.BaseModel"%>
+<%@page import="adri.logviewer.model.BaseModelPagination"%>
+<%@ include file="../includes/header.jsp" %>
+<%  BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination");  %>
+            <div class="container-fluid">
+				<div class="row bg-title">
+				    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+				        <h4 class="page-title">Timeline &amp; Statistiques</h4>
+				    </div>
+				    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+				        <ol class="breadcrumb">
+                            <li><a href="${pageContext.request.contextPath}">Log Viewer</a></li>
+				            <li class="active">Timeline</li>
+				        </ol>
+				    </div>
+				</div>
+				<div class="row">
+				    <div class="col-md-12">
+				        <div class="white-box">
+							<h3 class="box-title">Timeline</h3>
+							<hr class="m-t-0 m-b-20">
+							<div class="timeline">
+							
+						   	<ul class="timeline-items">
+							<% if(pagination.getListe() != null && !pagination.getListe().isEmpty()){
+									for(BaseModel m : pagination.getListe()){
+										Timeline i = (Timeline)m;	
+							%><li>
+						        <div class="bullet pink"></div>
+						        <div class="time"><% out.print(i.getDateString()); %></div>
+						        <div class="desc">
+						        	<p>
+						   				<a href="${pageContext.request.contextPath}/Utilisateur/<% out.print(i.getUtilisateur().getId()); %>"><% out.print(i.getUtilisateur().getFullName()); %></a>,
+						   				<% out.print(i.getUtilisateur().getPoste()); %>
+						   			</p>
+						          	<p>
+						   				<% out.print(i.getActionString()); %>
+						   				<% out.print(i.getModel()); %>
+						   		  	</p>
+						        </div>
+						      </li>
+						      <li>
+                                    <div class="timeline-badge danger"><i class="fa fa-bomb"></i> </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Lorem ipsum dolor</h4> </div>
+                                        <div class="timeline-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus numquam facilis enim eaque, tenetur nam id qui vel velit similique nihil iure molestias aliquam, voluptatem totam quaerat, magni commodi quisquam.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Lorem ipsum dolor</h4> </div>
+                                        <div class="timeline-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates est quaerat asperiores sapiente, eligendi, nihil. Itaque quos, alias sapiente rerum quas odit! Aperiam officiis quidem delectus libero, omnis ut debitis!</p>
+                                        </div>
+                                    </div>
+                                </li>							
+							<% }
+							}else{ out.print("Aucun enregistrement dans la timeline"); } %>
+							</ul>
+				           </div>
+				        </div>
+				    </div>
+				</div>
+            </div>
+            <!-- /.container-fluid -->
+<%@ include file="../includes/footer.jsp" %>

@@ -1,3 +1,4 @@
+<%@page import="adri.logviewer.filemanager.FilePaginate"%>
 <%@page import="adri.logviewer.model.AgentView"%>
 <%@page import="adri.logviewer.agent.file.LogFile"%>
 <%@page import="adri.logviewer.filemanager.Log"%>
@@ -7,6 +8,7 @@
 <% 
 	AgentView item = (AgentView)request.getAttribute("item");
 	LogFile file = (LogFile)request.getAttribute("log");
+	FilePaginate fileLine = (FilePaginate) request.getAttribute("fileLine");
 %>
 <style>
 .frame{
@@ -55,26 +57,38 @@
 					      		%></p>
 				                <!--./row-->
 								<% } %>
-									<%@ include file="../includes/DisplayFile.jsp" %>
+								<div class="col-md-3 col-md-offset-9 ">
+									<form action="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/view">
+			                           <input type="hidden" name="log.fileName" value="<% out.print(request.getAttribute("file")); %>">
+			                        	<div class="input-group">
+			                        		<input value="<% try{ out.print(fileLine.getSearch());}catch(Exception e){} %>" type="text" name="search" class="form-control input-sm" placeholder="Recherche">
+			                           		<span class="input-group-btn">
+			                      				<button type="submit" class="btn waves-effect waves-light btn-info input-sm"><i class="fa fa-search"></i></button>
+			                      			</span>
+										</div>
+				                	</form>
+								</div>
+								<hr>
+									<pre class="frame"><% out.print(fileLine.getLine()); %></pre>
 									<ul class="pagination">
-									<% int numberPage = (int) Math.ceil(total/100f);
-										if(numberPage > 1){
-											for(int i = 0; i < numberPage ; i++){ 
-												if(i == 0 || i+1 == numberPage || currentPage-2 <= i && i <= currentPage+2){ %>
-										  		<li <% if(i==currentPage) out.print("class=\"active\""); %>>
-												  	<a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/view?log.fileName=<% out.print(file.getFileName()); %>&amp;page=<% out.print(i); %>">
-												  		<% out.print((i*100)+" - "+((i*100)+100)); %>
+									<%
+										if(fileLine.getNumberPage()> 1){
+											for(int i = 0; i < fileLine.getNumberPage() ; i++){
+										  		if(i == 0 || i+1 == fileLine.getNumberPage() || fileLine.getBeginLine()-2 <= i && i <= fileLine.getBeginLine()+2){ %>
+										  		<li <% if(i==fileLine.getBeginLine()) out.print("class=\"active\""); %>>
+												  	<a href="${pageContext.request.contextPath}/Fichier?file=<% out.print(request.getAttribute("file")); %>&amp;page=<% out.print(i); %>">
+												  		<% out.print((i*fileLine.getMaxLine())+" - "+((i*fileLine.getMaxLine())+fileLine.getMaxLine())); %>
 											  		</a>
 									  			</li>
-										  		<% }else if(i == currentPage - 3 || i == currentPage + 3){ %>
+										  		<% }else if(i == fileLine.getMaxLine() - 3 || i == fileLine.getMaxLine() + 3){ %>
 										  		<li>
-											  		<a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/view?log.fileName=<% out.print(file.getFileName()); %>&amp;page=<% out.print(i); %>">
+											  		<a href="${pageContext.request.contextPath}/Fichier?file=<% out.print(request.getAttribute("file")); %>&amp;page=<% out.print(i); %>">
 												  		...
 											  		</a>
-										  		</li>
+											  	</li>
 										  		<% }
-									  		}
-									  	} %>
+										  	}
+								  	 	}%>
 									</ul>
 								</div>
 				           </div>
@@ -84,3 +98,5 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+</body>
+</html>

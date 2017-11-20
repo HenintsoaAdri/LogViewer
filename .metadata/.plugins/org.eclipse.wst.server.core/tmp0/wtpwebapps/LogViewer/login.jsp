@@ -30,14 +30,15 @@
 	      %>
 	      	<div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      			<% out.print(e.getMessage()); %>
+      			<% out.print(e.getMessage()); e.printStackTrace(); %>
             </div>
 		  <% } %>
 	  <div class="form">
 	    <form class="login-form" method="post" action="${pageContext.request.contextPath}/Connexion">
-	      <input type="text" placeholder="Adresse email" id="username" name="email" required value="<% if(request.getAttribute("email") != null)out.print(request.getAttribute("email")); %>"/>
+	      <input type="text" placeholder="Adresse email" id="username" name="email" required value="<% out.print(request.getAttribute("email")); %>"/>
 	      <input type="password" placeholder="Mot de passe" id="password" name="password" required/>
-	      <button>connexion</button>
+	      <button type="submit">connexion</button>
+	      <button id="reinit" type="submit" formaction="${pageContext.request.contextPath}/ReinitPassword" formnovalidate>Mot de passe oublié</button>
 	    </form>
 	  </div>
   </div>

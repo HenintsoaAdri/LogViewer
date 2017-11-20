@@ -1,3 +1,4 @@
+<%@page import="adri.logviewer.filemanager.SampleLog"%>
 <%@page import="adri.logviewer.exception.InputException"%>
 <%@page import="adri.logviewer.model.AgentView"%>
 <%@page import="adri.logviewer.agent.file.LogFile"%>
@@ -14,8 +15,8 @@
 <% 	AgentView item = (AgentView)request.getAttribute("item"); 
 	LogFile logFile = (LogFile)request.getAttribute("log");
 	Fichier file = (Fichier)request.getAttribute("fichier");
-	String query = request.getQueryString() == null? "" : request.getQueryString();
-	if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
+	SampleLog event = (SampleLog)request.getAttribute("event");
+%>
             <div class="container-fluid">
 				<div class="row bg-title">
 				    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -42,16 +43,57 @@
 							<h3 class="box-title">
 								<i class="fa fa-file-text-o" aria-hidden="true"></i> <% out.print(logFile.getFileName()); %>
 							</h3>
+							<div class="row">
+							<div class="col-sm-12">
+								<form action="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse">
+									<input type="hidden" name="log.fileName" value="<% out.print(logFile.getFileName()); %>"/>
+									<div class="form-body">	
+										<div class="row">
+			                           	  <div class="col-md-12">
+			                           	  	<div class="row">
+				                           	  	<div class="col-md-3">
+			                                        <div class="checkbox checkbox-circle">
+													  	<input id="traceLevel" name="event.level" type="checkbox" value="TRACE">
+			                                            <label for="traceLevel">TRACE</label>
+			                                        </div>
+			                                        <div class="checkbox checkbox-circle checkbox-danger">
+													  	<input id="fatalLevel" name="event.level" type="checkbox" value="FATAL">
+			                                            <label for="fatalLevel">FATAL</label>
+			                                        </div>
+		                                        </div>
+				                           	  	<div class="col-md-3">
+			                                        <div class="checkbox checkbox-circle checkbox-inverse">
+													  	<input id="debugLevel" name="event.level" type="checkbox" value="DEBUG">
+			                                            <label for="debugLevel">DEBUG</label>
+			                                        </div>
+			                                        <div class="checkbox checkbox-circle checkbox-purple">
+													  	<input id="errorLevel" name="event.level" type="checkbox" value="ERROR">
+			                                            <label for="errorLevel">ERROR</label>
+			                                        </div>
+		                                        </div>
+				                           	  	<div class="col-md-3">
+			                                        <div class="checkbox checkbox-circle checkbox-info">
+													  	<input id="infoLevel" name="event.level" type="checkbox" value="INFO">
+			                                            <label for="infoLevel">INFO</label>
+			                                        </div>
+			                                        <div class="checkbox checkbox-circle checkbox-warning">
+													  	<input id="warnLevel" name="event.level" type="checkbox" value="WARN">
+			                                            <label for="warnLevel">WARN</label>
+			                                        </div>
+		                                        </div>
+			                                    <div class="col-md-3">
+			                           				<input value="<% try{ out.print(event.getSearch());}catch(Exception e){} %>" type="text" name="event.search" class="form-control col-md-12" placeholder="Recherche">
+			                           				<button type="submit" class="btn btn-info col-md-12">Rechercher</button>
+					                           	</div>
+	                                        </div>
+	                                      </div>
+										</div>
+									</div>
+			                      </form>
+								</div>
+							</div>
 							<p class="text-muted">Syntaxe : <% out.print(file.getMainPattern()); %></p>
 							<hr class="m-t-0 m-b-20">
-							<div class="btn-group">
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=FATAL" class="btn btn-outline btn-danger">FATAL</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=ERROR" class="btn btn-outline btn-danger">ERROR</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=WARN" class="btn btn-outline btn-warning">WARN</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=INFO" class="btn btn-outline btn-info">INFO</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=DEBUG" class="btn btn-outline btn-primary">DEBUG</a>
-							  <a href="${pageContext.request.contextPath}/Agent/<% out.print(item.getId()); %>/parse?log.fileName=<% out.print(logFile.getFileName()); %>&level=TRACE" class="btn btn-outline btn-success">TRACE</a>
-							</div>
 							<div class="row">
 								<div class="col-sm-12">	
 							        <% if(request.getAttribute("exception") != null){ 
@@ -86,7 +128,7 @@
 		                                    </thead>
 		                                    <tbody class="frame">
 		                                    	<% for(Log i : file.getPagination().getListeLog()){ %>
-		                                        <tr>
+		                                        <tr class="<% out.print(i.getPriority()); %>">
 		                                        	<td><% out.print(i.getLine()); %></td>
 		                                            <td><% out.print(i.getDateString()); %></td>
 		                                            <td><% out.print(i.getPriority()); %></td>
@@ -128,6 +170,11 @@
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
 <script type="text/javascript">
+	$('.ERROR').addClass('danger');
+	$('.FATAL').addClass('danger');
+	$('.WARN').addClass('warning');
+</script>
+<script type="text/javascript">
 	var level = '<% out.print(request.getAttribute("level")); %>';
 	$('.level').each(function(){
 		if($(this).html() == level){
@@ -137,3 +184,5 @@
 		}
 	})
 </script>
+</body>
+</html>

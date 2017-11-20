@@ -1,11 +1,13 @@
+<%@page import="adri.logviewer.filemanager.FilePaginate"%>
 <%@page import="adri.logviewer.agent.file.LogFile"%>
 <%@page import="adri.logviewer.filemanager.Log"%>
 <%@page import="adri.logviewer.filemanager.Fichier"%>
 <%@page import="java.io.File"%>
 <%@ include file="../includes/header.jsp" %>
 <% String file = (String)request.getAttribute("file");
-File path = (File)request.getAttribute("path");
-String previous = (String)request.getAttribute("previous"); %>
+	String previous = (String)request.getAttribute("previous");
+	FilePaginate fileLine = (FilePaginate) request.getAttribute("fileLine");
+%>
 <style>
 .frame{
 	height : 80vh;
@@ -41,7 +43,7 @@ String previous = (String)request.getAttribute("previous"); %>
 								<a class="btn-outline btn btn-success" href="${pageContext.request.contextPath}/Fichier/download?file=<% out.print(file); %>"><i class="fa fa-download fw"></i> Télécharger</a>
 				        	</div>
 							<h3 class="box-title">
-								<i class="fa fa-file-text-o" aria-hidden="true"></i> <% out.print(file); %> (<% out.print(path.length()/(1024*1024)); %> Mo)
+								<i class="fa fa-file-text-o" aria-hidden="true"></i> <% out.print(file); %> (<% out.print(fileLine.getFileLength()); %> Mo)
 							</h3>
 							<hr class="m-t-0 m-b-20">
 							<div class="row">
@@ -56,20 +58,32 @@ String previous = (String)request.getAttribute("previous"); %>
 					      		%></p>
 				                <!--./row-->
 								<% } %>
-									<%@include file="../includes/DisplayFile.jsp"  %>
+								<div class="col-md-3 col-md-offset-9 ">
+									<form action="${pageContext.request.contextPath}/Fichier">
+			                           <input type="hidden" name="file" value="<% out.print(request.getAttribute("file")); %>">
+			                        	<div class="input-group">
+			                        		<input value="<% try{ out.print(fileLine.getSearch());}catch(Exception e){} %>" type="text" name="search" class="form-control input-sm" placeholder="Recherche">
+			                           		<span class="input-group-btn">
+			                      				<button type="submit" class="btn waves-effect waves-light btn-info input-sm"><i class="fa fa-search"></i></button>
+			                      			</span>
+										</div>
+				                	</form>
+								</div>
+								<hr>
+									<pre class="frame"><% out.print(fileLine.getLine()); %></pre>
 									<ul class="pagination">
-									<% int numberPage = (int) Math.ceil(total/100f);
-										if(numberPage > 1){
-											for(int i = 0; i < numberPage ; i++){
-										  		if(i == 0 || i+1 == numberPage || currentPage-2 <= i && i <= currentPage+2){ %>
-										  		<li <% if(i==currentPage) out.print("class=\"active\""); %>>
-												  	<a href="${pageContext.request.contextPath}/Fichier?file=<% out.print(request.getAttribute("file")); %>&amp;page=<% out.print(i); %>">
-												  		<% out.print((i*100)+" - "+((i*100)+100)); %>
+									<%
+										if(fileLine.getNumberPage()> 1){
+											for(int i = 0; i < fileLine.getNumberPage() ; i++){
+										  		if(i == 0 || i+1 == fileLine.getNumberPage() || fileLine.getBeginLine()-2 <= i && i <= fileLine.getBeginLine()+2){ %>
+										  		<li <% if(i==fileLine.getBeginLine()) out.print("class=\"active\""); %>>
+												  	<a href="${pageContext.request.contextPath}/Fichier?<% out.print(query); %>&amp;page=<% out.print(i); %>">
+												  		<% out.print((i*fileLine.getMaxLine())+" - "+((i*fileLine.getMaxLine())+fileLine.getMaxLine())); %>
 											  		</a>
 									  			</li>
-										  		<% }else if(i == currentPage - 3 || i == currentPage + 3){ %>
+										  		<% }else if(i == fileLine.getMaxLine() - 3 || i == fileLine.getMaxLine() + 3){ %>
 										  		<li>
-											  		<a href="${pageContext.request.contextPath}/Fichier?file=<% out.print(request.getAttribute("file")); %>&amp;page=<% out.print(i); %>">
+											  		<a href="${pageContext.request.contextPath}/Fichier?<% out.print(query); %>&amp;page=<% out.print(i); %>">
 												  		...
 											  		</a>
 											  	</li>
@@ -118,3 +132,5 @@ String previous = (String)request.getAttribute("previous"); %>
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+</body>
+</html>

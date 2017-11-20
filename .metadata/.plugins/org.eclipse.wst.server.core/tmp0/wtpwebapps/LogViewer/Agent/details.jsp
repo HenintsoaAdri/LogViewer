@@ -152,3 +152,5 @@ BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagi
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
+</body>
+</html>

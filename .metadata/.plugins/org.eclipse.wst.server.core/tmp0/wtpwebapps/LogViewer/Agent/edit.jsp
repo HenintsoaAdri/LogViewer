@@ -29,7 +29,7 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
 	            </div>
                 <!--./row-->
 				<% } %>
-                <s:fielderror cssClass="alert alert-danger" />
+                <s:fielderror cssClass="alert alert-danger list-unstyled"/>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
@@ -127,3 +127,5 @@ List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribut
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
+</body>
+</html>

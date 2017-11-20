@@ -4,10 +4,14 @@
        xsi:schemaLocation = "http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
    
-    <bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
     </bean>
-   
+    
+    <bean id="initiateDao" class="adri.logviewer.dao.InitiateDao">
+        <property name="sessionFactory" ref="hibernateSessionFactory"/>
+    </bean>
+    
     <bean id="hibernateDao" class="adri.logviewer.dao.HibernateDao">
         <property name="sessionFactory" ref="hibernateSessionFactory"/>
     </bean>

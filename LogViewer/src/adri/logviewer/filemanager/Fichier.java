@@ -16,19 +16,19 @@ public class Fichier {
 	private FichierPagination pagination;
 	private String pattern = "";
 	private String mainPattern = "";
-	private String level = null;
-	
-	public Fichier(String pattern, File chemin,int line, int maxLine, boolean force, String level) throws Exception {
+	private SampleLog sample = null;
+		
+	public Fichier(String pattern, File chemin,int line, int maxLine, boolean force, SampleLog sample) throws Exception {
 		this.setMainPattern(pattern);
 		this.setPagination(new FichierPagination(this, line, maxLine));
-		this.setLevel(level);
+		this.setSample(sample);
 		this.setFichier(chemin, force);
 	}
 
-	public Fichier(String pattern, String chemin,int line, int maxLine, boolean force, String level) throws Exception {
+	public Fichier(String pattern, String chemin,int line, int maxLine, boolean force, SampleLog sample) throws Exception {
 		this.setMainPattern(pattern);
 		this.setPagination(new FichierPagination(this, line, maxLine));
-		this.setLevel(level);
+		this.setSample(sample);
 		this.setFichier(chemin, force);
 	}
 
@@ -93,17 +93,12 @@ public class Fichier {
 		}
 	}
 	
-	public String getLevel() {
-		return level;
+	public SampleLog getSample() {
+		return sample;
 	}
 
-	public void setLevel(String level) {
-		try {
-			if(level.isEmpty()) return;
-		} catch (NullPointerException e) {
-			return;
-		}
-		this.level = level;
+	public void setSample(SampleLog sample) {
+		this.sample = sample;
 	}
 
 	public void parseFile() throws Exception{
@@ -121,15 +116,13 @@ public class Fichier {
 				try{
 					m = pattern.matcher(line.trim());
 					if(m.matches()){
+						try{
+							getPagination().checkLastLog(getSample());
+						}catch(NullPointerException e){}
 						if(getPagination().isFull()){
 							return;
 						}
-						item =  new Log(this, m, reader.getLineNumber());
-						try{
-							if(!getLevel().equalsIgnoreCase(item.getPriority())){
-								continue;
-							}
-						}catch(NullPointerException e){}
+						item =  new Log(this, m, reader.getLineNumber(), line);
 						temp.add(item);
 						addLog(item, temp.get(0));
 						if(temp.size() == getPagination().getMaxLength()+1){
@@ -137,11 +130,14 @@ public class Fichier {
 						}
 					}
 					else{
-						setPattern(getMainPattern());
 						getPagination().getLastLog().addDetails(line);
 					}
 				}catch (ParseException e) {
-					getPagination().getLastLog().addDetails(line);
+					try{
+						getPagination().getLastLog().addDetails(line);
+					}catch(NullPointerException ex){
+						continue;
+					}
 				}catch(IndexOutOfBoundsException e){
 					continue;
 				}catch (NullPointerException e) {

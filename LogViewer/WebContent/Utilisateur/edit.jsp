@@ -34,7 +34,7 @@
                 </div>
                 <!--./row-->
 				<% } %> 
-                <s:fielderror cssClass="alert alert-danger"/>
+                <s:fielderror cssClass="alert alert-danger list-unstyled"/>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
@@ -89,18 +89,20 @@
 		                                        <input name="item.email" value="<% out.print(item.getEmail()); %>" type="email" class="form-control form-control-line">
 		                                    </div>
 		                                </div>
+		                                <% if(item.isReinitPassword()){ %>
 		                                <div class="form-group">
-		                                    <label class="col-md-12">Mot de passe</label>
+		                                    <label class="col-md-12">Mot de passe <% if(item.isReinitPassword()){ %> <span class="animated flash infinite text-danger">*</span><% } %></label>
 		                                    <div class="col-md-12">
-		                                        <input value="<% out.print(item.getPassword()); %>" name="item.password" type="password" placeholder="Mot de passe" class="form-control form-control-line">
+		                                        <input name="item.password" type="password" placeholder="Mot de passe" class="form-control form-control-line">
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="col-md-12">Confirmer votre mot de passe</label>
 		                                    <div class="col-md-12">
-		                                        <input value="<% out.print(item.getPassword()); %>" name="item.confirm" type="password" placeholder="Mot de passe" class="form-control form-control-line">
+		                                        <input name="item.confirm" type="password" placeholder="Mot de passe" class="form-control form-control-line">
 		                                    </div>
 		                                </div>
+		                                <% } %>
 		                                <div class="form-group" id="profil">
 		                                    <label class="col-sm-12">Profil</label>
 		                                    <input type="hidden" id="item.profil.id" value="<% if(item.getProfil() != null) out.print(item.getProfil().getId()); %>">
@@ -141,3 +143,10 @@
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
+<script>
+$(document).ready(function(){
+    $('.reinit').popover({title: "Mot de passe oublié", content: "<p>Demande de réinitialisation</p>", html: true, trigger: "hover"}); 
+});
+</script>
+</body>
+</html>

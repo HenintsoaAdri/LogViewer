@@ -1,6 +1,5 @@
 package adri.logviewer.action;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,8 +10,6 @@ import com.opensymphony.xwork2.interceptor.ValidationErrorAware;
 import adri.logviewer.exception.PermissionException;
 import adri.logviewer.model.Agent;
 import adri.logviewer.model.BaseModel;
-import adri.logviewer.model.Profil;
-import adri.logviewer.model.Utilisateur;
 import adri.logviewer.service.UtilisateurService;
 
 public class CrudAction extends BaseAction implements ValidationErrorAware{

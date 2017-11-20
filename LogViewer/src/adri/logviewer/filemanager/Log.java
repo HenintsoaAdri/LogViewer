@@ -10,14 +10,17 @@ import adri.logviewer.util.StringUtil;
 public class Log {
 	private int line;
 	private Date date;
-	private String classe = "";
-	private String method = "";
-	private String message = "";
-	private String priority = "";
-	private String thread = "";
-	private String details = "";
+	private String classe;
+	private String method;
+	private String message;
+	private String priority;
+	private String thread;
+	private String details;
 	private Fichier fichier;
-	public Log(Fichier fichier, Matcher m, int line) throws Exception{
+	private String ligne;
+	
+	public Log() {}
+	public Log(Fichier fichier, Matcher m, int line, String ligne) throws Exception{
 		setFichier(fichier);
 		setDate(m,fichier.getDatePattern());
 		setClasse(m);
@@ -151,6 +154,13 @@ public class Log {
 	}
 	public void setFichier(Fichier fichier) {
 		this.fichier = fichier;
+	}
+	
+	public String getLigne() {
+		return ligne;
+	}
+	public void setLigne(String ligne) {
+		this.ligne = ligne;
 	}
 	
 	@Override

@@ -11,8 +11,21 @@
       </field-validator>
   </field>
   <field name="item.password">
-     <field-validator type="requiredstring">
-          <message>Un mot de passe est requis.</message>
+     <field-validator type="stringlength" short-circuit="true">
+		 <param name="minLength">8</param>
+		 <param name="maxLength">30</param>    	
+         <message>La taille d'un mot de passe doit être comprise entre ${minLength} et ${maxLength}.</message>
+     </field-validator>
+     <field-validator type="regex" short-circuit="true">
+		 <param name="regexp">((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\\{Punct]).{8,30})</param>   	
+         <message>
+         	Un mot de passe doit comporter au moins 1 caractère majuscule, 1 caractère minuscule, 1 caractère spécial et 1 chiffre.
+         </message>
+     </field-validator>
+     <field-validator type="requiredstring" short-circuit="true">
+          <message>La taille d'un mot de passe doit être comprise entre 8 et 30.
+          Un mot de passe doit comporter au moins 1 caractère majuscule, 1 caractère minuscule, 1 caractère spécial et 1 chiffre.
+          </message>
      </field-validator>
   </field>
   <field name="item.confirm">

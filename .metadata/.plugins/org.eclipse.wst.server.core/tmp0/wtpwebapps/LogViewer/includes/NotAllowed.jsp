@@ -23,3 +23,5 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+</body>
+</html>

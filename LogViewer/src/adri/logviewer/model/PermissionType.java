@@ -1,18 +1,16 @@
 package adri.logviewer.model;
 
 public enum PermissionType {
-	CONNEXION("Connexion",0),
-	CRUDUTILISATEUR("Créer / Modifier / Supprimer Profil et Utilisateur",1),
-	LECTURETELECHARGEMENT("Lecture et téléchargement des logs", 2),
-	CRUDGROUPE("Créer / Modifier / Supprimer Groupe d'agent",3),
-	CRUDAGENT("Créer / Modifier / Supprimer Agent",4);
+	CONNEXION("Connexion"),
+	CRUDUTILISATEUR("Créer / Modifier / Supprimer Profil et Utilisateur"),
+	LECTURETELECHARGEMENT("Lecture et téléchargement des logs"),
+	CRUDGROUPE("Créer / Modifier / Supprimer Groupe d'agent"),
+	CRUDAGENT("Créer / Modifier / Supprimer Agent");
 
 	private String libelle;
-	private int value;
 	
-	private PermissionType(String libelle, int value) {
+	private PermissionType(String libelle) {
 		this.setLibelle(libelle);
-		this.setValue(value);
 	}
 	
 	public String getLibelle() {
@@ -23,10 +21,7 @@ public enum PermissionType {
 	}
 
 	public int getValue() {
-		return value;
-	}
-	private void setValue(int value) {
-		this.value = value;
+		return this.ordinal();
 	}
 	public static PermissionType getValueOf(int value){
 		for(PermissionType p : values()){

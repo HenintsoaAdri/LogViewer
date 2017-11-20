@@ -1,9 +1,7 @@
 package adri.logviewer.service;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -14,7 +12,9 @@ import adri.logviewer.agent.client.Client;
 import adri.logviewer.agent.file.LogFile;
 import adri.logviewer.exception.PermissionException;
 import adri.logviewer.filemanager.Fichier;
+import adri.logviewer.filemanager.SampleLog;
 import adri.logviewer.model.Agent;
+import adri.logviewer.model.Timeline;
 import adri.logviewer.model.Utilisateur;
 
 public class FileService {
@@ -36,18 +36,20 @@ public class FileService {
 		}
 	}
 
-	public LogFile connect(Agent agent) throws Exception{
+	public LogFile connect(Agent agent, ApplicationContext context, Utilisateur utilisateur) throws Exception{
 		Client client = null;
 		try{
 			client = new Client();
-			return (LogFile)client.connect(agent.getAdresse(), agent.getPort());
+			LogFile file = (LogFile)client.connect(agent.getAdresse(), agent.getPort());
+			UtilisateurService.getInstance(context).timeline(new Timeline("connect", agent, utilisateur));
+			return file;
 		}finally{
 			if(client != null){
 				client.dispose();
 			}
 		}
 	}
-	public void openFile(Agent agent, LogFile file) throws Exception{
+	public void openFile(Agent agent, LogFile file, ApplicationContext context, Utilisateur utilisateur) throws Exception{
 		Client client = null;
 		try{
 			client = new Client(file);
@@ -57,6 +59,8 @@ public class FileService {
 					File tempFile = File.createTempFile(file.getFileName(), extension);
 					tempFile.deleteOnExit();
 					file.setFile(tempFile);
+					client.connect(agent.getAdresse(), agent.getPort());
+					UtilisateurService.getInstance(context).timeline(new Timeline("openFile", agent, utilisateur).addModel("(" + file.getFileName() + ")"));
 				} catch (StringIndexOutOfBoundsException e) {
 					LogFile list = (LogFile)client.connect(agent.getAdresse(), agent.getPort());
 					file.setChild(list.getChild());
@@ -64,7 +68,6 @@ public class FileService {
 					throw new IllegalArgumentException("Ce fichier correspond à un dossier");
 				}
 			}
-			client.connect(agent.getAdresse(), agent.getPort());
 		}finally{
 			if(client != null){
 				client.dispose();
@@ -93,23 +96,6 @@ public class FileService {
 			logfile.setFile(save);
 		} catch (Exception e) {
 			throw e;	
-		}
-	}
-	public void downloadFile(LogFile logfile, OutputStream out)throws Exception{
-		FileInputStream read = null;
-		byte[] buffer = new byte[1024];
-		try {
-			int reader;
-			read = new FileInputStream(logfile.getFile());
-			while((reader = read.read(buffer)) != -1){
-				out.write(reader);	
-			}
-		} catch (Exception e) {
-			System.out.println("Téléchargement impossible");
-		} finally{
-			if(read != null){
-				read.close();
-			}
 		}
 	}
 	public String getFilePath(Utilisateur user) throws Exception {
@@ -149,8 +135,8 @@ public class FileService {
 			throw new Exception("Agent invalide");
 		}
 	}
-	public Fichier parseFile(Agent agent, File file, int line, int maxLine, boolean force, String level)throws Exception{
-		Fichier f = new Fichier(agent.getSyntaxe(), file, line, maxLine, force, level);
+	public Fichier parseFile(Agent agent, File file, int line, int maxLine, boolean force, SampleLog sample)throws Exception{
+		Fichier f = new Fichier(agent.getSyntaxe(), file, line, maxLine, force, sample);
 		f.parseFile();
 		return f;
 	}

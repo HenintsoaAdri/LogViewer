@@ -77,11 +77,21 @@ public class FichierPagination {
 		this.maxLength = maxLength;
 	}
 
-	public Log getLastLog() {
-		return get(getListeLog().size()-1);
+	public Log getLastLog() throws Exception{
+		try{
+			return get(getListeLog().size()-1);
+		}catch(NullPointerException e){
+			return null;
+		}catch (ArrayIndexOutOfBoundsException e) {
+			return null;
+		}
 	}
-	public Log get(int i) {
-		return getListeLog().get(i);
+	public Log get(int i)throws Exception {
+		try{
+			return getListeLog().get(i);
+		}catch(NullPointerException e){
+			throw e;
+		}
 	}
 
 	public boolean isFull() {
@@ -90,6 +100,15 @@ public class FichierPagination {
 
 	public boolean isStart() {
 		return start;
+	}
+
+	public void checkLastLog(SampleLog sample) throws Exception {
+		try {
+			if(!sample.is(getLastLog())){
+				getListeLog().remove(getLastLog());
+			}
+		} catch (IndexOutOfBoundsException e) {
+		}
 	}
 
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.3//EN"
+       "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+  <field name="item.email">
+      <field-validator type="requiredstring" short-circuit="true">
+          <message>Une adresse email est requise.</message>
+      </field-validator>
+      <field-validator type="email" short-circuit="true">
+          <message>Adresse email invalide.</message>
+      </field-validator>
+  </field>
+  <field name="item.password">
+     <field-validator type="stringlength" short-circuit="true">
+		 <param name="minLength">8</param>
+		 <param name="maxLength">30</param>    	
+         <message>La taille d'un mot de passe doit être comprise entre ${minLength} et ${maxLength}.</message>
+     </field-validator>
+     <field-validator type="regex" short-circuit="true">
+		 <param name="regexp">((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\\{Punct]).{8,30})</param>   	
+         <message>
+         	Un mot de passe doit comporter au moins 1 caractère majuscule, 1 caractère minuscule, 1 caractère spécial et 1 chiffre.
+         </message>
+     </field-validator>
+     <field-validator type="requiredstring" short-circuit="true">
+          <message>Un mot de passe est requis.</message>
+     </field-validator>
+  </field>
+  <field name="item.confirm">
+     <field-validator type="requiredstring">
+          <message>Une confirmation du mot de passe est requise.</message>
+     </field-validator>
+     <field-validator type="fieldexpression">
+         <param name="expression"><![CDATA[item.password == item.confirm]]></param>
+         <message>Le mot de passe de confirmation ne correspond pas au mot de passe entré</message>
+     </field-validator>
+  </field> 
+</validators>

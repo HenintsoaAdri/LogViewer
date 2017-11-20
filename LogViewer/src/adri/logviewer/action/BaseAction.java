@@ -82,8 +82,8 @@ public class BaseAction extends ActionSupport implements SessionAware, Parameter
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 	public String getClasse() {
 		return classe;

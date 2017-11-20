@@ -1,5 +1,7 @@
 package adri.logviewer.model;
 
+import java.lang.reflect.Field;
+
 public class BaseModel {
 	private int id;
 	public BaseModel(int id){
@@ -35,5 +37,31 @@ public class BaseModel {
 	}
 	public String instance(){
 		return this.getClass().getSimpleName();
+	}
+	public String getDetail(){
+		StringBuilder builder = new StringBuilder(this.instance()).append(" [");
+		Field[] fields = this.getClass().getDeclaredFields();
+		String virgule = "";
+		String v = ", ";
+		try{
+			for(Field f : fields){
+				f.setAccessible(!f.getName().contentEquals("password")&&!f.getName().contentEquals("confirm"));
+				try{
+					Object value = f.get(this);
+					builder.append(virgule).append(f.getName())
+					.append(": ").append(value);
+					virgule = v;
+				}catch(Exception e){
+					continue;
+				}
+			}
+		}catch(Exception e){
+			builder.append("informations protégées");
+		}
+		builder.append("]");
+		return builder.toString();
+	}
+	public void validate() throws Exception {
+		return;
 	}
 }

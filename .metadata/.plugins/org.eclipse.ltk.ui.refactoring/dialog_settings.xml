@@ -21,4 +21,8 @@
 		<item value="600" key="width"/>
 		<item value="470" key="height"/>
 	</section>
+	<section name="InferTypeArguments">
+		<item value="true" key="leaveUnconstrainedRaw"/>
+		<item value="true" key="assumeCloneReturnsSameType"/>
+	</section>
 </section>

@@ -1,7 +1,6 @@
 <%@page import="adri.logviewer.model.Groupe"%>
 <%@page import="adri.logviewer.model.Profil"%>
 <%@page import="adri.logviewer.model.BaseModel"%>
-<%@page import="java.util.List"%>
 <%@ include file="../includes/header.jsp" %>
 <% Utilisateur item = (Utilisateur)request.getAttribute("item"); 
 	List<? extends BaseModel> liste = (List<? extends BaseModel>)request.getAttribute("liste");
@@ -26,11 +25,14 @@
 		        %>
 		      	<div class="alert alert-danger alert-dismissable">
 	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	      			<% out.print(e.getMessage()); %>
+	      			<% try{
+	    	      		out.print(e.getMessage()); 
+	    	      		out.print(e.getCause().getMessage());
+	      			}catch(NullPointerException ex){}%>
 	            </div>
                 <!--./row-->
 				<% } %>
-                <s:fielderror cssClass="alert alert-danger"/>
+                <s:fielderror cssClass="alert alert-danger list-unstyled"/>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
@@ -94,6 +96,7 @@
 		                                        <input name="item.confirm" type="password" placeholder="Mot de passe" class="form-control form-control-line">
 		                                    </div>
 		                                </div>
+		                                <% if(liste != null && !liste.isEmpty()){ %>
 		                                <div class="form-group" id="profil">
 		                                    <label class="col-sm-12">Profil</label>
 		                                    <div class="col-sm-12">
@@ -101,13 +104,13 @@
 		                                        <select id="profilSelect" name="item.profil.id" class="form-control form-control-line">
 		                                        <option disabled>Veuillez sélectionner un profil</option>
 		                                    		<% for(BaseModel p : liste){ 
-		                                    			Profil i = (Profil)p;
-		                                    		%>
+		                                    			Profil i = (Profil)p; %>
 		                                    		<option value="<% out.print(i.getId()); %>" <% if(i.equals(item.getProfil()))out.print("selected"); %>><% out.print(i.getNom()); %></option>
 		                                    		<% } %>
 		                                        </select>
 		                                    </div>
 		                                </div>
+		                                <% } %>
 		                                <div class="form-group">
 		                                    <div class="col-md-offset-10 col-sm-2">
 		                                        <button class="btn btn-success" type="submit">Cr&eacute;er</button>
@@ -122,3 +125,5 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+</body>
+</html>

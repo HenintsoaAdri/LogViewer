@@ -1,0 +1,54 @@
+package adri.logviewer.dao;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+import adri.logviewer.model.Utilisateur;
+
+public class InitiateDao {
+	private SessionFactory sessionFactory;
+    
+    public InitiateDao(){
+    }
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+    public Utilisateur init() throws Exception{
+        Session session = null;
+        Transaction tr = null;
+        try{
+            session = getSessionFactory().openSession();
+            tr = session.beginTransaction();
+	        Utilisateur u = session.createQuery("from "+Utilisateur.class.getName()+" u where u.superUtilisateur = :super ", Utilisateur.class)
+	        		.setParameter("super", true).uniqueResult();
+	        if(u != null){
+		        return null;
+	        }
+            u = new Utilisateur();
+            u.setNom("Randrianavanana");
+            u.setPrenom("Henintsoa Adriannick");
+            u.setEmail("henintsoa.adri@hotmail.com");
+            u.setPassword("HenintsoAdri1!");
+            u.setPoste("Administrateur");
+            u.setSexe('F');
+            u.setSuperUtilisateur(true);
+            u.loggedIn();
+            session.save(u);
+	        session.createQuery("update "+Utilisateur.class.getName()+" u set u.superUtilisateur = true where u.id = :idutilisateur ")
+	        		.setParameter("idutilisateur", u.getId());
+	        tr.commit();
+            return u;
+        }catch (Exception ex){
+            if(tr!=null)
+                tr.rollback();
+            throw ex;
+        }finally {
+            if(session != null)
+                session.close();
+        }	
+    }
+}

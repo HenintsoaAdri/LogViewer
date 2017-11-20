@@ -1,0 +1,209 @@
+package adri.logviewer.util;
+
+import java.security.MessageDigest;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Base64;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import adri.logviewer.exception.InputException;
+
+public class StringUtil {
+		
+	private StringUtil(){}
+	private static class Holder
+	{		
+		private final static StringUtil instance = new StringUtil();
+		private final static String SALT = "LoGVieWerByADRi";
+	}
+	public static StringUtil getInstance(){
+		return Holder.instance;
+	}
+	
+	public boolean fullLetter(String string){
+		boolean isLetter=true;
+		int i=0;
+		while(isLetter&&i<string.length()){
+			isLetter = Character.isLetter(string.charAt(i));
+			if(Character.isSpaceChar(string.charAt(i)))isLetter = true;
+			i++;
+		}
+		return isLetter;
+	}
+	public boolean fullNumber(String string){
+		boolean isNumber= string != null;
+		int i=0;
+		while(isNumber&&i<string.length()){
+			isNumber = Character.isDigit(string.charAt(i));
+			i++;
+		}
+		return isNumber;
+	}
+	public boolean isEmail(String string) throws InputException{
+		if(string == null || string.isEmpty()) throw new InputException("Adresse email requise");
+		String [] split1 = string.split("@");
+		if(split1.length != 2){
+			return false;
+		}
+		String [] split2 = split1[1].split("\\.");
+		if(split2.length != 2){
+			return false;
+		}
+		return true;
+	}
+	public boolean isTelephone(String string){
+		if(string.startsWith("\\+")){
+			return fullNumber(string.substring(1));
+		}
+		return fullNumber(string.substring(1));
+	}
+	public boolean correctMdp(String string){
+		
+		int compteurMaj = 0;
+		int compteurMin = 0;
+		int compteurDigit = 0;
+		int compteurSpec = 0;
+		
+		for(int i = 0; i<string.length(); i++){
+			char c = string.charAt(i);
+			int cint = (int)c;
+			if(Character.isDigit(c)){
+				compteurDigit ++;
+			}
+			if(Character.isUpperCase(c)){
+				compteurMaj ++;
+			}
+			if(Character.isLowerCase(c)){
+				compteurMin ++;
+			}
+			if(cint <48 || (cint > 57 && cint < 65) || (cint > 90 && cint < 97) || cint > 122){
+				compteurSpec ++;
+		    }
+		}
+		return compteurMaj>0&&compteurMin>0&&compteurDigit>0&&compteurSpec>0&&string.length()>=8&&string.length()<=32;
+	}
+
+    public String firstUpper(String string){
+    	return string.replaceFirst(String.valueOf(string.charAt(0)), String.valueOf(string.charAt(0)).toUpperCase());
+    }
+    public boolean isPrimitif(String type){
+		switch (type) {
+			case "int": return true;
+			case "double": return true;
+			case "float": return true;
+			case "Date" : return true;
+			case "String" :return true;
+		}
+		return false;
+	}
+    public String formatFloatSign(float nombre){
+    	DecimalFormat format = (DecimalFormat) NumberFormat.getInstance();
+    	format.setPositivePrefix("+");
+    	format.setMaximumFractionDigits(2);
+    	return format.format(nombre);
+    }
+    public String formatFloat(float nombre){
+    	NumberFormat format = NumberFormat.getInstance();
+    	format.setMaximumFractionDigits(2);
+    	return format.format(nombre);
+    }
+
+	public String checkEmail(String email) throws InputException{
+		if(!isEmail(email)){
+			throw new InputException("Adresse email invalide");
+		}
+		return email.trim();
+	}
+	public String checkPassword(String password) throws Exception{
+		if(password == null || password.isEmpty()){
+			throw new InputException("Un mot de passe est requis");
+		}else if(!correctMdp(password)){
+			throw new InputException("Mot de passe invalide");
+		}
+		return hashPassword(password);
+	}
+	private String hashPassword(String password) throws Exception{
+		byte[] hash = null;
+		try {
+			String toHash = Holder.SALT +"_"+ password;
+			hash = MessageDigest.getInstance("SHA-256").digest((toHash).getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Hashage de mot de passe non effectué");
+		}
+		return Base64.getEncoder().encodeToString(hash);
+	}
+	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
+	private String bytesToHex(byte[] bytes) {
+	    char[] hexChars = new char[bytes.length * 2];
+	    for ( int j = 0; j < bytes.length; j++ ) {
+	        int v = bytes[j] & 0xFF;
+	        hexChars[j * 2] = hexArray[v >>> 4];
+	        hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+	    }
+	    return new String(hexChars);
+	}
+	
+	public String durationInLetter(long secondes){
+		long [] duree = { 	secondes/(60*60*24*30*12),
+							(secondes % (60*60*24*30*12))/(60*60*24*30),
+							((secondes % (60*60*24*30*12)) % (60*60*24*30))/(60*60*24),
+							(((secondes % (60*60*24*30*12)) % (60*60*24*30)) % (60*60*24))/(60*60),
+							((((secondes % (60*60*24*30*12)) % (60*60*24*30)) % (60*60*24)) % (60*60))/60,
+							((((secondes % (60*60*24*30*12)) % (60*60*24*30)) % (60*60*24)) % (60*60)) % 60
+						};
+
+		String[] unit = { 	" an(s) "," mois "," jour(s) ",
+							" heure(s) "," minute(s) "," seconde(s)"
+						};
+		StringBuilder builder = new StringBuilder();
+		for(int i=0; i < unit.length; i++){
+			if(duree[i]>0){
+				builder.append(duree[i]);
+				builder.append(unit[i]);
+			}
+		}
+		return builder.toString().trim();
+	}
+	public String durationInLetter(LocalDateTime date) {
+		long sec = date.until(LocalDateTime.now(), ChronoUnit.SECONDS);
+		return durationInLetter(sec);
+	}
+	public String durationInLetter(Date date) {
+		long sec = TimeUnit.MILLISECONDS.toSeconds(new Date().getTime() - date.getTime());
+		return durationInLetter(sec);
+	}
+	
+	public String getDateString(Date date){
+		return DateFormat.getDateInstance().format(date);
+	}
+	public String getDateTimeString(Date date){
+		return DateFormat.getDateTimeInstance().format(date);
+	}
+	public String getDateTimeString(Date date, String datePattern){
+		if(!datePattern.toLowerCase().contains("d")){
+			return getTimeString(date);
+		}else if(!datePattern.toLowerCase().contains("h")){
+			return getDateString(date);
+		}
+		return DateFormat.getDateTimeInstance().format(date);
+	}
+	public String getTimeString(Date date){
+		return DateFormat.getTimeInstance().format(date);
+	}
+	public String getDateString(long date) {
+		return getDateString(new Date(date));
+		
+	}
+	public static void main(String[] args) throws Exception {
+		String v = "489CF565FE69F4096D9272EED16013BABC385D6F40B7189536D39A611F32FC0F";
+		String p = "HenintsoAdri1!";
+		String a = "Antsalol1!";
+		System.out.println(v);
+		System.out.println(StringUtil.getInstance().hashPassword(20).length());
+	}
+}

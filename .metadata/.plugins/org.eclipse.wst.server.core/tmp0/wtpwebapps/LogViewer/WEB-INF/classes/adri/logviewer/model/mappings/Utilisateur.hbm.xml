@@ -8,7 +8,7 @@
     	<filter-param name="poste" type="string"/>
     	<filter-param name="sexe" type="string"/>
 	</filter-def>
-    <class name="adri.logviewer.model.Utilisateur" table="utilisateur">
+    <class name="adri.logviewer.model.Utilisateur" table="utilisateur" dynamic-update="true">
         <meta attribute="class-description">
             This class contains the utilisateur detail.
         </meta>
@@ -21,11 +21,15 @@
         <property name="password" column="passwordutilisateur" type="string"/>
         <property unique="true" name="email" column="emailutilisateur" type="string"/>
         <property name="poste" column="posteutilisateur" type="string"/>
-        <property name="superUtilisateur" column="issuperutilisateur" type="boolean" update="false"/>
+        <property name="superUtilisateur" column="issuperutilisateur" type="boolean" update="false" insert="false"/>
+        <property name="reinitPassword" column="reinitpassutilisateur" type="boolean"/>
         <property name="lastLogged" column="lastloggedutilisateur" type="timestamp"/>
         <many-to-one name="profil" class="adri.logviewer.model.Profil" column="idprofil" lazy="false" not-null="false" fetch="select"/>
 	    <union-subclass name="adri.logviewer.model.UtilisateurView" table="utilisateurview"/>
-	    
+        <union-subclass name="adri.logviewer.model.UtilisateurStat" table="utilisateurstat" >
+        	<property name="nombre" column="nombre" type="int" />
+        	<property name="valeur" column="valeur" type="float" />
+        </union-subclass>	    
         <filter name="searchUtilisateur" condition="(LOWER(nomutilisateur) like :nom or LOWER(prenomutilisateur) like :nom or LOWER(emailutilisateur) like :nom)"/>
         <filter name="searchUtilisateur" condition="LOWER(posteutilisateur) like :poste" />
         <filter name="searchUtilisateur" condition="LOWER(sexeutilisateur) like :sexe" />

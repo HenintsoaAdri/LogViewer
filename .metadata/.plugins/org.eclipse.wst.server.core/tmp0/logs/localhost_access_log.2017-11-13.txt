@@ -1,0 +1,7 @@
+0:0:0:0:0:0:0:1 - - [13/Nov/2017:00:00:57 +0300] "GET /LogViewer/Includes/stat/Utilisateur/Pie HTTP/1.1" 200 124
+0:0:0:0:0:0:0:1 - - [13/Nov/2017:00:00:58 +0300] "GET /favicon.ico HTTP/1.1" 404 1027
+0:0:0:0:0:0:0:1 - - [13/Nov/2017:00:02:27 +0300] "GET /LogViewer/Includes/stat/Utilisateur/Pie HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [13/Nov/2017:00:02:34 +0300] "GET /LogViewer/Includes/stat/Utilisateur/Pie HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [13/Nov/2017:00:02:43 +0300] "GET /LogViewer/ HTTP/1.1" 302 -
+127.0.0.1 - - [13/Nov/2017:00:05:38 +0300] "GET / HTTP/1.1" 404 1005
+127.0.0.1 - - [13/Nov/2017:00:10:36 +0300] "GET / HTTP/1.1" 404 1005

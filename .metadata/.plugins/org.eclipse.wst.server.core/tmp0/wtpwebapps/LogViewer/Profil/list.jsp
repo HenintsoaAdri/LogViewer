@@ -5,10 +5,7 @@
 <%@page import="adri.logviewer.model.BaseModelPagination"%>
 <%@ include file="../includes/header.jsp" %>
 <% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination");
-	int nbItem = (int)request.getAttribute("nbItem");
-	Profil item = (Profil)request.getAttribute("item");
-	String query = request.getQueryString() == null? "" : request.getQueryString();
-	if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
+	Profil item = (Profil)request.getAttribute("item"); %>
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -50,12 +47,12 @@
                     		<p class="text-danger">Aucun profil trouvé</p>
                     		<%  }else{ %>
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table tablesorter">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Nom</th>
-                                            <th>Permission(s) <a href="#" id="listePermission" >*</a></th>
+                                            <th>Permission(s) <a href="#" id="listePermission"><span class="animated flash infinite text-danger">*</span></a></th>
                                             <th>Nombre d'utilisateur</th>
                                             <th>Nombre de groupe</th>
                                             <th></th>
@@ -97,3 +94,5 @@ $(document).ready(function(){
     $('#listePermission').popover({title: "Liste des permissions", content: "<ol start='0'><li>Connexion</li><li>Cr&eacute;er / Modifier / Supprimer les Profil et Utilisateur</li><li>Lecture et t&eacute;l&eacute;chargement des fichiers logs</li><li>Cr&eacute;er / Modifier / Supprimer les Groupes d'agents</li><li>Cr&eacute;er / Modifier / Supprimer les Agents</li></ol>", html: true, trigger: "hover"}); 
 });
 </script>
+</body>
+</html>

@@ -7,18 +7,25 @@ import adri.logviewer.dao.HibernateDao;
 import adri.logviewer.exception.PermissionException;
 import adri.logviewer.model.BaseModel;
 import adri.logviewer.model.BaseModelPagination;
-import adri.logviewer.model.Profil;
+import adri.logviewer.model.Timeline;
 import adri.logviewer.model.Utilisateur;
 
 public class BaseService {
 	
 	private HibernateDao dao;
+	private Timeline timeline;
 	
 	public HibernateDao getDao() {
 		return dao;
 	}
 	public void setDao(HibernateDao dao) {
 		this.dao = dao;
+	}
+	public Timeline getTimeline() {
+		return timeline;
+	}
+	public void setTimeline(Timeline timeline) {
+		this.timeline = timeline;
 	}
 	public void findById(BaseModel model) throws Exception{
 		try{
@@ -42,15 +49,21 @@ public class BaseService {
 	}
 	public void save(BaseModel model) throws Exception{
 		try {
-			this.getDao().save(model);			
+			getTimeline().setDetails(model);			
+			this.getDao().save(model, getTimeline());
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new Exception("Informations non enregistrées. ", e);
 		}
 	}
 	public void update(BaseModel model) throws Exception{
 		try {
 			if(model.getId()>0){
-				this.getDao().update(model);
+				BaseModel before = model.getClass().newInstance();
+				before.setId(model.getId());
+				this.getDao().findById(before);
+				getTimeline().setDetails(before, model);
+				this.getDao().update(model, getTimeline());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,15 +73,13 @@ public class BaseService {
 	public void delete(BaseModel model) throws Exception{
 		try {
 			if(model.getId()>0){
-				boolean isSuper = false;
-				switch(model.instance()){
-					case "Utilisateur": isSuper = ((Utilisateur)model).isSuperUtilisateur();break;
-					case "Profil": isSuper = ((Profil)model).isSuperProfil();break;
-				}
-				if(isSuper){
-					throw new PermissionException("Accès refusé. Données protégées");
-				}
-				this.getDao().delete(model);
+				try{
+					if(((Utilisateur)model).isSuperUtilisateur()){
+						throw new PermissionException("Accès refusé. Données protégées");
+					}
+				}catch(ClassCastException e){}
+				getTimeline().setDetails(model);	
+				this.getDao().delete(model, getTimeline());
 			}
 		} catch (Exception e) {
 			throw new Exception("Informations non retirées. ", e);			
@@ -152,4 +163,12 @@ public class BaseService {
 			throw new Exception("Informations non retrouvées. \n", e);
 		}
 	}
+    public void findAllByCritere(BaseModelPagination pagination, String field, Object value) throws Exception{
+    	try {
+			this.getDao().findAllByCritere(pagination, field, value);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Informations non retrouvées. \n", e);
+		}
+    }
 }

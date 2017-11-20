@@ -75,7 +75,7 @@
 	                                        <div class="form-group">
 	                                            <label class="control-label col-md-3">Activité :</label>
 	                                            <div class="col-md-9">
-	                                                <p class="form-control-static"> Connecté il y a <% out.print(user.getLastLoggedString()); %></p>
+	                                                <p class="form-control-static"> <% out.print(user.getLastLoggedString("Connecté il y a ")); %></p>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -88,6 +88,7 @@
                     </div>
                 </div>
 	            <!--./row-->
+                <% if(user.getProfil() != null){ %>
                 <div class="row">
                     <div class="col-md-12">
                     	<div class="white-box">
@@ -128,7 +129,7 @@
                     <div class="col-md-12">
                     	<div class="white-box">
                     		<p class="label label-danger label-rouded pull-right "><i class="fa fa-shield fw"></i> Profil #<% out.print(user.getProfil().getId()); %></p>
-                    		<h3 class="box-title"> Mon Profil </h3>
+                    		<h3 class="box-title"> <a href="${pageContext.request.contextPath}/Profil/<% out.print(user.getProfil().getId()); %>"> Mon Profil </a></h3>
 	                        <div class="form-horizontal">
 	                            <div class="form-body">
 	                                <p class="text-muted">D&eacute;tails du profil de groupe</p>
@@ -170,6 +171,16 @@
                     </div>
                 </div>
                 <!--./row-->
+                <% }else{ %>
+                <div class="row">
+                    <div class="col-md-12">
+                    	<div class="white-box">
+							<p class="text-danger">Cet utilisateur n'est associé à aucun profil</p>
+	                	</div>   
+                    </div>
+                </div>
+                <!--./row-->
+                <% } %>
                 <div class="row">
                     <div class="col-xs-12">
                         <a href="${pageContext.request.contextPath}/MesInformations/edit/" class="text-primary pull-right">Modifier mes informations</a>
@@ -179,3 +190,5 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="adri.logviewer.model.Timeline" table="timeline" dynamic-update="true">
+        <meta attribute="class-description">
+            This class contains the Timeline detail.
+        </meta>
+        <id name="id" type="int" column="idline">
+            <generator class="increment"/>
+        </id>
+        <property name="action" column="actionline" type="string"/>
+        <property name="model" column="modelline" type="string"/>
+        <property name="date" column="dateline" type="timestamp"/>
+        <property name="nomutilisateur" column="utilisateurline" type="string"/>
+        <property name="details" column="detailsline" type="string"/>
+        <many-to-one name="utilisateur" class="adri.logviewer.model.Utilisateur" column="idutilisateur" lazy="false" not-null="true" fetch="select"/>
+        <union-subclass name="adri.logviewer.model.TimelineView" table="timelineview"/>
+    </class>
+</hibernate-mapping>

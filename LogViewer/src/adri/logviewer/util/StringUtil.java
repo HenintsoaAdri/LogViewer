@@ -1,20 +1,24 @@
 package adri.logviewer.util;
 
+import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Base64;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import adri.logviewer.exception.InputException;
 
 public class StringUtil {
+		
 	private StringUtil(){}
 	private static class Holder
 	{		
 		private final static StringUtil instance = new StringUtil();
+		private final static String SALT = "LoGVieWerByADRi";
 	}
 	public static StringUtil getInstance(){
 		return Holder.instance;
@@ -59,11 +63,15 @@ public class StringUtil {
 	}
 	public boolean correctMdp(String string){
 		
+		if(string.isEmpty()){
+			throw new NullPointerException();
+		}
 		int compteurMaj = 0;
+		int compteurMin = 0;
 		int compteurDigit = 0;
 		int compteurSpec = 0;
-		int i = 0;
-		while(i<string.length()){
+		
+		for(int i = 0; i<string.length(); i++){
 			char c = string.charAt(i);
 			int cint = (int)c;
 			if(Character.isDigit(c)){
@@ -72,12 +80,14 @@ public class StringUtil {
 			if(Character.isUpperCase(c)){
 				compteurMaj ++;
 			}
-			if(cint <48 || (cint > 57 && cint < 65) || (cint > 90 && cint < 97) || cint > 122)
-		    {
+			if(Character.isLowerCase(c)){
+				compteurMin ++;
+			}
+			if(cint <48 || (cint > 57 && cint < 65) || (cint > 90 && cint < 97) || cint > 122){
 				compteurSpec ++;
 		    }
 		}
-		return compteurMaj>0&&compteurDigit>0&&compteurSpec>0&&string.length()>=8;
+		return compteurMaj>0&&compteurMin>0&&compteurDigit>0&&compteurSpec>0&&string.length()>=8&&string.length()<=32;
 	}
 
     public String firstUpper(String string){
@@ -105,15 +115,32 @@ public class StringUtil {
     	return format.format(nombre);
     }
 
-	public void checkEmail(String email) throws InputException{
+	public String checkEmail(String email) throws InputException{
 		if(!isEmail(email)){
 			throw new InputException("Adresse email invalide");
 		}
+		return email.trim();
 	}
-	public void checkPassword(String password) throws InputException{
-		if(password == null || password.isEmpty()){
+	public String checkPassword(String password) throws Exception{
+		try{
+			if(!correctMdp(password)){
+				throw new InputException("Mot de passe invalide");
+			}
+		}catch(NullPointerException e){
 			throw new InputException("Un mot de passe est requis");
 		}
+		return hashPassword(password);
+	}
+	public String hashPassword(String password) throws Exception{
+		byte[] hash = null;
+		try {
+			String toHash = Holder.SALT +"_"+ password;
+			hash = MessageDigest.getInstance("SHA-256").digest((toHash).getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Hashage de mot de passe non effectué");
+		}
+		return Base64.getEncoder().encodeToString(hash);
 	}
 	
 	public String durationInLetter(long secondes){

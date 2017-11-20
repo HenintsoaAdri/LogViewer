@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="">
+  <!-- Database connection settings -->
+  <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
+  <property name="hibernate.connection.url">jdbc:mariadb://localhost:3306/logviewerapp</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.connection.password">adri</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MariaDBDialect</property>
+  <!-- JDBC connection pool (use the built-in) 
+ Echo all executed SQL to stdout -->
+  <property name="show_sql">false</property>
+  <mapping resource="adri/logviewer/model/mappings/Agent.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Groupe.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Profil.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Permission.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Utilisateur.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Timeline.hbm.xml"/>
+ </session-factory>
+</hibernate-configuration>

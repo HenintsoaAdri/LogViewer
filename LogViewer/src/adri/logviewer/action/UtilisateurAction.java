@@ -3,6 +3,7 @@ package adri.logviewer.action;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import adri.logviewer.model.PermissionType;
 import adri.logviewer.model.Utilisateur;
 import adri.logviewer.service.UtilisateurService;
 
@@ -41,10 +42,35 @@ public class UtilisateurAction extends BaseAction{
 			UtilisateurService service = (UtilisateurService)context.getBean("utilisateurService");
 			Utilisateur u = service.login(getEmail(), getPassword());
 			getSession().put("user", u);
+			if(u.isAllowed(PermissionType.CRUDUTILISATEUR)||u.isSuperUtilisateur()){
+				return "timeline";
+			}
 			return SUCCESS;
 		}catch(Exception e){
 			setException(e);
 			return ERROR;
+		}finally{
+			if(context != null){
+				context.close();
+			}
+		}
+	}
+public String reinit() throws Exception{
+		
+		ConfigurableApplicationContext context = null;
+		try{
+			if(getSession().containsKey("user")){
+				setException(new Exception("Modifier votre mot de passe via l'onglet Mes Informations"));
+				return ERROR;
+			}
+			context =  new ClassPathXmlApplicationContext("list-beans.xml");
+			UtilisateurService service = (UtilisateurService)context.getBean("utilisateurService");
+			service.reinitPassword(getEmail());
+			setException(new Exception("Demande de réinitialisation soumise. Contactez l'administrateur"));
+			return SUCCESS;
+		}catch(Exception e){
+			setException(e);
+			return SUCCESS;
 		}finally{
 			if(context != null){
 				context.close();
@@ -76,7 +102,8 @@ public class UtilisateurAction extends BaseAction{
 		}
 	}
 	public String getEmail() {
-		return email;
+		if(email != null)return email;
+		return "";
 	}
 	public void setEmail(String email) {
 		this.email = email;

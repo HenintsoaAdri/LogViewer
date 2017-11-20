@@ -11,6 +11,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import adri.logviewer.agent.file.LogFile;
 import adri.logviewer.filemanager.Fichier;
+import adri.logviewer.filemanager.FilePaginate;
+import adri.logviewer.filemanager.SampleLog;
 import adri.logviewer.model.Agent;
 import adri.logviewer.service.FileService;
 import adri.logviewer.service.UtilisateurService;
@@ -23,7 +25,9 @@ public class FileAction extends BaseAction{
 	private long fileLength;
 	private LogFile log;
 	private boolean force;
-	private String level;
+	private SampleLog event;
+	private FilePaginate fileLine;
+	private String search = "";
 	
 	public String connexion(){
 
@@ -31,7 +35,7 @@ public class FileAction extends BaseAction{
 		try{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).find(getItem(), getUser());
-			setLog(FileService.getInstance(context, getUser()).connect((Agent)getItem()));
+			setLog(FileService.getInstance(context, getUser()).connect((Agent)getItem(), context, getUser()));
 			return SUCCESS;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -50,8 +54,8 @@ public class FileAction extends BaseAction{
 		try{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).find(getItem(), getUser());
-			FileService.getInstance(context, getUser()).openFile((Agent)getItem(), getLog());
-			setFileInputStream(new FileInputStream(getLog().getFile()));
+			FileService.getInstance(context, getUser()).openFile((Agent)getItem(), getLog(), context, getUser());
+			setFileLine(new FilePaginate(getLog().getFile(),getNbItem(),getPage(),getSearch()));
 			getSession().put("tempFile", getLog().getFile());
 			return SUCCESS;
 		}catch(Exception e){
@@ -70,7 +74,7 @@ public class FileAction extends BaseAction{
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).find(getItem(), getUser());
 			getLog().setFile((File) getSession().get("tempFile"));
-			setFileInputStream(new FileInputStream(getLog().getFile()));
+			setFileLine(new FilePaginate(getLog().getFile(),getNbItem(),getPage(),getSearch()));
 			return SUCCESS;
 		}catch(FileNotFoundException e){
 			setException(new FileNotFoundException("Le fichier n'est plus en cache."));
@@ -93,7 +97,7 @@ public class FileAction extends BaseAction{
 			getLog().setFile((File) getSession().get("tempFile"));
 			context = new ClassPathXmlApplicationContext("list-beans.xml");
 			UtilisateurService.getInstance(context).find(getItem(), getUser());
-			setFichier(FileService.getInstance(context, getUser()).parseFile((Agent)getItem(), getLog().getFile(), getPage(),10, isForce(),getLevel()));		
+			setFichier(FileService.getInstance(context, getUser()).parseFile((Agent)getItem(), getLog().getFile(), getPage(),10, isForce(),getEvent()));		
 			return SUCCESS;
 		}catch(FileNotFoundException e){
 			setException(new FileNotFoundException(e.getMessage()+"Il n'est plus en cache."));
@@ -153,7 +157,7 @@ public class FileAction extends BaseAction{
 		try{
 			setPath(getFile());
 			if(path.isFile()){
-				setFileInputStream(new FileInputStream(getPath()));
+				setFileLine(new FilePaginate(getPath(),getNbItem(),getPage(),getSearch()));
 				return "file";
 			}
 			return SUCCESS;
@@ -183,7 +187,7 @@ public class FileAction extends BaseAction{
 				}
 			}
 			UtilisateurService.getInstance(context).find(getItem(), getUser());		
-			setFichier(FileService.getInstance(context, getUser()).parseFile((Agent)getItem(), getPath(), getPage(),10, isForce(), getLevel()));			
+			setFichier(FileService.getInstance(context, getUser()).parseFile((Agent)getItem(), getPath(), getPage(),getNbItem(), isForce(), getEvent()));			
 			return SUCCESS;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -333,16 +337,30 @@ public class FileAction extends BaseAction{
 	public boolean isForce() {
 		return force;
 	}
-
 	public void setForce(boolean force) {
 		this.force = force;
 	}
 
-	public String getLevel() {
-		return level;
+	public SampleLog getEvent() {
+		return event;
+	}
+	public void setEvent(SampleLog event) {
+		this.event = event;
 	}
 
-	public void setLevel(String level) {
-		this.level = level;
+	public FilePaginate getFileLine() {
+		return fileLine;
 	}
+	public void setFileLine(FilePaginate fileLine) {
+		this.fileLine = fileLine;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	
 }

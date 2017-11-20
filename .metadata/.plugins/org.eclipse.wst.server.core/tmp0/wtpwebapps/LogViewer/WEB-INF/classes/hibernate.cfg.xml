@@ -17,5 +17,6 @@
   <mapping resource="adri/logviewer/model/mappings/Profil.hbm.xml"/>
   <mapping resource="adri/logviewer/model/mappings/Permission.hbm.xml"/>
   <mapping resource="adri/logviewer/model/mappings/Utilisateur.hbm.xml"/>
+  <mapping resource="adri/logviewer/model/mappings/Timeline.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

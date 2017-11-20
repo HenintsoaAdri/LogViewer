@@ -2,10 +2,8 @@
 <%@page import="adri.logviewer.model.BaseModel"%>
 <%@page import="adri.logviewer.model.BaseModelPagination"%>
 <%@ include file="../includes/header.jsp" %>
-<% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); %>
-<% Utilisateur item = (Utilisateur)request.getAttribute("item");
-String query = request.getQueryString() == null? "" : request.getQueryString();
-if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
+<% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination");
+	Utilisateur item = (Utilisateur)request.getAttribute("item"); %>
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -73,13 +71,13 @@ if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
                                                             </label>
                                                             <label class="radio-inline p-0">
                                                                 <div class="radio radio-info">
-                                                                    <input type="radio" name="item.sexe" id="radio1" value="M" <% if(item.getSexe() == 'M')out.print("checked"); %>>
+                                                                    <input type="radio" name="item.sexe" id="radio1" value="M" <% if(item.getSexe() == 'M')out.print("checked"); %> >
                                                                     <label for="radio1">Homme </label>
                                                                 </div>
                                                             </label>
                                                             <label class="radio-inline">
                                                                 <div class="radio radio-info">
-                                                                    <input type="radio" name="item.sexe" id="radio2" value="F" <% if(item.getSexe() == 'F')out.print("checked"); %>>
+                                                                    <input type="radio" name="item.sexe" id="radio2" value="F" <% if(item.getSexe() == 'F')out.print("checked"); %> >
                                                                     <label for="radio2">Femme </label>
                                                                 </div>
                                                             </label>
@@ -117,7 +115,7 @@ if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
                     		<p class="text-danger">Aucun utilisateur trouvé</p>
                     		<%  }else{ %>
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table tablesorter">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -131,17 +129,18 @@ if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    	<% for(BaseModel base : pagination.getListe()){ 
+                                    	<% String prefix = "Connecté il y a ";
+                                    		for(BaseModel base : pagination.getListe()){ 
                                     		Utilisateur i = (Utilisateur)base;
                                     	%>
                                         <tr>
                                             <td><% out.print(i.getId()); %></td>
-                                            <td><% out.print(i.getFullName()); %></td>
+                                            <td><% out.print(i.getFullName()); if(i.isReinitPassword()){%> <a href="#" class="reinit" data-id="<% out.print(i.getId()); %>"><strong class="animated flash infinite text-danger">*</strong></a><% } %></td>
                                             <td><% out.print(i.getPoste()); %></td>
                                             <td><% out.print(i.getEmail()); %></td>
                                             <td><% if(i.getProfil() != null)out.print(i.getProfil().getNom()); %></td>
                                             <td><% out.print(i.getSexeString()); %></td>
-                                            <td>Connecté il y a <% out.print(i.getLastLoggedString()); %></td>
+                                            <td><% out.print(i.getLastLoggedString(prefix)); %></td>
                                             <td><a href="${pageContext.request.contextPath}/Utilisateur/<% out.print(i.getId()); %>" class="btn btn-primary m-l-20 waves-effect waves-light"><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>Voir l'utilisateur</a></td>
                                         </tr>
                                         <% } %>
@@ -163,3 +162,10 @@ if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+<script>
+$(document).ready(function(){
+    $('.reinit').popover({title: "Mot de passe oublié", content: "<p>Demande de réinitialisation</p> <a href=\"${pageContext.request.contextPath}/Utilisateur/edit/"+$('.reinit').attr("data-id")+"\">Modifier</a>", html: true, trigger: "hover click"}); 
+});
+</script>
+</body>
+</html>

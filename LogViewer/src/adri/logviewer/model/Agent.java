@@ -70,7 +70,7 @@ public class Agent extends BaseModel{
 		return port;
 	}
 	public void setPort(int port) throws InputException {
-		if(port <= 0){
+		if(port <= 0|| port > 65535){
 			throw new InputException("Le port doit etre un chiffre compris entre 1 et 65535");
 		}
 		this.port = port;

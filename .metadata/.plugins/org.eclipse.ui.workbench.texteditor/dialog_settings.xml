@@ -6,37 +6,37 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="GROUP BY" key="selection"/>
+		<item value="print" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="group by"/>
-			<item value="colors\"/>
-			<item value="colors/"/>
-			<item value="colors"/>
-			<item value="materialdesign"/>
-			<item value="icons"/>
-			<item value="icons/"/>
-			<item value="bind"/>
+			<item value="printS"/>
+			<item value="print"/>
+			<item value="except"/>
+			<item value="distinct"/>
+			<item value="adri"/>
+			<item value="form"/>
+			<item value="parse"/>
+			<item value="Log"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
+			<item value="Profil"/>
+			<item value="private"/>
+			<item value="protected"/>
+			<item value="this"/>
 			<item value="setFile"/>
 			<item value="getFile"/>
 			<item value="LOWER"/>
-			<item value="="/>
-			<item value="LIKE"/>
-			<item value="string"/>
-			<item value="Pagination"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="381" key="DIALOG_HEIGHT"/>
-		<item value="1115" key="DIALOG_X_ORIGIN"/>
-		<item value="259" key="DIALOG_Y_ORIGIN"/>
+		<item value="862" key="DIALOG_X_ORIGIN"/>
+		<item value="255" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

@@ -11,7 +11,7 @@
 				<div class="row bg-title">
 				    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
 					<%  try{
-							if(file != previous){ %>
+							if(file != previous && previous != null){ %>
 							<a href="${pageContext.request.contextPath}/Fichier?file=<%out.print(previous);%>" class="btn btn-default btn-outline fa-1x"><i class="fa fa-caret-left fw"></i> <% out.print(previous); %></a>
 						<% }
 						}catch(Exception e){
@@ -56,9 +56,8 @@
 									<% for(File f : path.listFiles()){ 
 										long length = f.length()/(1024*1024); %>
 										<div class="text-center col-sm-3" title="<% if(length>0)out.print("taille :" + length + " Mo, modifié le " + StringUtil.getInstance().getDateString(f.lastModified())); %>">
-											<a href="?file=<% out.print((file + File.separator + f.getName()).replaceAll("\\\\\\\\","\\\\")); %>">
-												<i class="fa fa-<% if(f.isDirectory()){ out.print("folder"); 
-												}else{ out.print("file-text"); } %>-o fa-5x text-info" aria-hidden="true"></i>
+											<a href="${pageContext.request.contextPath}/Fichier?file=<% out.print((file + File.separator + f.getName()).replaceAll("\\\\\\\\","\\\\")); %>">
+												<i class="fa fa-<% out.print(f.isDirectory()?"folder":"file-text"); %>-o fa-5x text-info" aria-hidden="true"></i>
 								 				<p><% out.print(f.getName()); %></p>
 								 			</a>
 								 		</div>
@@ -80,3 +79,5 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+</body>
+</html>

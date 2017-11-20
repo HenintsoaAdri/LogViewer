@@ -10,7 +10,7 @@
 		<filter-param name="adresse" type="string"/>
 		<filter-param name="syntaxe" type="string"/>
 	</filter-def>
-    <class name="adri.logviewer.model.Agent" table="agent">
+    <class name="adri.logviewer.model.Agent" table="agent" dynamic-update="true">
         <meta attribute="class-description">
             This class contains the Agent detail.
         </meta>

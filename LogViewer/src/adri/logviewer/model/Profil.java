@@ -13,7 +13,6 @@ public class Profil extends BaseModel{
 	private Set<Groupe> listeGroupe;
 	private Set<Permission> listePermission;
 	private Set<Utilisateur> listeUtilisateur;
-	private boolean superProfil;
 	
 	public Profil(){
 		super();
@@ -74,12 +73,6 @@ public class Profil extends BaseModel{
 		this.listePermission = listePermission;
 	}
 	
-	public boolean isSuperProfil() {
-		return superProfil;
-	}
-	public void setSuperProfil(boolean superProfil) {
-		this.superProfil = superProfil;
-	}
 	public void allow(Permission permission) throws PermissionException{
 		if(this.getListePermission() == null){
 			setListePermission(new HashSet<Permission>());
@@ -91,14 +84,7 @@ public class Profil extends BaseModel{
 	}
 	
 	public void disallow(Permission permission) throws Exception{
-		if(this.getListePermission() != null){
-			if(this.isSuperProfil()){
-				throw new PermissionException("Les permissions du super utilisateur ne peuvent etre retirées");
-			}
-			else{
-				this.getListePermission().remove(permission);
-			}
-		}
+		this.getListePermission().remove(permission);
 	}
 	public boolean hasPermission(PermissionType permission){
 		return  hasPermission(new Permission(permission));

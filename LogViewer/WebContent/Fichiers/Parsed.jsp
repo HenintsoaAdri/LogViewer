@@ -1,20 +1,20 @@
 <%@page import="java.text.ParseException"%>
 <%@page import="javafx.scene.control.Pagination"%>
+<%@page import="adri.logviewer.filemanager.SampleLog"%>
 <%@page import="adri.logviewer.filemanager.Log"%>
 <%@page import="adri.logviewer.filemanager.Fichier"%>
 <%@page import="java.io.File"%>
 <%@ include file="../includes/header.jsp" %>
+<%  String fileName = (String)request.getAttribute("file");
+	Fichier file = (Fichier)request.getAttribute("fichier");
+	SampleLog event = (SampleLog)request.getAttribute("event");
+	String previous = (String)request.getAttribute("previous"); %>
 <style>
 .table-responsive{
 	height:75vh;
 	overflow: auto;
 }
 </style>
-<%  String fileName = (String)request.getAttribute("file");
-	Fichier file = (Fichier)request.getAttribute("fichier");
-	String query = request.getQueryString() == null? "" : request.getQueryString();
-	String previous = (String)request.getAttribute("previous");
-	if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
         <div class="container-fluid">
 				<div class="row bg-title">
 				    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -45,26 +45,67 @@
 							<h3 class="box-title">
 								<i class="fa fa-file-text-o" aria-hidden="true"></i> <% out.print(fileName); %>
 							</h3>
+							<div class="row">
+							<div class="col-sm-12">
+								<form action="${pageContext.request.contextPath}/Fichier/parse">
+									<input type="hidden" name="file" value="<% out.print(fileName); %>"/>
+									<div class="form-body">	
+										<div class="row">
+			                           	  <div class="col-md-12">
+			                           	  	<div class="row">
+				                           	  	<div class="col-md-3">
+			                                        <div class="checkbox checkbox-circle">
+													  	<input id="traceLevel" name="event.level" type="checkbox" value="TRACE">
+			                                            <label for="traceLevel">TRACE</label>
+			                                        </div>
+			                                        <div class="checkbox checkbox-circle checkbox-danger">
+													  	<input id="fatalLevel" name="event.level" type="checkbox" value="FATAL">
+			                                            <label for="fatalLevel">FATAL</label>
+			                                        </div>
+		                                        </div>
+				                           	  	<div class="col-md-3">
+			                                        <div class="checkbox checkbox-circle checkbox-inverse">
+													  	<input id="debugLevel" name="event.level" type="checkbox" value="DEBUG">
+			                                            <label for="debugLevel">DEBUG</label>
+			                                        </div>
+			                                        <div class="checkbox checkbox-circle checkbox-purple">
+													  	<input id="errorLevel" name="event.level" type="checkbox" value="ERROR">
+			                                            <label for="errorLevel">ERROR</label>
+			                                        </div>
+		                                        </div>
+				                           	  	<div class="col-md-3">
+			                                        <div class="checkbox checkbox-circle checkbox-info">
+													  	<input id="infoLevel" name="event.level" type="checkbox" value="INFO">
+			                                            <label for="infoLevel">INFO</label>
+			                                        </div>
+			                                        <div class="checkbox checkbox-circle checkbox-warning">
+													  	<input id="warnLevel" name="event.level" type="checkbox" value="WARN">
+			                                            <label for="warnLevel">WARN</label>
+			                                        </div>
+		                                        </div>
+			                                    <div class="col-md-3">
+			                           				<input value="<% try{ out.print(event.getSearch());}catch(Exception e){} %>" type="text" name="event.search" class="form-control col-md-12" placeholder="Recherche">
+			                           				<button type="submit" class="btn btn-info col-md-12">Rechercher</button>
+					                           	</div>
+	                                        </div>
+	                                      </div>
+										</div>
+									</div>
+			                      </form>
+								</div>
+							</div>
 						<% try{ 
 							String pattern = file.getMainPattern();
 						%>
 							<p class="text-muted">Syntaxe : <% out.print(pattern); %></p>
 							<hr class="m-t-0 m-b-20">
-							<div class="btn-group">
-							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=FATAL" class="level btn btn-outline btn-danger">FATAL</a>
-							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=ERROR" class="level btn btn-outline btn-danger">ERROR</a>
-							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=WARN" class="level btn btn-outline btn-warning">WARN</a>
-							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=INFO" class="level btn btn-outline btn-info">INFO</a>
-							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=DEBUG" class="level btn btn-outline btn-primary">DEBUG</a>
-							  <a href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&level=TRACE" class="level btn btn-outline btn-success">TRACE</a>
-							</div>
 							<div class="row">
 								<div class="col-sm-12">
 		                            <%  if(file == null || file.getPagination().getListeLog() == null || file.getPagination().getListeLog().isEmpty()){%>
 		                    		<p class="text-danger">Aucune ligne de log retrouvée.</p>
 		                    		<%  }else{ %>
 		                            <div class="table-responsive">
-		                                <table class="table">
+		                                <table class="table tablesorter">
 		                                    <thead>
 		                                        <tr>
 		                                        	<th>Ligne</th>
@@ -78,7 +119,7 @@
 		                                    </thead>
 		                                    <tbody>
 		                                    	<% for(Log i : file.getPagination().getListeLog()){ %>
-		                                        <tr>
+		                                        <tr class="<% out.print(i.getPriority()); %>">
 		                                        	<td><% out.print(i.getLine()); %></td>
 		                                            <td><% out.print(i.getDateString()); %></td>
 		                                            <td><% out.print(i.getPriority()); %></td>
@@ -87,7 +128,7 @@
 		                                            <td><% out.print(i.getMethod()); %></td>
 		                                            <td><% out.print(i.getMessage()); %></td>
 		                                        </tr>
-		                                        <% if(!(i.getDetails() == null || i.getDetails().isEmpty())){ %>
+		                                        <% if(i.getDetails() != null && !i.getDetails().isEmpty()){ %>
 		                                        <tr>
 		                                        	<td colspan="7"><a data-toggle="collapse" href="#<% out.print(i.hashCode()); %>"><b>Détails</b></a>
 			                                            <div id="<% out.print(i.hashCode()); %>" class="collapse">
@@ -122,7 +163,6 @@
 					      			try{
 					      				out.print(e.getMessage());
 					            		out.print(e.getCause().getMessage());
-					            		out.print(e.getClass());
 					            	}catch(NullPointerException e1){}
 						      		if(e instanceof ParseException){ %>
 			      					<a class="btn btn-default" href="${pageContext.request.contextPath}/Fichier/parse?file=<% out.print(fileName); %>&force=true">Forcer le parsage</a>
@@ -171,12 +211,9 @@
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
 <script type="text/javascript">
-	var level = '<% out.print(request.getAttribute("level")); %>';
-	$('.level').each(function(){
-		if($(this).html() == level){
-			$(this).removeClass('btn-outline');
-			href = $(this).attr("href");
-			$(this).attr("href", href.substring(0,href.indexOf('&level')));
-		}
-	})
+	$('.ERROR').addClass('danger');
+	$('.FATAL').addClass('danger');
+	$('.WARN').addClass('warning');
 </script>
+</body>
+</html>

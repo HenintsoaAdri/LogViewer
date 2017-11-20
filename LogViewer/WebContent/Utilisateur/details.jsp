@@ -26,7 +26,11 @@
 		        %>
 		      	<div class="alert alert-danger alert-dismissable">
 	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	      			<% out.print(e.getMessage()); %>
+	      			<% try{
+		      			out.print(e.getMessage());
+		      			out.print(e.getCause().getMessage());
+	      			}catch(Exception ex){}
+	      			%>
 	            </div>
                 <!--./row-->
 				<% } %>
@@ -36,7 +40,7 @@
                     		<h3 class="box-title"> Utilisateurs</h3>
 	                        <div class="form-horizontal">
 	                            <div class="form-body">
-	                            	<a href="${pageContext.request.contextPath}/Utilisateur/edit/<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light"> <i class="fa fa-pencil"></i> Modifier</a>
+	                            	<a href="${pageContext.request.contextPath}/Utilisateur/edit/<% out.print(item.getId()); %>" class="btn btn-info pull-right m-l-20 waves-effect waves-light reinit"> <i class="fa fa-pencil"></i> Modifier <% if(item.isReinitPassword()){ %> <strong class="animated flash infinite text-danger">*</strong><% } %></a>
 	                                <p class="text-muted">D&eacute;tails de l'utilisateur</p>
 	                                <hr class="m-t-0 m-b-40">
 	                                <div class="row">
@@ -77,11 +81,17 @@
 	                                        <div class="form-group">
 	                                            <label class="control-label col-md-3">Activité :</label>
 	                                            <div class="col-md-9">
-	                                                <p class="form-control-static"> Connecté il y a <% out.print(item.getLastLoggedString()); %></p>
+	                                                <p class="form-control-static"> <% out.print(item.getLastLoggedString("Connecté il y a ")); %></p>
 	                                            </div>
 	                                        </div>
 	                                    </div>
 	                                    <!--/span-->
+	                                    <% if(item.isReinitPassword()){ %>
+	                                    <div class="alert alert-warningalert-dismissable">
+ 											 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+										  	<p class="text-danger">Demande de réinitialisation de mot de passe</p>
+										</div>
+										<% } %>
 	                                </div>
 	                                <!--/row-->
 	                            </div>
@@ -130,7 +140,8 @@
                 <div class="row">
                     <div class="col-md-12">
                     	<div class="white-box">
-                    		<h3 class="box-title"> Profil #<% out.print(item.getProfil().getId()); %></h3>
+                    		<p class="label label-danger label-rouded pull-right "><i class="fa fa-shield fw"></i> Profil #<% out.print(item.getProfil().getId()); %></p>
+                    		<h3 class="box-title"> <a href="${pageContext.request.contextPath}/Profil/<% out.print(item.getProfil().getId()); %>">Profil #<% out.print(item.getProfil().getId()); %></a> </h3>
 	                        <div class="form-horizontal">
 	                            <div class="form-body">
 	                                <p class="text-muted">D&eacute;tails du profil de groupe</p>
@@ -198,3 +209,12 @@
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
+<% if(item.isReinitPassword()){ %>
+<script>
+$(document).ready(function(){
+    $('.reinit').popover({title: "Mot de passe oublié", content: "<p>Demande de réinitialisation</p>", html: true, trigger: "hover", placement:"left"}); 
+});
+</script>
+<% } %>
+</body>
+</html>

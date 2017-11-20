@@ -25,7 +25,7 @@
 	            </div>
                 <!--./row-->
 				<% } %>
-                <s:fielderror cssClass="alert alert-danger"/>
+                <s:fielderror cssClass="alert alert-danger list-unstyled"/>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
@@ -85,3 +85,5 @@
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
+</body>
+</html>

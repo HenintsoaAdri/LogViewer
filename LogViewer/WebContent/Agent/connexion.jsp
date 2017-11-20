@@ -135,3 +135,5 @@ Exception e = (Exception)request.getAttribute("exception");
 		enableLinks : true
 	});
 </script>
+</body>
+</html>

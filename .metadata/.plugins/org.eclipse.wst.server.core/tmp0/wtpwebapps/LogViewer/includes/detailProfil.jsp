@@ -11,7 +11,7 @@
   	}else{ %>
   <div class="col-md-12">
      <div class="table-responsive">
-         <table class="table">
+         <table class="table tablesorter">
 	         <thead>
 	             <tr>
 	                 <th>#</th>
@@ -57,7 +57,7 @@
 	            if(html){
 	                $('#' + detail).html(html);
 	            }else{
-	                $('#' + detail).load(url.value + '/Includes/Loader');
+	                $('#' + detail).load(url + '/Includes/Loader');
 	            }
 	        },
 	        error : function(resultat, statut, erreur){

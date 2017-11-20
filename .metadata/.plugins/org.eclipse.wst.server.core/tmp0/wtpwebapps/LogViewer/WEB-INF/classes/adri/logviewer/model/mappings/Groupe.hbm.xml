@@ -6,7 +6,7 @@
 	<filter-def name="searchGroupe">
 		<filter-param name="nom" type="string"/>
 	</filter-def>
-    <class name="adri.logviewer.model.Groupe" table="groupe">
+    <class name="adri.logviewer.model.Groupe" table="groupe" dynamic-update="true">
         <meta attribute="class-description">
             This class contains the groupe detail.
         </meta>

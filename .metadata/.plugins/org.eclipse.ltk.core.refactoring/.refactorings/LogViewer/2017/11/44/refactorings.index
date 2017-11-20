@@ -1,0 +1,30 @@
+1509513646686	Encapsulate field 'model'
+1509513690505	Move method
+1509543690956	Delete element
+1509543751092	Delete element
+1509566687458	Delete element
+1509566719678	Rename resource 'statUtilisateur.jsp'
+1509572205354	Rename resource 'statPie.jsp'
+1509572217222	Copy file
+1509579008342	Copy file
+1509579161996	Delete element
+1509579424249	Rename resource 'js.jsp'
+1509579457577	Rename resource 'footer.jsp'
+1509579692571	Rename resource 'foote$r.jsp'
+1509590408780	Encapsulate field 'nomutilisateur'
+1509678648476	Encapsulate field 'search'
+1509679124799	Encapsulate field 'ligne'
+1509707480995	Delete element
+1509726194933	Encapsulate field 'reinitPassword'
+1509728509434	Copy file
+1509728527148	Move 'login.jsp' to 'logs'
+1509728557833	Move 'login.jsp' to 'WebContent'
+1509728571953	Copy file
+1509751889043	Copy file
+1509755345549	Encapsulate field 'by'
+1509756841550	Encapsulate field 'eq'
+1509788131722	Rename resource 'ActiviteStat.jsp'
+1509905209545	Encapsulate field 'currentLine'
+1509906326374	Delete element
+1509906464299	Encapsulate field 'search'
+1509907794645	Move compilation unit

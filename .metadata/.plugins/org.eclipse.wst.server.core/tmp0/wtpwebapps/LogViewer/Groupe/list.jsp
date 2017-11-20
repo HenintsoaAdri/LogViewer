@@ -4,9 +4,7 @@
 <%@page import="adri.logviewer.model.BaseModelPagination"%>
 <%@ include file="../includes/header.jsp" %>
 <% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination");
-   Groupe item = (Groupe)request.getAttribute("item");
-	String query = request.getQueryString() == null? "" : request.getQueryString();
-	if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&"; %>
+   Groupe item = (Groupe)request.getAttribute("item"); %>
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -48,7 +46,7 @@
                             <%  if(pagination == null || pagination.getListe() == null ){%>
                     		<p class="text-danger">Aucun groupe trouvé</p>
                     		<%  }else{ %>
-                                <table class="table">
+                                <table class="table tablesorter">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -88,3 +86,5 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+</body>
+</html>

@@ -53,9 +53,7 @@ public class UtilisateurService {
 	}
 
 	public Utilisateur login(String email, String password) throws Exception{
-		StringUtil.getInstance().checkEmail(email);
-		StringUtil.getInstance().checkPassword(password);
-		return this.getService().getDao().loginUtilisateur(email, password);
+		return this.getService().getDao().loginUtilisateur(StringUtil.getInstance().checkEmail(email), StringUtil.getInstance().checkPassword(password));
 	}
 
 	private boolean getAuthorization(Class<? extends BaseModel> model, Utilisateur user) throws Exception{
@@ -68,7 +66,7 @@ public class UtilisateurService {
 			authorization = user.isAllowed(PermissionType.CRUDUTILISATEUR);
 			break;
 		case "Agent":
-			authorization = user.isAllowed(PermissionType.CRUDAGENT);
+			authorization = user.isAllowed(PermissionType.CRUDGROUPE) || user.isAllowed(PermissionType.CRUDAGENT);
 			break;
 		case "Profil":
 			authorization = user.isAllowed(PermissionType.CRUDUTILISATEUR);
@@ -76,13 +74,30 @@ public class UtilisateurService {
 		case "Groupe":
 			authorization = user.isAllowed(PermissionType.CRUDGROUPE);
 			break;
+		case "Timeline" :
+			authorization = user.isAllowed(PermissionType.CRUDUTILISATEUR);
 		}
 		return authorization;
 	}
 	public void crud(BaseModel model, String method, Utilisateur user) throws Exception{
 		try {
 			if(getAuthorization(model, user)){
+				try{
+					Utilisateur temoin = new Utilisateur(((Utilisateur)model).getId());
+					getService().findById(temoin);
+					if(temoin.isSuperUtilisateur()&& !user.equals(model)){
+						throw new PermissionException("Accès refusé. Données protégées");
+					}else if(!user.equals(model) 
+							&& temoin.getPassword() != ((Utilisateur)model).getPassword() 
+							&& !temoin.isReinitPassword()
+							&& method.contentEquals("update")){
+						throw new PermissionException("Ce mot de passe ne peut être changé que par son utilisateur");
+					}
+				}catch(PermissionException e){
+					throw e;
+				}catch(Exception e){}
 				Method function = this.getService().getClass().getMethod(method, BaseModel.class);
+				this.getService().setTimeline(new Timeline(method, model, user));
 				function.invoke(this.getService(), model);
 				return;
 			}
@@ -90,7 +105,7 @@ public class UtilisateurService {
 					+ model.instance()
 					+ "s.");
 		} catch (InvocationTargetException e) {
-			throw new Exception(e.getCause().getMessage());
+			throw (Exception)e.getCause();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -233,5 +248,38 @@ public class UtilisateurService {
 		throw new PermissionException("Vous n'etes pas autorisé à rechercher les "
 				+ model.instance()
 				+ "s.");
+	}
+	public void timeline(Timeline timeline) {
+		try {
+			this.getService().getDao().save(timeline, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public BaseModelPagination getStat(BaseModel statType, int top, Utilisateur user)throws Exception{
+		if(user.isSuperUtilisateur() || getAuthorization(statType, user)){
+			BaseModelPagination pagination = new BaseModelPagination(statType.getClass(), top, 0);
+			getService().findAll(pagination);
+			return pagination;
+		}
+		throw new PermissionException("Vous n'avez pas accès à ces données");
+	}
+	public void getStatActivite(StatActivite stat ,Utilisateur user)throws Exception{
+		if(!user.isSuperUtilisateur() && !getAuthorization(Utilisateur.class, user)){
+			throw new PermissionException("Vous n'avez pas accès à ces données");
+		}
+		getService().getDao().getStatActivite(stat);
+	}
+	public void reinitPassword(String email) throws Exception{
+		try{
+			getService().getDao().reinitPassword(email);
+		}catch(Exception e){
+			throw new Exception("Le mot de passe n'a pu etre réinitialisé");
+		}
+	}
+	public BaseModelPagination findAllReinitUtilisateur(int page, int maxResult) throws Exception{
+		BaseModelPagination pagination = new BaseModelPagination(UtilisateurView.class, maxResult, page);
+		this.getService().findAllByCritere(pagination, "reinitPassword", true);
+		return pagination;
 	}
 }

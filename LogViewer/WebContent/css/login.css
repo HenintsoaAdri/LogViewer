@@ -164,3 +164,15 @@ body {
     background: url('../img/login/password.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
+#reinit{
+	background:none!important;
+	text-transform: inherit;
+	text-align: right;
+	color: #37577e;
+	border:none; 
+	padding:0!important;
+	cursor: pointer;
+}
+#reinit:hover{
+    text-decoration: underline;
+}

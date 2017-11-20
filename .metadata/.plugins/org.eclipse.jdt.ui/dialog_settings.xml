@@ -26,6 +26,7 @@
 	<section name="SourceActionDialog.constructors">
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="Comments"/>
+		<item value="2" key="InsertPosition.v2"/>
 		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="FinalModifier"/>
 	</section>
@@ -157,7 +158,8 @@
 		<item value="true" key="IgnoreDefault"/>
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="Comments"/>
-		<item value="2" key="VisibilityModifier"/>
+		<item value="2" key="InsertPosition.v2"/>
+		<item value="1" key="VisibilityModifier"/>
 		<item value="0" key="StringStyle"/>
 		<item value="0" key="ToStringTemplateSelected"/>
 		<item value="false" key="LimitElements"/>
@@ -167,6 +169,9 @@
 	</section>
 	<section name="AddUnimplementedConstructorsDialog">
 		<item value="false" key="OmitCallToSuper"/>
+	</section>
+	<section name="ClasspathContainerSelectionPage">
+		<item value="3" key="index"/>
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>

@@ -4,8 +4,6 @@
 <%@ include file="../includes/header.jsp" %>
 <% BaseModelPagination pagination = (BaseModelPagination)request.getAttribute("pagination"); 
 	Agent item = (Agent) request.getAttribute("item");
-	String query = request.getQueryString() == null? "" : request.getQueryString();
-	if(!query.isEmpty())query = query.replaceAll("&page=([0-9]*)", "") + "&";
 %>
             <div class="container-fluid">
                 <div class="row bg-title">
@@ -116,7 +114,7 @@
                     		<p class="text-danger">Aucun agent trouvé</p>
                     		<%  }else{ %>
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table tablesorter">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -160,3 +158,5 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+</body>
+</html>

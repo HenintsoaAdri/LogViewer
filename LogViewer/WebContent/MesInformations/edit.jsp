@@ -27,6 +27,7 @@
 	            </div>
                 <!--./row-->
 				<% } %>
+                <s:fielderror cssClass="alert alert-danger list-unstyled"/>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
@@ -83,13 +84,13 @@
 		                                <div class="form-group">
 		                                    <label class="col-md-12">Mot de passe</label>
 		                                    <div class="col-md-12">
-		                                        <input name="user.password" value="<% out.print(user.getPassword()); %>" type="password" placeholder="Mot de passe" class="form-control form-control-line" required>
+		                                        <input name="user.password" type="password" placeholder="Mot de passe" class="form-control form-control-line" required>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="col-md-12">Confirmer votre mot de passe</label>
 		                                    <div class="col-md-12">
-		                                        <input name="user.confirm" value="<% out.print(user.getPassword()); %>" type="password" placeholder="Mot de passe" class="form-control form-control-line" required>
+		                                        <input name="user.confirm" type="password" placeholder="Mot de passe" class="form-control form-control-line" required>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
@@ -107,3 +108,5 @@
             </div>
             <!-- /.container-fluid -->
 <%@ include file="../includes/footer.jsp" %>
+</body>
+</html>
